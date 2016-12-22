@@ -1,0 +1,47 @@
+﻿@using System.Web.Optimization
+@inherits UmbracoTemplatePage
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html ng-app="umbracoMovieApp">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - MovieProject</title>
+
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+
+        <link rel="stylesheet" href="~/Content/star-rating.min.css" />
+
+        @RenderSection("Styles", required: false)
+    </head>
+    <body>
+
+        @{ Html.RenderAction("RenderHeader", "SiteLayout"); }
+
+        <div class="container body-content" ng-cloak>
+            <div class="wrapper">
+                @RenderBody()
+            </div>
+        </div>
+
+        <div class="navbar footer navbar-fixed-bottom">
+            <footer class="text-center" style="color: gray; padding-top: 5px">
+                <h5>&copy; 2016 - MovieProject</h5>
+            </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+
+        <script src="~/scripts/star-rating.min.js"></script>
+        <script src="~/scripts/angular.min.js"></script>
+        <script src="~/scripts/angular/umbraco.movie.project.app.js"></script>
+
+        @RenderSection("Scripts", required: false)
+
+    </body>
+</html>

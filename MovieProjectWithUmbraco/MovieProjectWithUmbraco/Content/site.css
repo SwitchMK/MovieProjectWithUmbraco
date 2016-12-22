@@ -1,0 +1,179 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+.wrapper {
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.vertical-align {
+    vertical-align: middle !important;
+}
+
+.middle-align {
+    vertical-align: middle !important;
+    text-align: center !important;
+}
+
+.rating .glyphicon {
+    font-size: 1.5em;
+}
+
+.total-rating .glyphicon {
+    color: orange;
+    font-size: 2em;
+}
+
+a {
+    cursor: pointer;
+}
+
+.rate-btn span {
+    color: orange;
+}
+
+.rate-btn:hover {
+    background-color: orange !important;
+}
+
+.rate-btn:hover span {
+    color: white;
+}
+
+.participants-ul {
+    padding: 0px;
+}
+
+.participants-ul li {
+    list-style-type: none;
+}
+
+.poster-heading {
+    height: 450px !important;
+    background-position: center;
+    background-image: url('/images/posters/fb-and-wft.jpg') !important;
+}
+
+.navbar {
+    background-color: black;
+    border-bottom: none;
+    opacity: 0.80;
+}
+
+.navbar-fixed-bottom {
+    background-color: #323232 !important;
+    border-top: gray solid 1px !important;
+    opacity: 1;
+}
+
+.navbar-nav li {
+    border-bottom: transparent 4px solid;
+}
+
+.navbar-nav li:hover {
+    border-bottom: orangered 4px solid;
+}
+
+.user-greetings-item:hover {
+    border-bottom: transparent 4px solid !important;
+}
+
+.user-greetings-item .user-name {
+    color: gray;
+    display: inline-block;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.navbar-nav li:hover a, .navbar-nav li:hover button {
+    color: orangered !important;
+}
+
+.navbar-nav a, .navbar-nav button {
+    color: gray !important;
+    background-color: transparent;
+}
+
+.navbar-nav a:active, a:focus, .navbar-nav button:active, .navbar-nav button:focus {
+    outline: 0 !important;
+}
+
+.navbar-header a, .navbar-header a:hover {
+    color: orangered !important;
+}
+
+.navbar-toggle {
+    border: none;
+}
+
+.navbar-toggle:hover, .navbar-toggle:active, .navbar-toggle:focus {
+    border: none !important;
+    background-color: transparent !important;
+}
+
+.navbar-toggle:hover .icon-bar, .navbar-toggle:active .icon-bar, .navbar-toggle:focus .icon-bar {
+    background-color: orangered !important;
+}
+
+.icon-bar {
+    background-color: gray !important;
+}
+
+.block-user-btn {
+    background-color: transparent;
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 1px solid transparent;
+}
+
+.block-user-btn:hover {
+    background-color: rgb(210, 210, 210);
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+.block-user-btn:active {
+    background-color: rgb(180, 180, 180);
+    border-radius: 5px;
+    border: none;
+}
+
+.quote {
+    margin: 0;
+    background: linear-gradient(-45deg, #31C3E7, #21BEDE, #00FA9A);
+}
+
+.quote blockquote {
+    border-left: none;
+}
+
+.about {
+    margin: 0;
+    border-bottom: 1px solid gray;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+}
+
+.quote-image {
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.about-header {
+    border-bottom: 2px solid gray;
+}
+
+.field-validation-error { 
+    color: #a94442;
+}
+
+.input-validation-error { 
+    border: 1px solid #a94442; 
+}
+        
+.field-validation-valid {
+    display: none;
+}

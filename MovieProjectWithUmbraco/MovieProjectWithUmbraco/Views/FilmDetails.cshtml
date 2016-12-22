@@ -1,0 +1,163 @@
+﻿@using MovieProjectWithUmbraco.Models
+@inherits UmbracoViewPage<DetailedFilmInfo>
+@{
+	Layout = "Layout.cshtml";
+}
+
+<style>
+    .image-content {
+        padding: 5px;
+        position: relative;
+    }
+
+    .movie-image {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .feedback-btn {
+        margin-top: 10px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-sm-4 col-md-3">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading image-content">
+                        <div class="middle-align">
+                            <img src="@Model.ImagePath" class="img-responsive movie-image" />
+                        </div>
+                    </div>
+                    <table class="table table-responsive">
+                        @if (Model.Directors != null && Model.Directors.Count() > 0)
+                        {
+                            <tr>
+                                <th>Directed by</th>
+                                <td>
+                                    <ul class="participants-ul">
+                                        @foreach (var director in Model.Directors)
+                                        {
+                                            <li>
+                                                <a href="@director.Url">@director.Caption</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                        @if (Model.Producers != null && Model.Producers.Count() > 0)
+                        {
+                            <tr>
+                                <th>Produced by</th>
+                                <td>
+                                    <ul class="participants-ul">
+                                        @foreach (var producer in Model.Producers)
+                                        {
+                                            <li>
+                                                <a href="@producer.Url">@producer.Caption</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                        @if (Model.Writers != null && Model.Writers.Count() > 0)
+                        {
+                            <tr>
+                                <th>Screenplay by</th>
+                                <td>
+                                    <ul class="participants-ul">
+                                        @foreach (var writer in Model.Writers)
+                                        {
+                                            <li>
+                                                <a href="@writer.Url">@writer.Caption</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                        @if (Model.Stars != null && Model.Stars.Count() > 0)
+                        {
+                            <tr>
+                                <th>Starring</th>
+                                <td>
+                                    <ul class="participants-ul">
+                                        @foreach (var star in Model.Stars)
+                                        {
+                                            <li>
+                                                <a href="@star.Url">@star.Caption</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                        @if (Model.Composers != null && Model.Composers.Count() > 0)
+                        {
+                            <tr>
+                                <th>Music by</th>
+                                <td>
+                                    <ul class="participants-ul">
+                                        @foreach (var composer in Model.Composers)
+                                        {
+                                            <li>
+                                                <a href="@composer.Url">@composer.Caption</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <th>Release date</th>
+                            <td>
+                                @Model.YearOfRelease.Year
+                            </td>
+                        </tr>
+                        @if (Model.Countries != null && Model.Countries.Count() > 0)
+                        {
+                            <tr>
+                                <th>Country</th>
+                                <td>
+                                    <ul class="participants-ul">
+                                        @foreach (var country in Model.Countries)
+                                        {
+                                            <li>
+                                                <span>@country</span>
+                                            </li>
+                                        }
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <th>Budget</th>
+                            <td>@string.Format("${0:n0}", Model.Budget)</td>
+                        </tr>
+                        <tr>
+                            <th>Box office</th>
+                            <td>@string.Format("${0:n0}", Model.BoxOffice)</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8 col-md-9">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="background-color: black; opacity: 0.75;">
+                        <h4 style="color: gray">Plot</h4>
+                    </div>
+                    <div class="panel-body">
+                        <p>@Html.Raw(Model.Plot)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

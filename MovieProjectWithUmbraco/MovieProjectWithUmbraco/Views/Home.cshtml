@@ -1,0 +1,33 @@
+﻿@using MovieProjectWithUmbraco.Models
+@inherits UmbracoViewPage<HomePage>
+@{
+    Layout = "Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <img class="img-responsive" src="@Model.TitleImage" />
+    </div>
+</div>
+
+<div class="row quote">
+    <div class="col-xs-12 col-md-10 col-md-offset-1">
+        <div class="row" style="margin-top: 15px">
+            <img class="quote-image" src="@Model.Intro.ImagePath" style="float: left" />
+            <blockquote>@Html.Raw(Model.Intro.QuoteText)</blockquote>
+        </div>
+    </div>
+</div>
+
+<div class="row about">
+    <div class="panel">
+        <div class="panel-heading">
+            <h3 class="about-header">
+                About
+            </h3>
+        </div>
+        <div class="panel-body">
+            <p>@Html.Raw(Model.About)</p>
+        </div>
+    </div>
+</div>

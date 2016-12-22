@@ -1,0 +1,72 @@
+﻿@using MovieProjectWithUmbraco.Models
+@inherits UmbracoViewPage<FilmsModel>
+@{
+	Layout = "Layout.cshtml";
+}
+
+@section Styles {
+    <style>
+        td {
+            text-align: left;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script src="~/scripts/angular/controllers/movie.controller.js"></script>
+    <script src="~/scripts/angular/services/movie.service.js"></script>
+}
+
+<div ng-controller="movieController">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color: black; opacity: 0.75;">
+                    <h4 style="color: gray">Films</h4>
+                </div>
+                <table class="table table-responsive">
+                    <tbody>
+                        @{
+                            foreach (var film in Model.FilmsInfo)
+                            {
+                                <tr>
+                                    <td class="vertical-align col-md-1 col-sm-2 col-xs-4">
+                                        <img src="@film.ImagePath" class="img-responsive" alt="Movie Poster">
+                                    </td>
+                                    <td class="vertical-align">
+                                        <h4><a href="@film.Url">@film.Title (@film.YearOfRelease.Year)</a></h4>
+                                    </td>
+                                    <td class="vertical-align total-rating">
+                                        <h3 style="margin-top: auto; margin-bottom: auto">
+                                            <span style="display: inline-block; vertical-align: middle" class="glyphicon glyphicon-star"></span>
+                                            <span class="label label-default"
+                                                  style="color: orange; display: inline-block; vertical-align: middle;">
+                                                  @film.TotalRating
+                                            </span>
+                                        </h3>
+                                    </td>
+                                    <td class="vertical-align rating">
+                                        <button ng-click="selectRateableMovie('@film.Id', '@film.PersonalRating')" data-toggle="modal" data-target="#rating-model" class="btn btn-warning">Rate</button>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="rating-model" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <input id="input-id" type="text" class="rating" data-size="xs">
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" ng-click="rateMovie()" class="btn btn-warning pull-right">Rate</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

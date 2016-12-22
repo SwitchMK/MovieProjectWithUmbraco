@@ -1,0 +1,36 @@
+﻿@using MovieProjectWithUmbraco.Models
+@inherits UmbracoViewPage<PeopleModel>
+@{
+	Layout = "Layout.cshtml";
+}
+
+<style>
+    td {
+        text-align: left;
+    }
+</style>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="background-color: black; opacity: 0.75;">
+                <h4 style="color: gray">People</h4>
+            </div>
+            <table class="table table-responsive">
+                <tbody>
+                    @foreach (var person in Model.PeopleInfo)
+                    {
+                        <tr>
+                            <td class="vertical-align col-md-1 col-sm-2 col-xs-4">
+                                <img src="@person.ImagePath" class="img-responsive" alt="Person Photo">
+                            </td>
+                            <td class="vertical-align">
+                                <h4><a href="@person.Url">@person.ShortName (@person.DateOfBirth.Year)</a></h4>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

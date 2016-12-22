@@ -1,0 +1,12 @@
+﻿@using MovieProjectWithUmbraco.Models
+@inherits UmbracoViewPage<Intro>
+
+<div class="row">
+    <div class="col-xs-12 col-md-2">
+        <img src="@Model.ImagePath" />
+    </div>
+    <div class="col-xs-12 col-md-10">
+        <blockquote>@Html.Raw(Model.QuoteText)</blockquote>
+    </div>
+</div>
+

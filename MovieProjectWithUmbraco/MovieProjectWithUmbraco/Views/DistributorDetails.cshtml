@@ -1,0 +1,77 @@
+﻿@using MovieProjectWithUmbraco.Models
+@inherits UmbracoViewPage<DetailedDistributorInfo>
+@{
+    Layout = "Layout.cshtml";
+}
+
+<style>
+    .image-content {
+        padding: 5px;
+        position: relative;
+    }
+
+    .distributor-image {
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+
+<div class="row">
+    <div class="col-sm-4 col-md-3">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading image-content">
+                        <div class="middle-align">
+                            <img src="@Model.ImagePath" class="img-responsive distributor-image" />
+                        </div>
+                    </div>
+                    <table class="table table-responsive">
+                        <tr>
+                            <th>Name of company</th>
+                            <td>
+                                @Model.CompanyName
+                            </td>
+                        </tr>
+                        @if (Model.Founders != null && Model.Founders.Count() > 0)
+                        {
+                            <tr>
+                                <th>Founders</th>
+                                <td>
+                                    <ul class="participants-ul">
+                                        @foreach (var founder in Model.Founders)
+                                        {
+                                            <li>
+                                                <a href="@founder.Url">@founder.Caption</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <th>Date of foundation</th>
+                            <td>
+                                @Model.DateOfFoundation.Year
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8 col-md-9">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="background-color: black; opacity: 0.75;">
+                        <h4 style="color: gray">Plot</h4>
+                    </div>
+                    <div class="panel-body">
+                        <p>@Html.Raw(Model.History)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
