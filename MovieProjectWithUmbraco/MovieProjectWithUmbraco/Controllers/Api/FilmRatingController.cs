@@ -1,6 +1,5 @@
 ﻿using MovieProjectWithUmbraco.Models.Requests;
 using MovieProjectWithUmbraco.Repositories.Interfaces;
-using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Security;
 using Umbraco.Web.WebApi;
@@ -16,7 +15,7 @@ namespace MovieProjectWithUmbraco.Controllers.Api
             _filmRatingRepository = filmRatingRepository;
         }
 
-        [AcceptVerbs("POST")]
+        [HttpPost]
         public void RateMovie([FromBody] RateRequest rateRequest)
         {
             var user = Membership.GetUser();

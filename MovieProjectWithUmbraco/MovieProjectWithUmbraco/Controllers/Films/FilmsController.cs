@@ -2,7 +2,6 @@
 using MovieProjectWithUmbraco.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
 using Umbraco.Core.Models;
@@ -32,7 +31,11 @@ namespace MovieProjectWithUmbraco.Controllers
 
         private IEnumerable<FilmInfo> GetFilms(IPublishedContent page)
         {
-            long? userId = (int)Membership.GetUser().ProviderUserKey;
+            long? userId = null;
+            var loggedMember = Membership.GetUser();
+
+            if (loggedMember != null)
+                userId = (int)loggedMember.ProviderUserKey;
 
             foreach (var film in page.Children)
             {

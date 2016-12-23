@@ -5,6 +5,7 @@ using Umbraco.Web;
 using Umbraco.Web.Models;
 using Umbraco.Web.Mvc;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace MovieProjectWithUmbraco.Controllers.Home
 {
@@ -23,8 +24,53 @@ namespace MovieProjectWithUmbraco.Controllers.Home
             {
                 TitleImage = page.GetCropUrl("image", "homePageImgCropper"),
                 About = page.GetPropertyValue<string>("about"),
-                Intro = GetIntro(page)
+                Intro = GetIntro(page),
+                RecentDistributors = GetRecentlyAddedDistributors(page).Take(3),
+                RecentMovies = GetRecentlyAddedFilms(page).Take(3),
+                RecentPeople = GetRecentlyAddedPeople(page).Take(3)
             };
+        }
+
+        private IEnumerable<HomePageItem> GetRecentlyAddedFilms(IPublishedContent page)
+        {
+            var filmsPage = page.Children.Where(x => x.DocumentTypeAlias == "films").FirstOrDefault();
+            foreach (var item in filmsPage.Children)
+            {
+                yield return new HomePageItem()
+                {
+                    Title = item.GetPropertyValue<string>("title"),
+                    ImagePath = item.GetCropUrl("image", "homeItemSzImgCropper"),
+                    Url = item.Url
+                };
+            }
+        }
+
+        private IEnumerable<HomePageItem> GetRecentlyAddedPeople(IPublishedContent page)
+        {
+            var peoplePage = page.Children.Where(x => x.DocumentTypeAlias == "people").FirstOrDefault();
+            foreach (var item in peoplePage.Children)
+            {
+                yield return new HomePageItem()
+                {
+                    Title = item.GetPropertyValue<string>("shortName"),
+                    ImagePath = item.GetCropUrl("image", "homeItemSzImgCropper"),
+                    Url = item.Url
+                };
+            }
+        }
+
+        private IEnumerable<HomePageItem> GetRecentlyAddedDistributors(IPublishedContent page)
+        {
+            var distributorsPage = page.Children.Where(x => x.DocumentTypeAlias == "distributors").FirstOrDefault();
+            foreach (var item in distributorsPage.Children)
+            {
+                yield return new HomePageItem()
+                {
+                    Title = item.GetPropertyValue<string>("companyName"),
+                    ImagePath = item.GetCropUrl("image", "homeItemSzImgCropper"),
+                    Url = item.Url
+                };
+            }
         }
 
         private Intro GetIntro(IPublishedContent page)

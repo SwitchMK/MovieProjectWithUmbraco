@@ -2,6 +2,7 @@
 @inherits UmbracoViewPage<FilmsModel>
 @{
 	Layout = "Layout.cshtml";
+    var loggedMember = Membership.GetUser();
 }
 
 @section Styles {
@@ -12,12 +13,7 @@
     </style>
 }
 
-@section Scripts {
-    <script src="~/scripts/angular/controllers/movie.controller.js"></script>
-    <script src="~/scripts/angular/services/movie.service.js"></script>
-}
-
-<div ng-controller="movieController">
+<div>
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
@@ -41,13 +37,16 @@
                                             <span style="display: inline-block; vertical-align: middle" class="glyphicon glyphicon-star"></span>
                                             <span class="label label-default"
                                                   style="color: orange; display: inline-block; vertical-align: middle;">
-                                                  @film.TotalRating
+                                                  @string.Format("{0:0.0}", film.TotalRating) 
                                             </span>
                                         </h3>
                                     </td>
-                                    <td class="vertical-align rating">
-                                        <button ng-click="selectRateableMovie('@film.Id', '@film.PersonalRating')" data-toggle="modal" data-target="#rating-model" class="btn btn-warning">Rate</button>
-                                    </td>
+                                    @if (loggedMember != null)
+                                    {
+                                        <td class="vertical-align rating">
+                                            <button onclick="MovieApp.Rating.selectRateableMovie('@film.Id', '@film.PersonalRating')" data-toggle="modal" data-target="#rating-model" class="btn btn-warning">Rate</button>
+                                        </td>
+                                    }
                                 </tr>
                             }
                         }
@@ -64,7 +63,7 @@
                     <input id="input-id" type="text" class="rating" data-size="xs">
                 </div>
                 <div class="modal-footer">
-                    <button data-dismiss="modal" ng-click="rateMovie()" class="btn btn-warning pull-right">Rate</button>
+                    <button data-dismiss="modal" onclick="MovieApp.Rating.rateMovie()" class="btn btn-warning pull-right">Rate</button>
                 </div>
             </div>
         </div>

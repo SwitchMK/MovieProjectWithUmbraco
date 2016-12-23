@@ -10,24 +10,48 @@
     </div>
 </div>
 
+@RenderRecentSection(Model.RecentMovies, "Recent movies...")
+
+@RenderRecentSection(Model.RecentDistributors, "Recent distributors...")
+
+@RenderRecentSection(Model.RecentPeople, "Recent people...")
+
 <div class="row quote">
     <div class="col-xs-12 col-md-10 col-md-offset-1">
         <div class="row" style="margin-top: 15px">
-            <img class="quote-image" src="@Model.Intro.ImagePath" style="float: left" />
-            <blockquote>@Html.Raw(Model.Intro.QuoteText)</blockquote>
+            <div style="height: 250px; display: flex">
+                <div style="margin-bottom: auto; margin-top: auto">
+                    <img class="quote-image img-circle" src="@Model.Intro.ImagePath" style="float: left" />
+                    <blockquote>@Html.Raw(Model.Intro.QuoteText)</blockquote>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="row about">
-    <div class="panel">
-        <div class="panel-heading">
-            <h3 class="about-header">
-                About
-            </h3>
-        </div>
-        <div class="panel-body">
-            <p>@Html.Raw(Model.About)</p>
+@helper RenderRecentSection(IEnumerable<HomePageItem> items, string title)
+{
+    <div id="fh5co-blog-section" class="fh5co-grey-bg-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+                    <h2 style="font-weight: bold; text-transform: uppercase">@title</h2>
+                </div>
+            </div>
+            <div class="row">
+                @foreach (var item in items)
+                {
+                    <div class="col-md-4 text-center">
+                        <div class="blog-inner">
+                            <a href="@item.Url"><img style="margin-left: auto; margin-right: auto" class="img-responsive" src="@item.ImagePath" alt="Blog"></a>
+                            <div class="desc">
+                                <h3><a href="@item.Url">@item.Title</a></h3>
+                                <p><a href="@item.Url" class="btn btn-primary btn-outline with-arrow">Read More<i class="icon-arrow-right"></i></a></p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
     </div>
-</div>
+}

@@ -5,7 +5,7 @@
 }
 
 <!DOCTYPE html>
-<html ng-app="umbracoMovieApp">
+<html>
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -36,10 +36,8 @@
 
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
-
-        <script src="~/scripts/star-rating.min.js"></script>
-        <script src="~/scripts/angular.min.js"></script>
-        <script src="~/scripts/angular/umbraco.movie.project.app.js"></script>
+        <script src="~/scripts/star-rating.js"></script>
+        <script src="~/scripts/custom/script.js"></script>
 
         @RenderSection("Scripts", required: false)
 

@@ -177,3 +177,110 @@ a {
 .field-validation-valid {
     display: none;
 }
+
+#fh5co-featured-section,
+#fh5co-intro-section,
+#fh5co-services-section,
+#fh5co-blog-section,
+#fh5co-client-section,
+#fh5co-work-section,
+#fh5co-main-services-section,
+#fh5co-about-section,
+#fh5co-contact-section {
+  padding-bottom: 6em;
+}
+@media screen and (max-width: 768px) {
+  #fh5co-featured-section,
+  #fh5co-intro-section,
+  #fh5co-services-section,
+  #fh5co-blog-section,
+  #fh5co-client-section,
+  #fh5co-work-section,
+  #fh5co-main-services-section,
+  #fh5co-about-section,
+  #fh5co-contact-section {
+    padding: 3em 0;
+  }
+}
+
+#fh5co-services-section,
+#fh5co-blog-section,
+#fh5co-client-section,
+#fh5co-work-section,
+#fh5co-main-services-section,
+#fh5co-about-section,
+#fh5co-contact-section {
+  padding-top: 6em;
+}
+
+.fh5co-heading {
+  margin-bottom: 3em;
+}
+.fh5co-heading h2 {
+  margin-bottom: 20px;
+  font-weight: 400;
+  font-size: 34px;
+}
+
+.blog-inner {
+  background: white;
+  -webkit-box-shadow: 0px 9px 29px -9px rgba(0, 0, 0, 0.13);
+  -moz-box-shadow: 0px 9px 29px -9px rgba(0, 0, 0, 0.13);
+  -ms-box-shadow: 0px 9px 29px -9px rgba(0, 0, 0, 0.13);
+  -o-box-shadow: 0px 9px 29px -9px rgba(0, 0, 0, 0.13);
+  box-shadow: 0px 9px 29px -9px rgba(0, 0, 0, 0.13);
+  overflow: hidden;
+  margin-bottom: 40px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.blog-inner img {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.blog-inner .desc {
+  padding: 20px;
+}
+
+.blog-inner .desc h3 {
+  line-height: 28px;
+}
+
+.blog-inner .desc h3 a {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.blog-inner .desc h3 a:hover, .blog-inner .desc h3 a:focus {
+  text-decoration: none;
+}
+
+.blog-inner:hover {
+  -webkit-box-shadow: 0px 9px 43px -10px rgba(0, 0, 0, 0.17);
+  -moz-box-shadow: 0px 9px 43px -10px rgba(0, 0, 0, 0.17);
+  -ms-box-shadow: 0px 9px 43px -10px rgba(0, 0, 0, 0.17);
+  -o-box-shadow: 0px 9px 43px -10px rgba(0, 0, 0, 0.17);
+  box-shadow: 0px 9px 43px -10px rgba(0, 0, 0, 0.17);
+}
+
+.fh5co-grey-bg-section {
+  background: rgba(45, 64, 89, 0.06);
+}
+
+.btn-primary.btn-outline {
+  background: transparent;
+  color: #1FB57B;
+  border: 2px solid #1FB57B;
+}
+.btn-primary.btn-outline:hover, .btn-primary.btn-outline:focus, .btn-primary.btn-outline:active {
+  background: #1FB57B;
+  color: #fff;
+}

@@ -18,14 +18,14 @@
 
             $scope.rateMoviePromise = movieService
                 .rateMovie(rateRequest)
-                .then(function (rating) {
-                    $scope.totalRating = response.data;
+                .then(function (response) {
+                    $scope.films = response.data;
                 });
         };
 
         $scope.selectRateableMovie = function (filmId, personalRating) {
-            ratedMovieId = filmId;
-            $('#input-id').rating('update', personalRating);
+            ratedMovieId = film.id;
+            $('#input-id').rating('update', film.personalRating);
         };
 
         $("#input-id").rating({ size: 'xs' });
