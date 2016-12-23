@@ -1,0 +1,17 @@
+﻿@using MovieProjectWithUmbraco.Models
+@inherits UmbracoViewPage<NewsItem>
+@{
+	Layout = "Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="blog-inner">
+            <a href="#"><img style="margin-left: auto; margin-right: auto;" class="img-responsive" src="@Model.ImagePath" alt="Blog"></a>
+            <div class="desc">
+                <h3><a href="#">@Model.Title</a></h3>
+                <p>@Html.Raw(Model.NewsContent)</p>
+            </div>
+        </div>
+    </div>
+</div>

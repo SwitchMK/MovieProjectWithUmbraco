@@ -8,8 +8,8 @@ using  Umbraco.Web;
 using  Umbraco.ModelsBuilder;
 using  Umbraco.ModelsBuilder.Umbraco;
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "4189587153f2bcf8")]
-[assembly:System.Reflection.AssemblyVersion("0.0.0.1")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "7c4bbfbad49f612a")]
+[assembly:System.Reflection.AssemblyVersion("0.0.0.2")]
 
 
 // FILE: models.generated.cs
@@ -788,6 +788,103 @@ namespace Umbraco.Web.PublishedContentModels
 #pragma warning restore 0109
 
 		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Login, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Hide from navigation?: Tick this if you don't want this page appear in the top
+		///</summary>
+		[ImplementPropertyType("hideFromNavigation")]
+		public bool HideFromNavigation
+		{
+			get { return NavigationBarControls.GetHideFromNavigation(this); }
+		}
+	}
+
+	/// <summary>News</summary>
+	[PublishedContentModel("news")]
+	public partial class News : PublishedContentModel, INavigationBarControls
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "news";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public News(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<News, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Content: Enter content for news
+		///</summary>
+		[ImplementPropertyType("content")]
+		public IHtmlString Content
+		{
+			get { return this.GetPropertyValue<IHtmlString>("content"); }
+		}
+
+		///<summary>
+		/// Image: Select image for news
+		///</summary>
+		[ImplementPropertyType("image")]
+		public Umbraco.Web.Models.ImageCropDataSet Image
+		{
+			get { return this.GetPropertyValue<Umbraco.Web.Models.ImageCropDataSet>("image"); }
+		}
+
+		///<summary>
+		/// Title: Enter title for news
+		///</summary>
+		[ImplementPropertyType("title")]
+		public string Title
+		{
+			get { return this.GetPropertyValue<string>("title"); }
+		}
+
+		///<summary>
+		/// Hide from navigation?: Tick this if you don't want this page appear in the top
+		///</summary>
+		[ImplementPropertyType("hideFromNavigation")]
+		public bool HideFromNavigation
+		{
+			get { return NavigationBarControls.GetHideFromNavigation(this); }
+		}
+	}
+
+	/// <summary>News ticker</summary>
+	[PublishedContentModel("newsTicker")]
+	public partial class NewsTicker : PublishedContentModel, INavigationBarControls
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "newsTicker";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public NewsTicker(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NewsTicker, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}

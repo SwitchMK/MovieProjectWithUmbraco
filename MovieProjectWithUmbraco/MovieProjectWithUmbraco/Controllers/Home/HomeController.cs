@@ -27,14 +27,32 @@ namespace MovieProjectWithUmbraco.Controllers.Home
                 Intro = GetIntro(page),
                 RecentDistributors = GetRecentlyAddedDistributors(page).Take(3),
                 RecentMovies = GetRecentlyAddedFilms(page).Take(3),
-                RecentPeople = GetRecentlyAddedPeople(page).Take(3)
+                RecentPeople = GetRecentlyAddedPeople(page).Take(3),
+                News = GetNews(page)
             };
+        }
+
+        private IEnumerable<NewsItem> GetNews(IPublishedContent page)
+        {
+            var newsTicker = page.Children.Where(x => x.DocumentTypeAlias == "newsTicker").FirstOrDefault();
+
+            foreach (var item in newsTicker.Children.OrderByDescending(p => p.CreateDate))
+            {
+                yield return new NewsItem(item)
+                {
+                    Title = item.GetPropertyValue<string>("title"),
+                    ImagePath = item.GetCropUrl("image", "homePageImgCropper"),
+                    NewsContent = item.GetPropertyValue<string>("content"),
+                    Url = item.Url
+                };
+            }
         }
 
         private IEnumerable<HomePageItem> GetRecentlyAddedFilms(IPublishedContent page)
         {
             var filmsPage = page.Children.Where(x => x.DocumentTypeAlias == "films").FirstOrDefault();
-            foreach (var item in filmsPage.Children)
+
+            foreach (var item in filmsPage.Children.OrderByDescending(p => p.CreateDate))
             {
                 yield return new HomePageItem()
                 {
@@ -48,7 +66,8 @@ namespace MovieProjectWithUmbraco.Controllers.Home
         private IEnumerable<HomePageItem> GetRecentlyAddedPeople(IPublishedContent page)
         {
             var peoplePage = page.Children.Where(x => x.DocumentTypeAlias == "people").FirstOrDefault();
-            foreach (var item in peoplePage.Children)
+
+            foreach (var item in peoplePage.Children.OrderByDescending(p => p.CreateDate))
             {
                 yield return new HomePageItem()
                 {
@@ -62,7 +81,8 @@ namespace MovieProjectWithUmbraco.Controllers.Home
         private IEnumerable<HomePageItem> GetRecentlyAddedDistributors(IPublishedContent page)
         {
             var distributorsPage = page.Children.Where(x => x.DocumentTypeAlias == "distributors").FirstOrDefault();
-            foreach (var item in distributorsPage.Children)
+
+            foreach (var item in distributorsPage.Children.OrderByDescending(p => p.CreateDate))
             {
                 yield return new HomePageItem()
                 {

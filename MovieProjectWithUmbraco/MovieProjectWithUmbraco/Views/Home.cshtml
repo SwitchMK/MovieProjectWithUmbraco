@@ -4,17 +4,89 @@
     Layout = "Layout.cshtml";
 }
 
-<div class="row">
-    <div class="col-xs-12">
-        <img class="img-responsive" src="@Model.TitleImage" />
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        @for (var j = 0; j < Model.News.Take(4).Count(); j++)
+        {
+            if (j == 0)
+            {
+                <li data-target="#myCarousel" class="active" data-slide-to="@j"></li>
+            }
+            else
+            {
+                <li data-target="#myCarousel" data-slide-to="@j"></li>
+            }
+        }
+    </ol>
+
+    <div class="carousel-inner" role="listbox">
+        @{
+            var i = 0;
+            foreach (var item in Model.News.Take(4))
+            {
+                if (i++ == 0)
+                {
+                    <div class="item active">
+                        <img src="@item.ImagePath" alt="@item.Title">
+                        <div class="carousel-caption">
+                            <h3><a href="@item.Url" style="color: #fff; text-decoration: none;">@item.Title</a></h3>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="item">
+                        <img src="@item.ImagePath" alt="@item.Title">
+                        <div class="carousel-caption">
+                            <h3><a href="@item.Url" style="color: #fff; text-decoration: none;">@item.Title</a></h3>
+                        </div>
+                    </div>
+                }
+            }
+        }
     </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
 </div>
 
-@RenderRecentSection(Model.RecentMovies, "Recent movies...")
 
-@RenderRecentSection(Model.RecentDistributors, "Recent distributors...")
 
-@RenderRecentSection(Model.RecentPeople, "Recent people...")
+<div class="row">
+    <div class="col-md-9">
+        <div class="panel panel-default" style="margin-top: 20px">
+            <div class="panel-heading" style="background-color: black; opacity: 0.75;">
+                <h4 style="font-weight: bold; text-transform: uppercase">Feed</h4>
+            </div>
+            <div class="panel-body">
+                @foreach (var newsItem in Model.News)
+                {
+                    <div class="blog-inner">
+                        <a href="@newsItem.Url"><img style="margin-left: auto; margin-right: auto;" class="img-responsive" src="@newsItem.ImagePath" alt="Blog"></a>
+                        <div class="desc">
+                            <h3><a href="@newsItem.Url">@newsItem.Title</a></h3>
+                            <p>@Umbraco.Truncate(newsItem.NewsContent, 450)</p>
+                            <p><a style="margin-bottom: 15px" href="@newsItem.Url" class="btn btn-primary btn-outline with-arrow pull-right">Read More</a></p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        @RenderRecentSection(Model.RecentMovies, "Recent movies...")
+
+        @RenderRecentSection(Model.RecentPeople, "Recent people...")
+    </div>
+</div>
 
 <div class="row quote">
     <div class="col-xs-12 col-md-10 col-md-offset-1">
@@ -31,27 +103,34 @@
 
 @helper RenderRecentSection(IEnumerable<HomePageItem> items, string title)
 {
-    <div id="fh5co-blog-section" class="fh5co-grey-bg-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
-                    <h2 style="font-weight: bold; text-transform: uppercase">@title</h2>
-                </div>
-            </div>
-            <div class="row">
-                @foreach (var item in items)
-                {
-                    <div class="col-md-4 text-center">
+    <div class="panel panel-default" style="margin-top: 20px">
+        <div class="panel-heading" style="background-color: black; opacity: 0.75;">
+            <h4 style="font-weight: bold; text-transform: uppercase">@title</h4>
+        </div>
+        <div class="panel-body">
+            @foreach (var item in items)
+            {
+                <div class="row">
+                    <div class="col-xs-12 text-center">
                         <div class="blog-inner">
-                            <a href="@item.Url"><img style="margin-left: auto; margin-right: auto" class="img-responsive" src="@item.ImagePath" alt="Blog"></a>
+                            <a href="@item.Url"><img style="margin-left: auto; margin-right: auto;" class="img-responsive" src="@item.ImagePath" alt="Blog"></a>
                             <div class="desc">
                                 <h3><a href="@item.Url">@item.Title</a></h3>
                                 <p><a href="@item.Url" class="btn btn-primary btn-outline with-arrow">Read More<i class="icon-arrow-right"></i></a></p>
                             </div>
                         </div>
                     </div>
-                }
-            </div>
+                </div>
+            }
         </div>
     </div>
+}
+
+@helper Truncate(string input, int length)
+{
+    if(input.Length<=length){
+        @Html.Raw(input)
+    }else{
+        @Html.Raw(input.Substring(0, length))
+    }
 }

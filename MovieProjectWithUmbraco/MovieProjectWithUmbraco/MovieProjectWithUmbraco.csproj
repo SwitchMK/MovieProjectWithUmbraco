@@ -446,6 +446,7 @@
     <Content Include="Views\Partials\Account\_Register.cshtml" />
     <Content Include="Views\Partials\Account\_Login.cshtml" />
     <Content Include="Views\Login.cshtml" />
+    <Content Include="Views\News.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -490,6 +491,7 @@
     <Compile Include="Controllers\Films\FilmController.cs" />
     <Compile Include="Controllers\Films\FilmsController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
+    <Compile Include="Controllers\News\NewsController.cs" />
     <Compile Include="Controllers\People\PeopleController.cs" />
     <Compile Include="Controllers\People\PersonController.cs" />
     <Compile Include="Controllers\SiteLayoutController.cs" />
@@ -516,6 +518,7 @@
     <Compile Include="Models\HomePageModels\HomePage.cs" />
     <Compile Include="Models\HomePageModels\HomePageItem.cs" />
     <Compile Include="Models\HomePageModels\Intro.cs" />
+    <Compile Include="Models\Common\NewsItem.cs" />
     <Compile Include="Models\PersonModels\DetailedPersonInfo.cs" />
     <Compile Include="Models\FilmModels\FilmInfo.cs" />
     <Compile Include="Models\FilmModels\FilmsModel.cs" />
