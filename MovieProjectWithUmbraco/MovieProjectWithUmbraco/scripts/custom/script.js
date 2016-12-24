@@ -17,9 +17,8 @@
     MovieApp.Rating = {
         selectRateableMovie: function (filmId) {
             ratedMovieId = filmId;
-            var obj = $("#TotalRatingValue" + filmId);
-            rating = $("#TotalRatingValue" + filmId).val();
-            $('#input-id').rating('update', rating);
+            personalRating = $("#PersonalRatingValue" + filmId).val();
+            $('#input-id').rating('update', personalRating);
         },
         rateMovie: function () {
             var rateRequest = {
@@ -29,7 +28,7 @@
 
             $.post("/umbraco/api/FilmRating/RateMovie",
                 rateRequest, function (response) {
-                    $("#TotalRatingValue" + ratedMovieId).val(response);
+                    $("#PersonalRatingValue" + ratedMovieId).val(rating);
                     $("#TotalRating" + ratedMovieId).text((Math.ceil(response * 10) / 10).toFixed(1));
                 });
         }

@@ -39,7 +39,7 @@
                                                   style="color: orange; display: inline-block; vertical-align: middle;">
                                                   @string.Format("{0:0.0}", film.TotalRating) 
                                             </span>
-                                            @Html.Hidden(string.Format("TotalRatingValue{0}", film.Id), film.TotalRating)
+                                            @Html.Hidden(string.Format("PersonalRatingValue{0}", film.Id), film.PersonalRating)
                                         </h3>
                                     </td>
                                     @if (loggedMember != null)
