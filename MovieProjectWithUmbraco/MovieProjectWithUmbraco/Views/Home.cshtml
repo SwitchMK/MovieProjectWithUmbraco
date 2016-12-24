@@ -5,7 +5,6 @@
 }
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
     <ol class="carousel-indicators">
         @for (var j = 0; j < Model.News.Take(4).Count(); j++)
         {
@@ -47,7 +46,6 @@
         }
     </div>
 
-    <!-- Left and right controls -->
     <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
@@ -124,13 +122,4 @@
             }
         </div>
     </div>
-}
-
-@helper Truncate(string input, int length)
-{
-    if(input.Length<=length){
-        @Html.Raw(input)
-    }else{
-        @Html.Raw(input.Substring(0, length))
-    }
 }
