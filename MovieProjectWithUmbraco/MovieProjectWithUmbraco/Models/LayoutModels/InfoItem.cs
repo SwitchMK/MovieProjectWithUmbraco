@@ -1,6 +1,6 @@
 ﻿namespace MovieProjectWithUmbraco.Models
 {
-    public class HomePageItem
+    public class InfoItem
     {
         public string ImagePath { get; set; }
         public string Title { get; set; }

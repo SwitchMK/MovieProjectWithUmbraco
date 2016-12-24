@@ -12,8 +12,5 @@ namespace MovieProjectWithUmbraco.Models
         public string About { get; set; }
         public Intro Intro { get; set; }
         public IEnumerable<NewsItem> News { get; set; }
-        public IEnumerable<HomePageItem> RecentMovies { get; set; }
-        public IEnumerable<HomePageItem> RecentPeople { get; set; }
-        public IEnumerable<HomePageItem> RecentDistributors { get; set; }
     }
 }

@@ -24,7 +24,14 @@
 
         <div class="container body-content" ng-cloak>
             <div class="wrapper">
-                @RenderBody()
+                <div class="row">
+                    <div class="col-sm-8 col-md-9">
+                        @RenderBody()
+                    </div>
+                    <div class="col-sm-4 col-md-3">
+                        @{ Html.RenderAction("RenderInfoSection", "SiteLayout"); }
+                    </div>
+                </div>
             </div>
         </div>
 

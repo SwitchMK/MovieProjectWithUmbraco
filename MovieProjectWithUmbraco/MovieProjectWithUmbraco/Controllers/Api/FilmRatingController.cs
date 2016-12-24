@@ -16,15 +16,19 @@ namespace MovieProjectWithUmbraco.Controllers.Api
         }
 
         [HttpPost]
-        public void RateMovie([FromBody] RateRequest rateRequest)
+        public IHttpActionResult RateMovie([FromBody] RateRequest rateRequest)
         {
             var user = Membership.GetUser();
 
-            if (user != null)
-                RateMovie(rateRequest, (int)user.ProviderUserKey);
+            if (user == null)
+                return Unauthorized();
+
+            var rating = RateMovie(rateRequest, (int)user.ProviderUserKey);
+
+            return Ok(rating);
         }
 
-        private void RateMovie(RateRequest rateRequest, long userId)
+        private double? RateMovie(RateRequest rateRequest, long userId)
         {
             var personalRating = _filmRatingRepository.GetPersonalRating(rateRequest.FilmId, userId);
 
@@ -32,6 +36,8 @@ namespace MovieProjectWithUmbraco.Controllers.Api
                 _filmRatingRepository.UpdateRating(rateRequest.FilmId, userId, rateRequest.Rating);
             else
                 _filmRatingRepository.AddRating(rateRequest.FilmId, userId, rateRequest.Rating);
+
+            return _filmRatingRepository.GetTotalRating(rateRequest.FilmId);
         }
     }
 }

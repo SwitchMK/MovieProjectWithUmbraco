@@ -59,7 +59,7 @@
 
 
 <div class="row">
-    <div class="col-sm-7 col-md-9">
+    <div class="col-xs-12">
         <div class="panel panel-default" style="margin-top: 20px">
             <div class="panel-heading" style="background-color: black; opacity: 0.75;">
                 <h4 style="font-weight: bold; text-transform: uppercase">Feed</h4>
@@ -79,14 +79,9 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-5 col-md-3">
-        @RenderRecentSection(Model.RecentMovies, "Recent movies...")
-
-        @RenderRecentSection(Model.RecentPeople, "Recent people...")
-    </div>
 </div>
 
-<div class="row quote">
+<div class="row quote" style="margin-bottom: 20px;">
     <div class="col-xs-12 col-md-10 col-md-offset-1">
         <div class="row" style="margin-top: 15px">
             <div style="min-height: 250px; display: flex">
@@ -98,28 +93,3 @@
         </div>
     </div>
 </div>
-
-@helper RenderRecentSection(IEnumerable<HomePageItem> items, string title)
-{
-    <div class="panel panel-default" style="margin-top: 20px">
-        <div class="panel-heading" style="background-color: black; opacity: 0.75;">
-            <h4 style="font-weight: bold; text-transform: uppercase">@title</h4>
-        </div>
-        <div class="panel-body">
-            @foreach (var item in items)
-            {
-                <div class="row">
-                    <div class="col-xs-12 text-center">
-                        <div class="blog-inner">
-                            <a href="@item.Url"><img style="margin-left: auto; margin-right: auto;" class="img-responsive" src="@item.ImagePath" alt="Blog"></a>
-                            <div class="desc">
-                                <h3><a href="@item.Url">@item.Title</a></h3>
-                                <p><a href="@item.Url" class="btn btn-primary btn-outline with-arrow">Read More<i class="icon-arrow-right"></i></a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
-}

@@ -15,10 +15,11 @@
     });
 
     MovieApp.Rating = {
-        selectRateableMovie: function (filmId, personalRating) {
+        selectRateableMovie: function (filmId) {
             ratedMovieId = filmId;
-            rating = personalRating;
-            $('#input-id').rating('update', personalRating);
+            var obj = $("#TotalRatingValue" + filmId);
+            rating = $("#TotalRatingValue" + filmId).val();
+            $('#input-id').rating('update', rating);
         },
         rateMovie: function () {
             var rateRequest = {
@@ -27,7 +28,10 @@
             }
 
             $.post("/umbraco/api/FilmRating/RateMovie",
-                rateRequest, function () { });
+                rateRequest, function (response) {
+                    $("#TotalRatingValue" + ratedMovieId).val(response);
+                    $("#TotalRating" + ratedMovieId).text((Math.ceil(response * 10) / 10).toFixed(1));
+                });
         }
     };
 })(jQuery);

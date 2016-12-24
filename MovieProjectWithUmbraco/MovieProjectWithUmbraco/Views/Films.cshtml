@@ -35,16 +35,17 @@
                                     <td class="vertical-align total-rating">
                                         <h3 style="margin-top: auto; margin-bottom: auto">
                                             <span style="display: inline-block; vertical-align: middle" class="glyphicon glyphicon-star"></span>
-                                            <span class="label label-default"
+                                            <span id="@string.Format("TotalRating{0}", film.Id)" class="label label-default"
                                                   style="color: orange; display: inline-block; vertical-align: middle;">
                                                   @string.Format("{0:0.0}", film.TotalRating) 
                                             </span>
+                                            @Html.Hidden(string.Format("TotalRatingValue{0}", film.Id), film.TotalRating)
                                         </h3>
                                     </td>
                                     @if (loggedMember != null)
                                     {
                                         <td class="vertical-align rating">
-                                            <button onclick="MovieApp.Rating.selectRateableMovie('@film.Id', '@film.PersonalRating')" data-toggle="modal" data-target="#rating-model" class="btn btn-warning">Rate</button>
+                                            <button onclick="MovieApp.Rating.selectRateableMovie('@film.Id')" data-toggle="modal" data-target="#rating-model" class="btn btn-warning">Rate</button>
                                         </td>
                                     }
                                 </tr>

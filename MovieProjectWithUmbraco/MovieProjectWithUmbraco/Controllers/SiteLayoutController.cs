@@ -24,6 +24,12 @@ namespace MovieProjectWithUmbraco.Controllers
             return PartialView(PARTIALS_LAYOUT_PATH + "_Intro.cshtml", intro);
         }
 
+        public ActionResult RenderInfoSection()
+        {
+            var infoSection = GetInfoSection();
+            return PartialView(PARTIALS_LAYOUT_PATH + "_InfoSection.cshtml", infoSection);
+        }
+
         private Intro GetIntro()
         {
             var document = CurrentPage.Children.Where(x => x.DocumentTypeAlias == "homePageIntro").FirstOrDefault();
@@ -33,6 +39,48 @@ namespace MovieProjectWithUmbraco.Controllers
                 ImagePath = document.GetCropUrl("author", "smSzImgCropper"),
                 QuoteText = document.GetPropertyValue<string>("quote")
             };
+        }
+
+        private InfoSection GetInfoSection()
+        {
+            var rootNodes = Umbraco.TypedContentAtRoot();
+            var homeNodeByAlias = rootNodes.First(x => x.DocumentTypeAlias == "home");
+            
+            return new InfoSection
+            {
+                RecentMovies = GetRecentlyAddedFilms(homeNodeByAlias).Take(1),
+                RecentPeople = GetRecentlyAddedPeople(homeNodeByAlias).Take(1)
+            };
+        }
+
+        private IEnumerable<InfoItem> GetRecentlyAddedFilms(IPublishedContent page)
+        {
+            var filmsPage = page.Children.Where(x => x.DocumentTypeAlias == "films").FirstOrDefault();
+
+            foreach (var item in filmsPage.Children.OrderByDescending(p => p.CreateDate))
+            {
+                yield return new InfoItem()
+                {
+                    Title = item.GetPropertyValue<string>("title"),
+                    ImagePath = item.GetCropUrl("image", "homeItemSzImgCropper"),
+                    Url = item.Url
+                };
+            }
+        }
+
+        private IEnumerable<InfoItem> GetRecentlyAddedPeople(IPublishedContent page)
+        {
+            var peoplePage = page.Children.Where(x => x.DocumentTypeAlias == "people").FirstOrDefault();
+
+            foreach (var item in peoplePage.Children.OrderByDescending(p => p.CreateDate))
+            {
+                yield return new InfoItem()
+                {
+                    Title = item.GetPropertyValue<string>("shortName"),
+                    ImagePath = item.GetCropUrl("image", "homeItemSzImgCropper"),
+                    Url = item.Url
+                };
+            }
         }
 
         private IEnumerable<NavigationListItem> GetNavigationModelFromDatabase()

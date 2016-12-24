@@ -76,6 +76,10 @@ a {
     border-bottom: orangered 4px solid;
 }
 
+li.login-item:hover {
+    border-bottom: transparent 4px solid;
+}
+
 .user-greetings-item:hover {
     border-bottom: transparent 4px solid !important;
 }
@@ -89,6 +93,11 @@ a {
 
 .navbar-nav li:hover a, .navbar-nav li:hover button {
     color: orangered !important;
+}
+
+.navbar-nav button {
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 .navbar-nav a, .navbar-nav button {
@@ -171,7 +180,7 @@ a {
 }
 
 .input-validation-error { 
-    border: 1px solid #a94442; 
+    border: 2px solid #a94442; 
 }
         
 .field-validation-valid {
