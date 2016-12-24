@@ -59,7 +59,7 @@
 
 
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-sm-7 col-md-9">
         <div class="panel panel-default" style="margin-top: 20px">
             <div class="panel-heading" style="background-color: black; opacity: 0.75;">
                 <h4 style="font-weight: bold; text-transform: uppercase">Feed</h4>
@@ -79,7 +79,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-sm-5 col-md-3">
         @RenderRecentSection(Model.RecentMovies, "Recent movies...")
 
         @RenderRecentSection(Model.RecentPeople, "Recent people...")
@@ -89,7 +89,7 @@
 <div class="row quote">
     <div class="col-xs-12 col-md-10 col-md-offset-1">
         <div class="row" style="margin-top: 15px">
-            <div style="height: 250px; display: flex">
+            <div style="min-height: 250px; display: flex">
                 <div style="margin-bottom: auto; margin-top: auto">
                     <img class="quote-image img-circle" src="@Model.Intro.ImagePath" style="float: left" />
                     <blockquote>@Html.Raw(Model.Intro.QuoteText)</blockquote>

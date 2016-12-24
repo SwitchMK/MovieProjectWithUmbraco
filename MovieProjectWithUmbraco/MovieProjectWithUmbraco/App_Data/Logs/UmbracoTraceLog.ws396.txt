@@ -810,3 +810,17 @@ _shutDownStack=   at System.Environment.GetStackTrace(Exception e, Boolean needF
  2016-12-24 01:37:37,195 [P6800/D27/T18] WARN  Umbraco.Core.Models.Member - Trying to access the 'PasswordQuestion' property on Umbraco.Core.Models.Member but the umbracoMemberPasswordRetrievalQuestion property does not exist on the member type so a default value is returned. Ensure that you have a property type with alias: umbracoMemberPasswordRetrievalQuestion configured on your member type in order to use the 'PasswordQuestion' property on the model correctly.
  2016-12-24 06:50:51,104 [P6800/D27/T128] INFO  umbraco.BusinessLogic.Log - Log scrubbed.  Removed all items older than 2016-12-23 06:50:51
  2016-12-24 10:50:50,854 [P6800/D27/T51] INFO  umbraco.BusinessLogic.Log - Log scrubbed.  Removed all items older than 2016-12-23 10:50:50
+ 2016-12-24 12:51:01,483 [P6800/D27/T25] INFO  Umbraco.Core.Security.BackOfficeSignInManager - Event Id: 0, state: Login attempt succeeded for username maximkonyh10@gmail.com from IP address 127.0.0.1
+ 2016-12-24 12:51:01,485 [P6800/D27/T25] INFO  Umbraco.Core.Security.BackOfficeSignInManager - Event Id: 0, state: User: maximkonyh10@gmail.com logged in from IP address 127.0.0.1
+ 2016-12-24 12:51:01,585 [P6800/D27/T70] INFO  Umbraco.Core.PluginManager - Starting resolution types of Umbraco.Web.Trees.TreeController
+ 2016-12-24 12:51:01,590 [P6800/D27/T70] INFO  Umbraco.Core.PluginManager - Completed resolution of types of Umbraco.Web.Trees.TreeController, found 0 (took 5ms)
+ 2016-12-24 12:51:01,700 [P6800/D27/T70] INFO  Umbraco.Core.PluginManager - Starting resolution types of umbraco.interfaces.IApplication
+ 2016-12-24 12:51:01,709 [P6800/D27/T70] INFO  Umbraco.Core.PluginManager - Completed resolution of types of umbraco.interfaces.IApplication, found 0 (took 9ms)
+ 2016-12-24 12:51:01,799 [P6800/D27/T11] INFO  Umbraco.Core.PluginManager - Starting resolution types of umbraco.interfaces.ITree
+ 2016-12-24 12:51:01,805 [P6800/D27/T11] INFO  Umbraco.Core.PluginManager - Completed resolution of types of umbraco.interfaces.ITree, found 0 (took 6ms)
+ 2016-12-24 12:51:01,807 [P6800/D27/T128] INFO  Umbraco.Core.PluginManager - Starting resolution types of Umbraco.Web.Trees.TreeController
+ 2016-12-24 12:51:01,807 [P6800/D27/T128] INFO  Umbraco.Core.PluginManager - Completed resolution of types of Umbraco.Web.Trees.TreeController, found 0 (took 0ms)
+ 2016-12-24 12:51:01,809 [P6800/D27/T128] INFO  Umbraco.Core.PluginManager - Starting resolution types of umbraco.interfaces.ITree
+ 2016-12-24 12:51:01,815 [P6800/D27/T128] INFO  Umbraco.Core.PluginManager - Completed resolution of types of umbraco.interfaces.ITree, found 0 (took 6ms)
+ 2016-12-24 13:01:03,749 [P6800/D27/T168] INFO  Umbraco.Core.PluginManager - Starting resolution types of Umbraco.Web.Trees.TreeController
+ 2016-12-24 13:01:03,749 [P6800/D27/T168] INFO  Umbraco.Core.PluginManager - Completed resolution of types of Umbraco.Web.Trees.TreeController, found 0 (took 0ms)
