@@ -11,27 +11,23 @@
                 @Html.ValidationSummary()
             </div>
             <div class="form-group">
-                <label>Login</label>
-                @Html.TextBoxFor(m => m.Login, htmlAttributes: new { @class = "form-control", type = "text" })
+                @Html.TextBoxFor(m => m.Login, htmlAttributes: new { @class = "login-register-input", type = "text", placeholder = "Enter your login" })
                 @Html.ValidationMessageFor(m => m.Login)
             </div>
             <div class="form-group">
-                <label>Full Name</label>
-                @Html.TextBoxFor(m => m.FullName, htmlAttributes: new { @class = "form-control", type = "text" })
+                @Html.TextBoxFor(m => m.FullName, htmlAttributes: new { @class = "login-register-input", type = "text", placeholder = "Enter your full name" })
                 @Html.ValidationMessageFor(m => m.FullName)
             </div>
             <div class="form-group">
-                <label>Email</label>
-                @Html.TextBoxFor(m => m.Email, htmlAttributes: new { @class = "form-control", type = "text" })
+                @Html.TextBoxFor(m => m.Email, htmlAttributes: new { @class = "login-register-input", type = "text", placeholder = "Enter your email" })
                 @Html.ValidationMessageFor(m => m.Email)
             </div>
             <div class="form-group">
-                <label>Password</label>
-                @Html.TextBoxFor(m => m.Password, htmlAttributes: new { @class = "form-control", type = "password" })
+                @Html.TextBoxFor(m => m.Password, htmlAttributes: new { @class = "login-register-input", type = "password", placeholder = "Enter your password" })
                 @Html.ValidationMessageFor(m => m.Password)
             </div>
             <div class="form-group">
-                <button class="btn btn-default pull-right" type="submit">Register</button>
+                <button class="btn btn-success" style="width: 100%;" type="submit">Register</button>
             </div>
         }
     </div>

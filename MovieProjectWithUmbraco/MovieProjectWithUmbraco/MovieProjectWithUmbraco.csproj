@@ -370,6 +370,7 @@
     <Content Include="Content\star-rating.css" />
     <Content Include="Content\star-rating.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Images\Background\b3.png" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -448,6 +449,8 @@
     <Content Include="Views\Login.cshtml" />
     <Content Include="Views\News.cshtml" />
     <Content Include="Views\Partials\SiteLayout\_InfoSection.cshtml" />
+    <Content Include="Views\Partials\Feedback\_FeedbacksTicker.cshtml" />
+    <Content Include="Views\Partials\Feedback\_Feedback.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -489,6 +492,7 @@
     <Compile Include="Controllers\Api\FilmRatingController.cs" />
     <Compile Include="Controllers\Distributors\DistributorController.cs" />
     <Compile Include="Controllers\Distributors\DistributorsController.cs" />
+    <Compile Include="Controllers\Films\Feedbacks\FeedbackController.cs" />
     <Compile Include="Controllers\Films\FilmController.cs" />
     <Compile Include="Controllers\Films\FilmsController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
@@ -516,6 +520,7 @@
     <Compile Include="Models\DistributorModels\DistributorInfo.cs" />
     <Compile Include="Models\DistributorModels\DistributorsModel.cs" />
     <Compile Include="Models\FilmModels\DetailedFilmInfo.cs" />
+    <Compile Include="Models\FilmModels\FeedbackModels\Feedback.cs" />
     <Compile Include="Models\HomePageModels\HomePage.cs" />
     <Compile Include="Models\HomePageModels\Intro.cs" />
     <Compile Include="Models\Common\NewsItem.cs" />

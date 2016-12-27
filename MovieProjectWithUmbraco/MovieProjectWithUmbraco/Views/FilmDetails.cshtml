@@ -1,7 +1,7 @@
 ﻿@using MovieProjectWithUmbraco.Models
 @inherits UmbracoViewPage<DetailedFilmInfo>
 @{
-	Layout = "Layout.cshtml";
+    Layout = "Layout.cshtml";
 }
 
 <style>
@@ -21,7 +21,7 @@
 </style>
 
 <div class="row">
-    <div class="col-sm-4 col-md-3">
+    <div class="col-md-4">
         <div class="row">
             <div class="col-xs-12">
                 <div class="panel panel-default">
@@ -146,7 +146,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-8 col-md-9">
+    <div class="col-md-8">
         <div class="row">
             <div class="col-xs-12">
                 <div class="panel panel-default">
@@ -157,6 +157,32 @@
                         <p>@Html.Raw(Model.Plot)</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-md-offset-4 col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="background-color: black; opacity: 0.75;">
+                <h4 style="color: gray">Feedbacks</h4>
+            </div>
+            <div class="panel-body">
+                @if (Membership.GetUser() != null)
+                {
+                    <div class="feedback-message-field">
+                        @{ Html.RenderAction("RenderFeedbackForm", "Feedback"); }
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <a href="/login" class="btn btn-success" style="width: 100%">You need to log in to leave comments</a>
+                        </div>
+                    </div>
+                }
+                @{ Html.RenderAction("RenderFeedbackTicker", "Feedback"); }
             </div>
         </div>
     </div>

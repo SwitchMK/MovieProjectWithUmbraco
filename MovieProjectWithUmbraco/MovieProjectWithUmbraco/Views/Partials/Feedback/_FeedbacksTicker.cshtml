@@ -1,0 +1,28 @@
+﻿@inherits UmbracoViewPage<IEnumerable<MovieProjectWithUmbraco.Models.Feedback>>
+
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="existing-feedbacks">
+        @foreach (var comment in Model)
+        {
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="background-color: black; opacity: 0.75; padding-bottom: 3px; padding-top: 3px">
+                            <h6 style="color: gray">@comment.Publisher</h6>
+                        </div>
+                        <div class="panel-body">
+                            <p style="font-size: 1.2em;">@comment.Content</p>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="text-right">
+                                <span>@comment.DateOfPublication.ToLongDateString()</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+

@@ -1,6 +1,8 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-image: url("/Images/Background/b3.png");
+    background-repeat: repeat;
 }
 
 .wrapper {
@@ -292,4 +294,19 @@ li.login-item:hover {
 .btn-primary.btn-outline:hover, .btn-primary.btn-outline:focus, .btn-primary.btn-outline:active {
   background: #1FB57B;
   color: #fff;
+}
+
+.existing-feedbacks {
+    margin-top: 20px;
+}
+
+.login-register-input {
+    padding: 10px;
+    border: 2px solid gray;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.login-register-input:hover, .login-register-input:focus, .login-register-input:active {
+    border-color: forestgreen;
 }

@@ -8,8 +8,8 @@ using  Umbraco.Web;
 using  Umbraco.ModelsBuilder;
 using  Umbraco.ModelsBuilder.Umbraco;
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "13eae81f225cda6a")]
-[assembly:System.Reflection.AssemblyVersion("0.0.0.2")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "73358abc30663c1b")]
+[assembly:System.Reflection.AssemblyVersion("0.0.0.1")]
 
 
 // FILE: models.generated.cs
@@ -887,6 +887,59 @@ namespace Umbraco.Web.PublishedContentModels
 		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<NewsTicker, TValue>> selector)
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Hide from navigation?: Tick this if you don't want this page appear in the top
+		///</summary>
+		[ImplementPropertyType("hideFromNavigation")]
+		public bool HideFromNavigation
+		{
+			get { return NavigationBarControls.GetHideFromNavigation(this); }
+		}
+	}
+
+	/// <summary>Feedback</summary>
+	[PublishedContentModel("feedback")]
+	public partial class Feedback : PublishedContentModel, INavigationBarControls
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "feedback";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public Feedback(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Feedback, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Feedback text: Content of feedback
+		///</summary>
+		[ImplementPropertyType("feedbackText")]
+		public string FeedbackText
+		{
+			get { return this.GetPropertyValue<string>("feedbackText"); }
+		}
+
+		///<summary>
+		/// Member: If of author of comment
+		///</summary>
+		[ImplementPropertyType("member")]
+		public string Member
+		{
+			get { return this.GetPropertyValue<string>("member"); }
 		}
 
 		///<summary>

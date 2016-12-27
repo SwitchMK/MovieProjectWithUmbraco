@@ -24,12 +24,12 @@
             var rateRequest = {
                 filmid: ratedMovieId,
                 rating: rating
-            }
+            };
 
             $.post("/umbraco/api/FilmRating/RateMovie",
                 rateRequest, function (response) {
                     $("#PersonalRatingValue" + ratedMovieId).val(rating);
-                    $("#TotalRating" + ratedMovieId).text((Math.ceil(response * 10) / 10).toFixed(1));
+                    $("#TotalRating" + ratedMovieId).text(response.toFixed(1));
                 });
         }
     };
