@@ -7,14 +7,16 @@ namespace MovieProjectWithUmbraco.Controllers.Account
 {
     public class AccountController : SurfaceController
     {
+        const string PATH_TO_ACCOUNT_PAGES = "~/Views/Partials/Account/";
+
         public ActionResult RenderRegisterForm()
         {
-            return PartialView("~/Views/Partials/Account/_Register.cshtml");
+            return PartialView(PATH_TO_ACCOUNT_PAGES + "_Register.cshtml");
         }
 
         public ActionResult RenderLoginForm()
         {
-            return PartialView("~/Views/Partials/Account/_Login.cshtml");
+            return PartialView(PATH_TO_ACCOUNT_PAGES +  "_Login.cshtml");
         }
 
         public ActionResult MemberLogOut()
@@ -56,6 +58,13 @@ namespace MovieProjectWithUmbraco.Controllers.Account
         {
             if (!ModelState.IsValid)
                 return CurrentUmbracoPage();
+
+            var memberService = Services.MemberService;
+            if (memberService.GetByUsername(model.Login) == null)
+            {
+                ModelState.AddModelError("", "This member doesn't exist or locked out.");
+                return CurrentUmbracoPage();
+            }
 
             Members.Login(model.Login, model.Password);
 

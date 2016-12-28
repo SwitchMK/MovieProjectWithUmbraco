@@ -4,27 +4,35 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
+using System.Linq;
 
 namespace MovieProjectWithUmbraco.Controllers.Films.Feedbacks
 {
     public class FeedbackController : SurfaceController
     {
+        const string PATH_TO_FEEDBACK_FOLDER = "~/Views/Partials/Feedback/";
+
         public ActionResult RenderFeedbackTicker()
         {
             var feedbacks = GetFeedbacksForMovie();
 
-            return PartialView("~/Views/Partials/Feedback/_FeedbacksTicker.cshtml", feedbacks);
+            return PartialView(PATH_TO_FEEDBACK_FOLDER + "_FeedbacksTicker.cshtml", feedbacks);
         }
 
         public ActionResult RenderFeedbackForm()
         {
-            return PartialView("~/Views/Partials/Feedback/_Feedback.cshtml");
+            return PartialView(PATH_TO_FEEDBACK_FOLDER + "_Feedback.cshtml");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult SubmitFeedback(Feedback model)
         {
+            if (!ModelState.IsValid)
+            {
+                return CurrentUmbracoPage();
+            }
+
             var user = Membership.GetUser();
 
             if (user == null)
@@ -37,7 +45,7 @@ namespace MovieProjectWithUmbraco.Controllers.Films.Feedbacks
 
         private IEnumerable<Feedback> GetFeedbacksForMovie()
         {
-            foreach (var comment in CurrentPage.Children)
+            foreach (var comment in CurrentPage.Children.OrderByDescending(p => p.CreateDate))
             {
                 yield return new Feedback
                 {

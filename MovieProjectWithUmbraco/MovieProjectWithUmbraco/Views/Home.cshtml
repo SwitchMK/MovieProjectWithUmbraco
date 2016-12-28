@@ -2,11 +2,12 @@
 @inherits UmbracoViewPage<HomePage>
 @{
     Layout = "Layout.cshtml";
+    var amountOfSlides = 4;
 }
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
-        @for (var j = 0; j < Model.News.Take(4).Count(); j++)
+        @for (var j = 0; j < Model.News.Take(amountOfSlides).Count(); j++)
         {
             if (j == 0)
             {
@@ -62,7 +63,7 @@
     <div class="col-xs-12">
         <div class="panel panel-default" style="margin-top: 20px">
             <div class="panel-heading" style="background-color: black; opacity: 0.75;">
-                <h4 style="font-weight: bold; text-transform: uppercase">Feed</h4>
+                <h4 style="color: gray">News</h4>
             </div>
             <div class="panel-body">
                 @foreach (var newsItem in Model.News)

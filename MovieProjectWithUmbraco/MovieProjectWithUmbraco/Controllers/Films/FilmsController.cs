@@ -8,6 +8,7 @@ using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.Models;
 using Umbraco.Web.Mvc;
+using System.Linq;
 
 namespace MovieProjectWithUmbraco.Controllers
 {
@@ -24,7 +25,7 @@ namespace MovieProjectWithUmbraco.Controllers
         {
             var filmsModel = new FilmsModel(model.Content);
 
-            filmsModel.FilmsInfo = GetFilms(model.Content);
+            filmsModel.FilmsInfo = GetFilms(model.Content).OrderByDescending(p => p.TotalRating);
 
             return base.Index(filmsModel);
         }
