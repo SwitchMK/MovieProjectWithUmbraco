@@ -10,6 +10,8 @@ namespace MovieProjectWithUmbraco.Controllers
 {
     public class SiteLayoutController : SurfaceController
     {
+        private const int RECENT_MOVIES = 1;
+        private const int RECENT_PEOPLE = 1;
         private const string PARTIALS_LAYOUT_PATH = "~/Views/Partials/SiteLayout/";
 
         public ActionResult RenderHeader()
@@ -48,8 +50,8 @@ namespace MovieProjectWithUmbraco.Controllers
             
             return new InfoSection
             {
-                RecentMovies = GetRecentlyAddedFilms(homeNodeByAlias).Take(1),
-                RecentPeople = GetRecentlyAddedPeople(homeNodeByAlias).Take(1)
+                RecentMovies = GetRecentlyAddedFilms(homeNodeByAlias).Take(RECENT_MOVIES),
+                RecentPeople = GetRecentlyAddedPeople(homeNodeByAlias).Take(RECENT_PEOPLE)
             };
         }
 
