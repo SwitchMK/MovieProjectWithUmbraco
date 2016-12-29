@@ -19,7 +19,7 @@ using Umbraco.ModelsBuilder;
 using Umbraco.ModelsBuilder.Umbraco;
 
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "73358abc30663c1b")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "f6d68cb1811c6eea")]
 [assembly:System.Reflection.AssemblyVersion("0.0.0.1")]
 
 namespace Umbraco.Web.PublishedContentModels
@@ -924,6 +924,41 @@ namespace Umbraco.Web.PublishedContentModels
 		public string Member
 		{
 			get { return this.GetPropertyValue<string>("member"); }
+		}
+
+		///<summary>
+		/// Hide from navigation?: Tick this if you don't want this page appear in the top
+		///</summary>
+		[ImplementPropertyType("hideFromNavigation")]
+		public bool HideFromNavigation
+		{
+			get { return NavigationBarControls.GetHideFromNavigation(this); }
+		}
+	}
+
+	/// <summary>Search</summary>
+	[PublishedContentModel("search")]
+	public partial class Search : PublishedContentModel, INavigationBarControls
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "search";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public Search(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Search, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}
 
 		///<summary>

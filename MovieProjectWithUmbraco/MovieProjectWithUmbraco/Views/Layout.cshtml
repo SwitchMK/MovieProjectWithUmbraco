@@ -29,7 +29,14 @@
                         @RenderBody()
                     </div>
                     <div class="col-sm-4 col-md-3">
-                        @{ Html.RenderAction("RenderInfoSection", "SiteLayout"); }
+                        <div class="row">
+                            <div class="col-xs-12">
+                                @{ Html.RenderAction("RenderSearch", "SiteLayout"); }
+                            </div>
+                            <div class="col-xs-12">
+                                @{ Html.RenderAction("RenderInfoSection", "SiteLayout"); }
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

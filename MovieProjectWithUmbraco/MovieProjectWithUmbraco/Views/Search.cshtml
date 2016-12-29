@@ -1,0 +1,50 @@
+﻿@inherits UmbracoTemplatePage
+@using Examine.LuceneEngine.SearchCriteria
+@{
+    Layout = "Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="background-color: black; opacity: 0.75;">
+                <h4 style="color: gray">Search results</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table table-responsive">
+                    <tbody>
+                        @if (!string.IsNullOrEmpty(Request.QueryString["query"]))
+                        {
+                            var q = Request.QueryString["query"].Trim();
+
+                            //Fetching our SearchProvider by giving it the name of our searchprovider 
+                            var Searcher = ExamineManager.Instance.SearchProviderCollection["MySearchSearcher"];
+
+                            var searchCriteria = Searcher.CreateSearchCriteria(Examine.SearchCriteria.BooleanOperation.Or);
+                            var query = searchCriteria
+                                .Field("nodeName", q.Boost(2)).Or()
+                                .Field("nodeName", q.Fuzzy(0.5f)).Or()
+                                .Field("bodyText", q.Boost(1)).Or()
+                                .Field("bodyText", q.Fuzzy(0.5f)).Or()
+                                .Field("tags", q.Fuzzy(0.8f));
+
+
+                            //Searching and ordering the result by score, and we only want to get the results that has a minimum of 0.05(scale is up to 1.)
+                            var searchResults = Searcher.Search(query.Compile());
+
+                            foreach (var result in searchResults)
+                            {
+                                var node = Umbraco.TypedContent(result.Fields["id"]);
+
+                                <tr>
+                                    <td><a href="@node.Url">@node.Name</a></td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

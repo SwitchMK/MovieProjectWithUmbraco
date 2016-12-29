@@ -453,6 +453,8 @@
     <Content Include="Views\Partials\SiteLayout\_InfoSection.cshtml" />
     <Content Include="Views\Partials\Feedback\_FeedbacksTicker.cshtml" />
     <Content Include="Views\Partials\Feedback\_Feedback.cshtml" />
+    <Content Include="Views\Search.cshtml" />
+    <Content Include="Views\Partials\SiteLayout\_Search.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -538,6 +540,7 @@
     <Compile Include="Models\PersonModels\PersonInfo.cs" />
     <Compile Include="Models\Requests\RateRequest.cs" />
     <Compile Include="Models\Responses\FilmResponse.cs" />
+    <Compile Include="Models\SearchModels\Search.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\FilmRatingRepository.cs" />
     <Compile Include="Repositories\Interfaces\IFilmRatingRepository.cs" />
