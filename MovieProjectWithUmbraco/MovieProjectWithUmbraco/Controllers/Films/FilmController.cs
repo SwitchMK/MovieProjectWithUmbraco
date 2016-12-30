@@ -14,6 +14,8 @@ namespace MovieProjectWithUmbraco.Controllers
     {
         public ActionResult FilmDetails(RenderModel model)
         {
+            var text = CurrentPage.GetPropertyValue<string>("bodyText");
+
             var filmDetailsModel = GetDetailedFilmInformation(model.Content);
 
             return base.Index(filmDetailsModel);

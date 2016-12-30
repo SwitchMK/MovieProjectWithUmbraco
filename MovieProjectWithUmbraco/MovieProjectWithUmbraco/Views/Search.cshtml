@@ -7,8 +7,8 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="panel panel-default">
-            <div class="panel-heading" style="background-color: black; opacity: 0.75;">
-                <h4 style="color: gray">Search results</h4>
+            <div class="panel-heading movie-proj-panel-heading">
+                <h4>Search results</h4>
             </div>
             <div class="panel-body">
                 <table class="table table-responsive">
@@ -17,29 +17,57 @@
                         {
                             var q = Request.QueryString["query"].Trim();
 
-                            //Fetching our SearchProvider by giving it the name of our searchprovider 
                             var Searcher = ExamineManager.Instance.SearchProviderCollection["MySearchSearcher"];
 
                             var searchCriteria = Searcher.CreateSearchCriteria(Examine.SearchCriteria.BooleanOperation.Or);
                             var query = searchCriteria
-                                .Field("nodeName", q.Boost(2)).Or()
-                                .Field("nodeName", q.Fuzzy(0.5f)).Or()
-                                .Field("bodyText", q.Boost(1)).Or()
-                                .Field("bodyText", q.Fuzzy(0.5f)).Or()
-                                .Field("tags", q.Fuzzy(0.8f));
+                                .Field("nodeName", q).Or()
+                                .Field("nodeName", q.Fuzzy(0.7f)).Or()
+                                .Field("cast", q).Or()
+                                .Field("cast", q.Fuzzy(0.7f)).Or()
+                                .Field("directors", q).Or()
+                                .Field("directors", q.Fuzzy(0.7f)).Or()
+                                .Field("writers", q).Or()
+                                .Field("writers", q.Fuzzy(0.7f)).Or()
+                                .Field("producers", q).Or()
+                                .Field("producers", q.Fuzzy(0.7f)).Or()
+                                .Field("plot", q).Or()
+                                .Field("plot", q.Fuzzy(0.7f)).Or()
+                                .Field("history", q).Or()
+                                .Field("history", q.Fuzzy(0.7f)).Or()
+                                .Field("biography", q).Or()
+                                .Field("biography", q.Fuzzy(0.7f));
 
-
-                            //Searching and ordering the result by score, and we only want to get the results that has a minimum of 0.05(scale is up to 1.)
                             var searchResults = Searcher.Search(query.Compile());
 
-                            foreach (var result in searchResults)
+                            if (searchResults.Count() > 0)
                             {
-                                var node = Umbraco.TypedContent(result.Fields["id"]);
+                                foreach (var result in searchResults)
+                                {
+                                    var node = Umbraco.TypedContent(result.Fields["id"]);
 
-                                <tr>
-                                    <td><a href="@node.Url">@node.Name</a></td>
-                                </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="panel">
+                                                <div class="panel panel-body search-item">
+                                                    <h4><a href="@node.Url">@node.Name</a></h4>
+                                                    <p class="link-to-document">@node.Url</p>
+                                                    @Umbraco.Truncate((@node.GetPropertyValue<string>("plot") ?? @node.GetPropertyValue<string>("biography")) 
+                                                        ?? @node.GetPropertyValue<string>("history"), 200)
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
                             }
+                            else
+                            {
+                                @NothingFoundHelper()
+                            }
+                        }
+                        else
+                        {
+                            @NothingFoundHelper()
                         }
                     </tbody>
                 </table>
@@ -47,4 +75,15 @@
         </div>
     </div>
 </div>
+
+@helper NothingFoundHelper()
+{
+    <tr>
+        <td>
+            <div class="jumbotron text-center">
+                <h4>Nothing has been found</h4>
+            </div>
+        </td>
+    </tr>
+}
 
