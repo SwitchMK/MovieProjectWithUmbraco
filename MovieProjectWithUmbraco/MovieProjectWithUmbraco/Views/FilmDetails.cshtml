@@ -95,6 +95,22 @@
                                 </td>
                             </tr>
                         }
+                        @if (Model.Distributors != null && Model.Distributors.Count() > 0)
+                        {
+                            <tr>
+                                <th>Distributed by</th>
+                                <td>
+                                    <ul class="participants-ul">
+                                        @foreach (var distributor in Model.Distributors)
+                                        {
+                                            <li>
+                                                <a href="@distributor.Url">@distributor.Caption</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
                         <tr>
                             <th>Release date</th>
                             <td>
@@ -156,7 +172,7 @@
                 <div class="panel-body">
                     <div class="embed-responsive embed-responsive-16by9">
                         <iframe class="embed-responsive-item" frameborder="0" allowfullscreen src="@Model.Trailer"></iframe>
-                    </div>
+                    </div> 
                 </div>
             </div>
         </div>

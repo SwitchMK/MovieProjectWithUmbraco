@@ -19,8 +19,8 @@ using Umbraco.ModelsBuilder;
 using Umbraco.ModelsBuilder.Umbraco;
 
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "f6d68cb1811c6eea")]
-[assembly:System.Reflection.AssemblyVersion("0.0.0.3")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "165badf38fb90573")]
+[assembly:System.Reflection.AssemblyVersion("0.0.0.1")]
 
 namespace Umbraco.Web.PublishedContentModels
 {
@@ -269,6 +269,15 @@ namespace Umbraco.Web.PublishedContentModels
 		public string Title
 		{
 			get { return this.GetPropertyValue<string>("title"); }
+		}
+
+		///<summary>
+		/// Trailer: Select trailer for movie
+		///</summary>
+		[ImplementPropertyType("trailer")]
+		public IHtmlString Trailer
+		{
+			get { return this.GetPropertyValue<IHtmlString>("trailer"); }
 		}
 
 		///<summary>
@@ -1127,6 +1136,68 @@ namespace Umbraco.Web.PublishedContentModels
 		public object UmbracoFile
 		{
 			get { return this.GetPropertyValue("umbracoFile"); }
+		}
+	}
+
+	/// <summary>YouTube Video (Upload)</summary>
+	[PublishedContentModel("uTubeVideoUpload")]
+	public partial class UTubeVideoUpload : PublishedContentModel
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "uTubeVideoUpload";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Media;
+#pragma warning restore 0109
+
+		public UTubeVideoUpload(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<UTubeVideoUpload, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Keywords
+		///</summary>
+		[ImplementPropertyType("uTubeKeywords")]
+		public string UTubeKeywords
+		{
+			get { return this.GetPropertyValue<string>("uTubeKeywords"); }
+		}
+
+		///<summary>
+		/// Private Video
+		///</summary>
+		[ImplementPropertyType("uTubePrivateVideo")]
+		public bool UTubePrivateVideo
+		{
+			get { return this.GetPropertyValue<bool>("uTubePrivateVideo"); }
+		}
+
+		///<summary>
+		/// Video Description
+		///</summary>
+		[ImplementPropertyType("uTubeVideoDescription")]
+		public string UTubeVideoDescription
+		{
+			get { return this.GetPropertyValue<string>("uTubeVideoDescription"); }
+		}
+
+		///<summary>
+		/// Video Title
+		///</summary>
+		[ImplementPropertyType("uTubeVideoTitle")]
+		public string UTubeVideoTitle
+		{
+			get { return this.GetPropertyValue<string>("uTubeVideoTitle"); }
 		}
 	}
 

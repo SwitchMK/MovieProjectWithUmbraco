@@ -34,6 +34,7 @@ namespace MovieProjectWithUmbraco.Controllers
                 Plot = page.GetPropertyValue<string>("plot"),
                 Trailer = GetTrailerUrl(page.GetPropertyValue<string>("trailer")),
                 Countries = page.GetPropertyValue<string>("countries").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries),
+                Distributors = GetLinkResponses("distributors"),
                 Stars = GetLinkResponses("cast"),
                 Directors = GetLinkResponses("directors"),
                 Producers = GetLinkResponses("producers"),
