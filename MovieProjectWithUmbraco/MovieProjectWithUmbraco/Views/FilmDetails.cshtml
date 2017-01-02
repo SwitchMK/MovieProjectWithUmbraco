@@ -145,6 +145,23 @@
         </div>
     </div>
 </div>
+@if (!string.IsNullOrEmpty(Model.Trailer))
+{
+    <div class="row">
+        <div class="col-xs-12 col-md-offset-4 col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading movie-proj-panel-heading">
+                    <h4>Movie trailer</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" frameborder="0" allowfullscreen src="@Model.Trailer"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 <div class="row">
     <div class="col-xs-12 col-md-offset-4 col-md-8">
         <div class="panel panel-default">

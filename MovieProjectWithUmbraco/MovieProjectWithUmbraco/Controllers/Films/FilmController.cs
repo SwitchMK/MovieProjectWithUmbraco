@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using Umbraco.Core.Models;
 using Umbraco.Web;
@@ -31,6 +32,7 @@ namespace MovieProjectWithUmbraco.Controllers
                 BoxOffice = page.GetPropertyValue<decimal>("boxOffice"),
                 Budget = page.GetPropertyValue<decimal>("budget"),
                 Plot = page.GetPropertyValue<string>("plot"),
+                Trailer = GetTrailerUrl(page.GetPropertyValue<string>("trailer")),
                 Countries = page.GetPropertyValue<string>("countries").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries),
                 Stars = GetLinkResponses("cast"),
                 Directors = GetLinkResponses("directors"),
@@ -38,6 +40,21 @@ namespace MovieProjectWithUmbraco.Controllers
                 Writers = GetLinkResponses("writers"),
                 Composers = GetLinkResponses("composers")
             };
+        }
+
+        private string GetTrailerUrl(string html)
+        {
+            var matchdec = Regex.Match(html, @"\ssrc=""\b(\S*)\b", RegexOptions.IgnorePatternWhitespace | RegexOptions.IgnoreCase);
+
+            if (matchdec.Success)
+            {
+                if (matchdec.Groups.Count > 1)
+                {
+                    return matchdec.Groups[1].Value;
+                }
+            }
+
+            return null;
         }
 
         private IEnumerable<LinkResponse> GetLinkResponses(string alias)
