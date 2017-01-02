@@ -5,6 +5,7 @@ using Umbraco.Web.Mvc;
 using System.Linq;
 using Umbraco.Core.Models;
 using System.Web.Mvc;
+using System;
 
 namespace MovieProjectWithUmbraco.Controllers
 {
@@ -30,6 +31,17 @@ namespace MovieProjectWithUmbraco.Controllers
         {
             var infoSection = GetInfoSection();
             return PartialView(PARTIALS_LAYOUT_PATH + "_InfoSection.cshtml", infoSection);
+        }
+
+        public ActionResult RenderSearch()
+        {
+            return PartialView(PARTIALS_LAYOUT_PATH + "_Search.cshtml");
+        }
+
+        [HttpPost]
+        public ActionResult RenderSearchResults(Search model)
+        {
+            return Redirect(Uri.EscapeUriString(string.Format("/search?query={0}", model.Query)));
         }
 
         private Intro GetIntro()

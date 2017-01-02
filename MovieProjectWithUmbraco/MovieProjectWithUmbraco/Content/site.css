@@ -310,7 +310,7 @@ li.login-item:hover {
     border-color: forestgreen;
 }
 
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 768px) {
     .recent-info-section {
         display: none;
     }
@@ -328,4 +328,19 @@ li.login-item:hover {
 
 .feedback-btn {
     margin-top: 10px;
+}
+
+.search-item p.link-to-document {
+    color: forestgreen; 
+    font-weight: bold; 
+    text-decoration: none;
+}
+
+.movie-proj-panel-heading {
+    background-color: black !important; 
+    opacity: 0.75 !important;
+}
+
+.movie-proj-panel-heading h4 {
+    color: gray;
 }

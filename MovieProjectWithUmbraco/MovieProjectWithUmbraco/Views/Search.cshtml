@@ -1,0 +1,89 @@
+﻿@inherits UmbracoTemplatePage
+@using Examine.LuceneEngine.SearchCriteria
+@{
+    Layout = "Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading movie-proj-panel-heading">
+                <h4>Search results</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table table-responsive">
+                    <tbody>
+                        @if (!string.IsNullOrEmpty(Request.QueryString["query"]))
+                        {
+                            var q = Request.QueryString["query"].Trim();
+
+                            var Searcher = ExamineManager.Instance.SearchProviderCollection["MySearchSearcher"];
+
+                            var searchCriteria = Searcher.CreateSearchCriteria(Examine.SearchCriteria.BooleanOperation.Or);
+                            var query = searchCriteria
+                                .Field("nodeName", q).Or()
+                                .Field("nodeName", q.Fuzzy(0.7f)).Or()
+                                .Field("cast", q).Or()
+                                .Field("cast", q.Fuzzy(0.7f)).Or()
+                                .Field("directors", q).Or()
+                                .Field("directors", q.Fuzzy(0.7f)).Or()
+                                .Field("writers", q).Or()
+                                .Field("writers", q.Fuzzy(0.7f)).Or()
+                                .Field("producers", q).Or()
+                                .Field("producers", q.Fuzzy(0.7f)).Or()
+                                .Field("plot", q).Or()
+                                .Field("plot", q.Fuzzy(0.7f)).Or()
+                                .Field("history", q).Or()
+                                .Field("history", q.Fuzzy(0.7f)).Or()
+                                .Field("biography", q).Or()
+                                .Field("biography", q.Fuzzy(0.7f));
+
+                            var searchResults = Searcher.Search(query.Compile());
+
+                            if (searchResults.Count() > 0)
+                            {
+                                foreach (var result in searchResults)
+                                {
+                                    var node = Umbraco.TypedContent(result.Fields["id"]);
+
+                                    <tr>
+                                        <td>
+                                            <div class="panel panel-default">
+                                                <div class="panel-body search-item">
+                                                    <h4><a href="@node.Url">@node.Name</a></h4>
+                                                    <p class="link-to-document">@node.Url</p>
+                                                    @Umbraco.Truncate((@node.GetPropertyValue<string>("plot") ?? @node.GetPropertyValue<string>("biography")) 
+                                                        ?? @node.GetPropertyValue<string>("history"), 200)
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                @NothingFoundHelper()
+                            }
+                        }
+                        else
+                        {
+                            @NothingFoundHelper()
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@helper NothingFoundHelper()
+{
+    <tr>
+        <td>
+            <div class="jumbotron text-center">
+                <h4>Nothing has been found</h4>
+            </div>
+        </td>
+    </tr>
+}
+
