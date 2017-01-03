@@ -455,6 +455,7 @@
     <Content Include="Views\Partials\Feedback\_Feedback.cshtml" />
     <Content Include="Views\Search.cshtml" />
     <Content Include="Views\Partials\SiteLayout\_Search.cshtml" />
+    <Content Include="Views\Partials\Film\Soundtrack\_SoundtrackList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -499,6 +500,7 @@
     <Compile Include="Controllers\Films\Feedbacks\FeedbackController.cs" />
     <Compile Include="Controllers\Films\FilmController.cs" />
     <Compile Include="Controllers\Films\FilmsController.cs" />
+    <Compile Include="Controllers\Films\Soundtracks\SoundtrackController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Controllers\News\NewsController.cs" />
     <Compile Include="Controllers\People\PeopleController.cs" />
@@ -525,6 +527,8 @@
     <Compile Include="Models\DistributorModels\DistributorsModel.cs" />
     <Compile Include="Models\FilmModels\DetailedFilmInfo.cs" />
     <Compile Include="Models\FilmModels\FeedbackModels\Feedback.cs" />
+    <Compile Include="Models\FilmModels\SoundtrackModels\Soundtrack.cs" />
+    <Compile Include="Models\FilmModels\SoundtrackModels\SoundtracksList.cs" />
     <Compile Include="Models\HomePageModels\HomePage.cs" />
     <Compile Include="Models\HomePageModels\Intro.cs" />
     <Compile Include="Models\Common\NewsItem.cs" />
