@@ -2,6 +2,7 @@
 @using Examine.LuceneEngine.SearchCriteria
 @{
     Layout = "Layout.cshtml";
+    var charactersToDisplay = 200;
 }
 
 <div class="row">
@@ -53,7 +54,7 @@
                                                     <h4><a href="@node.Url">@node.Name</a></h4>
                                                     <p class="link-to-document">@node.Url</p>
                                                     @Umbraco.Truncate((@node.GetPropertyValue<string>("plot") ?? @node.GetPropertyValue<string>("biography")) 
-                                                        ?? @node.GetPropertyValue<string>("history"), 200)
+                                                        ?? @node.GetPropertyValue<string>("history"), charactersToDisplay)
                                                 </div>
                                             </div>
                                         </td>

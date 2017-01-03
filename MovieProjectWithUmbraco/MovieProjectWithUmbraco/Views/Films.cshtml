@@ -5,14 +5,6 @@
     var loggedMember = Membership.GetUser();
 }
 
-@section Styles {
-    <style>
-        td {
-            text-align: left;
-        }
-    </style>
-}
-
 <div>
     <div class="row">
         <div class="col-xs-12">
@@ -33,11 +25,10 @@
                                         <h4><a href="@film.Url">@film.Title (@film.YearOfRelease.Year)</a></h4>
                                     </td>
                                     <td class="vertical-align total-rating">
-                                        <h3 style="margin-top: auto; margin-bottom: auto">
-                                            <span style="display: inline-block; vertical-align: middle" class="glyphicon glyphicon-star"></span>
-                                            <span id="@string.Format("TotalRating{0}", film.Id)" class="label label-default"
-                                                  style="color: orange; display: inline-block; vertical-align: middle;">
-                                                  @string.Format("{0:0.0}", film.TotalRating ?? 0) 
+                                        <h3 class="movie-item-vertical-align">
+                                            <span class="glyphicon glyphicon-star rating-item"></span>
+                                            <span id="@string.Format("TotalRating{0}", film.Id)" class="label label-default rating-item">
+                                                  @string.Format("{0:0.0}", film.TotalRating ?? 0)
                                             </span>
                                             @Html.Hidden(string.Format("PersonalRatingValue{0}", film.Id), film.PersonalRating)
                                         </h3>
@@ -45,7 +36,9 @@
                                     @if (loggedMember != null)
                                     {
                                         <td class="vertical-align rating">
-                                            <button onclick="MovieApp.Rating.selectRateableMovie('@film.Id')" data-toggle="modal" data-target="#rating-model" class="btn btn-warning">Rate</button>
+                                            <button onclick="MovieApp.Rating.selectRateableMovie('@film.Id')" 
+                                                    data-toggle="modal" data-target="#rating-model" 
+                                                    class="btn btn-warning">Rate</button>
                                         </td>
                                     }
                                 </tr>

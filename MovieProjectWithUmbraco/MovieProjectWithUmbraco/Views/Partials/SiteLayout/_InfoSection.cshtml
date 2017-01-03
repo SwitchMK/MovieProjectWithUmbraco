@@ -8,18 +8,17 @@
 @helper RenderRecentSection(IEnumerable<InfoItem> items, string title)
 {
     <div class="panel panel-default recent-info-section">
-        <div class="panel-heading" style="background-color: black; opacity: 0.75;">
-            <h4 style="color: gray;">@title</h4>
+        <div class="panel-heading movie-proj-panel-heading">
+            <h4>@title</h4>
         </div>
         <div class="panel-body">
             @foreach (var item in items)
             {
                 <div class="row">
                     <div class="col-xs-12 text-center">
-                        <div class="blog-inner" style="margin-bottom: 0;">
-
-                            <a href="@item.Url"><img style="margin-left: auto; margin-right: auto;" class="img-responsive" src="@item.ImagePath" alt="Blog"></a>
-                            <div class="desc" style="padding-bottom: 5px;">
+                        <div class="blog-inner info-section-item">
+                            <a href="@item.Url"><img class="img-responsive center-image" src="@item.ImagePath" alt="Blog"></a>
+                            <div class="desc">
                                 <h3><a href="@item.Url">@item.Title</a></h3>
                                 <p><a href="@item.Url" class="btn btn-primary btn-outline with-arrow">Read More<i class="icon-arrow-right"></i></a></p>
                             </div>
