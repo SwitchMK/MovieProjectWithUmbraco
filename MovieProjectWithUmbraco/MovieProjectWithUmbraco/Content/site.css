@@ -154,6 +154,7 @@ li.login-item:hover {
 .quote {
     margin: 0;
     background: linear-gradient(-45deg, #31C3E7, #21BEDE, #00FA9A);
+    margin-bottom: 20px;
 }
 
 .quote blockquote {
@@ -170,6 +171,17 @@ li.login-item:hover {
 .quote-image {
     margin-right: 15px;
     margin-left: 15px;
+    float: left;
+}
+
+.quote-content {
+    min-height: 250px; 
+    display: flex;
+}
+
+.quote-content div {
+    margin-bottom: auto; 
+    margin-top: auto;
 }
 
 .about-header {
@@ -289,6 +301,7 @@ li.login-item:hover {
   background: transparent;
   color: #1FB57B;
   border: 2px solid #1FB57B;
+  margin-bottom: 15px;
 }
 .btn-primary.btn-outline:hover, .btn-primary.btn-outline:focus, .btn-primary.btn-outline:active {
   background: #1FB57B;
@@ -310,7 +323,7 @@ li.login-item:hover {
     border-color: forestgreen;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
     .recent-info-section {
         display: none;
     }
@@ -322,6 +335,11 @@ li.login-item:hover {
 }
 
 .movie-image {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.distributor-image {
     margin-left: auto;
     margin-right: auto;
 }
@@ -341,10 +359,82 @@ li.login-item:hover {
     opacity: 0.75 !important;
 }
 
-.movie-proj-panel-heading h4 {
+.movie-proj-panel-heading > h4,
+.movie-proj-panel-heading > h6  {
     color: gray;
 }
 
 .full-width-btn {
     width: 100%;
+}
+
+.movie-item-vertical-align {
+    margin-top: auto; 
+    margin-bottom: auto;
+}
+
+.rating-item {
+    display: inline-block; 
+    vertical-align: middle;
+    color: orange;
+}
+
+.carousel-caption-colored {
+    color: #fff !important; 
+    text-decoration: none !important;
+}
+
+@media screen and (max-width: 500px) {
+    .carousel-caption-colored {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .carousel-caption-colored {
+        font-size: 0.7em !important;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .carousel-caption-colored {
+        font-size: 0.6em;
+    }
+}
+
+.vertical-indent {
+    margin-top: 20px;
+}
+
+footer {
+    color: gray; 
+    padding-top: 5px;
+}
+
+.comment-header {
+    padding-bottom: 3px;
+    padding-top: 3px;
+}
+
+.comment-content {
+    font-size: 1.2em;
+    color: gray;
+}
+
+.center-image {
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+.info-section-item {
+    margin-bottom: 0;
+}
+
+.info-section-item .desc {
+    padding-bottom: 5px;
+}
+
+.btn-search {
+    background-color: #323232;
+    color: gray;
 }
