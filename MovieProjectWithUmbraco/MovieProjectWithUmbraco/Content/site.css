@@ -344,3 +344,7 @@ li.login-item:hover {
 .movie-proj-panel-heading h4 {
     color: gray;
 }
+
+.full-width-btn {
+    width: 100%;
+}
