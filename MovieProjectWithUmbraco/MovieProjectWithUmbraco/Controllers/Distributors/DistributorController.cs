@@ -27,7 +27,8 @@ namespace MovieProjectWithUmbraco.Controllers.Distributors
                 DateOfFoundation = page.GetPropertyValue<DateTime>("dateOfFoundation"),
                 ImagePath = page.GetCropUrl(propertyAlias: "image", imageCropMode: ImageCropMode.Max),
                 History = page.GetPropertyValue<string>("history"),
-                Founders = GetLinkResponses("founders")
+                Founders = GetLinkResponses("founders"),
+                DistributedMovies = GetLinkResponses("distributedMovies")
             };
         }
 

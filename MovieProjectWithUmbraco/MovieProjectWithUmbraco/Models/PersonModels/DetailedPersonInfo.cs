@@ -16,5 +16,6 @@ namespace MovieProjectWithUmbraco.Models
         public string Biography { get; set; }
         public IEnumerable<string> Countries { get; set; }
         public IEnumerable<string> Careers { get; set; }
+        public IEnumerable<LinkResponse> Filmography { get; set; }
     }
 }
