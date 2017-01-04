@@ -438,3 +438,28 @@ footer {
     background-color: #323232;
     color: gray;
 }
+
+.soundtracks-panel-heading {
+    background: linear-gradient(-45deg, #31C3E7, #21BEDE, #00FA9A);
+}
+
+.soundtracks-panel-heading .row {
+    display: flex;
+}
+
+.soundtracks-title-container {
+    display: flex;
+}
+
+.soundtracks-title-container h3 {
+    margin-bottom: auto; 
+    margin-top: auto;
+}
+
+.soundtracks-img {
+    box-shadow: 4px 4px 6px #323232;
+}
+
+.soundtracks-container {
+    padding-bottom: 0;
+}

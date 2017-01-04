@@ -45,7 +45,7 @@ namespace MovieProjectWithUmbraco.Controllers.Films.Feedbacks
 
         private IEnumerable<Feedback> GetFeedbacksForMovie()
         {
-            foreach (var comment in CurrentPage.Children.OrderByDescending(p => p.CreateDate))
+            foreach (var comment in CurrentPage.Children.Where(d => d.DocumentTypeAlias == "feedback").OrderByDescending(p => p.CreateDate))
             {
                 yield return new Feedback
                 {
