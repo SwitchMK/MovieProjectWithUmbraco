@@ -42,7 +42,8 @@ namespace MovieProjectWithUmbraco.Controllers.Films.Soundtracks
                 {
                     Title = soundtrack.GetPropertyValue<string>("title"),
                     Composer = GetLinkResponses(soundtrack, "composer"),
-                    Duration = soundtrack.GetPropertyValue<int>("duration")
+                    Duration = soundtrack.GetPropertyValue<int>("duration"),
+                    ExternalSourceUrl = soundtrack.GetPropertyValue<string>("externalSource")
                 };
             }
         }

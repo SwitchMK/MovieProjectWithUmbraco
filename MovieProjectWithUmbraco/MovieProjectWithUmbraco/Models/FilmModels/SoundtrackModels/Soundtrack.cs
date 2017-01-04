@@ -7,5 +7,6 @@ namespace MovieProjectWithUmbraco.Models
         public string Title { get; set; }
         public int Duration { get; set; }
         public IEnumerable<LinkResponse> Composer { get; set; }
+        public string ExternalSourceUrl { get; set; }
     }
 }

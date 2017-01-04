@@ -28,17 +28,20 @@
                                     {
                                         <tr>
                                             <td>
-                                                <span>@soundtrack.Title</span>
+                                                @if (string.IsNullOrEmpty(soundtrack.ExternalSourceUrl))
+                                                {
+                                                    <span>@soundtrack.Title</span>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@soundtrack.ExternalSourceUrl" target="_blank">@soundtrack.Title</a>
+                                                }
                                             </td>
                                             <td>
                                                 <a href="@soundtrack.Composer.First().Url">@soundtrack.Composer.First().Caption</a>
                                             </td>
                                             <td>
-                                                @{
-                                                    var timespan = TimeSpan.FromSeconds(soundtrack.Duration);
-                                                }
-
-                                                @timespan.ToString(@"mm\:ss")
+                                                @TimeSpan.FromSeconds(soundtrack.Duration).ToString(@"mm\:ss")
                                             </td>
                                         </tr>
                                      }
