@@ -26,7 +26,8 @@
                 }
                 else
                 {
-                    <li class="user-greetings-item"><span class="user-name">Welcome <span class="glyphicon glyphicon-user"></span> @loggedMember.UserName</span></li>
+                    <li><a href="/profile"><span class="user-name"><span class="glyphicon glyphicon-user"></span> @loggedMember.UserName</span></a></li>
+                    @*<li class="user-greetings-item"><span class="user-name">Welcome <span class="glyphicon glyphicon-user"></span> @loggedMember.UserName</span></li>*@
                     <li><a href="@Url.Action("MemberLogOut", "Account")"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
                 }
             </ul>

@@ -463,3 +463,8 @@ footer {
 .soundtracks-container {
     padding-bottom: 0;
 }
+
+.btn-edit-field{
+    padding-top: 1px;
+    padding-bottom: 1px;
+}

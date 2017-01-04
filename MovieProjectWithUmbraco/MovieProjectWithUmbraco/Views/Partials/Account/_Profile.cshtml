@@ -1,0 +1,135 @@
+﻿@using MovieProjectWithUmbraco.Models
+@inherits UmbracoViewPage<ProfileModel>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <img class="img-responsive" alt="profile-image" src="C:\Users\max.konyukh\Desktop\leo.jpg" />
+            </div>
+            <div class="panel-body">
+                <button class="btn btn-primary btn-outline pull-right full-width-btn">Edit avatar</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading movie-proj-panel-heading">
+                        <h4>General information</h4>
+                    </div>
+                    <table class="table table-responsive">
+                        <tbody>
+                            <tr>
+                                <th class="col-md-4">Login</th>
+                                <td><span>@Model.BasicInfo.UserName</span></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-4">First name</th>
+                                <td>@Html.TextBoxFor(m => m.BasicInfo.FirstName, htmlAttributes: new { @class = "form-control", type = "text" })</td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-4">Last name</th>
+                                <td>@Html.TextBoxFor(m => m.BasicInfo.LastName, htmlAttributes: new { @class = "form-control", type = "text" })</td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-4">Hometown</th>
+                                <td>@Html.TextBoxFor(m => m.BasicInfo.Hometown, htmlAttributes: new { @class = "form-control", type = "text" })</td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-4"></th>
+                                <td>
+                                    <button class="btn btn-primary btn-outline pull-right" type="submit">Save changes</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading movie-proj-panel-heading">
+                        <h4>Contact information</h4>
+                    </div>
+                    <table class="table table-responsive">
+                        <tbody>
+                            <tr>
+                                <th class="col-md-4">Email</th>
+                                <td><span>@Model.ContactInfo.Email</span></td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-4">Phone number</th>
+                                <td>@Html.TextBoxFor(m => m.ContactInfo.PhoneNumber, htmlAttributes: new { @class = "form-control", type = "text" })</td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-4">Country</th>
+                                <td>@Html.TextBoxFor(m => m.ContactInfo.Country, htmlAttributes: new { @class = "form-control", type = "text" })</td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-4">City</th>
+                                <td>@Html.TextBoxFor(m => m.ContactInfo.City, htmlAttributes: new { @class = "form-control", type = "text" })</td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-4">Skype</th>
+                                <td>@Html.TextBoxFor(m => m.ContactInfo.Skype, htmlAttributes: new { @class = "form-control", type = "text" })</td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-4">Website</th>
+                                <td>@Html.TextBoxFor(m => m.ContactInfo.Website, htmlAttributes: new { @class = "form-control", type = "text" })</td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-4"></th>
+                                <td>
+                                    <button class="btn btn-primary btn-outline pull-right" type="submit">Save changes</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading movie-proj-panel-heading">
+                        <h4>Change password</h4>
+                    </div>
+                    <table class="table table-responsive">
+                        <tbody>
+                            @using (Html.BeginUmbracoForm("ChangePassword", "Account"))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <tr>
+                                    <th class="col-md-4"></th>
+                                    <td>
+                                        <div class="form-group text-danger">
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="col-md-4">Old password</th>
+                                    <td>@Html.TextBoxFor(m => m.ChangePassword.OldPassword, htmlAttributes: new { @class = "form-control", type = "password", placeholder = "Old password" })</td>
+                                </tr>
+                                <tr>
+                                    <th class="col-md-4">New password</th>
+                                    <td>@Html.TextBoxFor(m => m.ChangePassword.NewPassword, htmlAttributes: new { @class = "form-control", type = "password", placeholder = "New password" })</td>
+                                </tr>
+                                <tr>
+                                    <th class="col-md-4">Confirm new password</th>
+                                    <td>@Html.TextBoxFor(m => m.ChangePassword.ConfirmPassword, htmlAttributes: new { @class = "form-control", type = "password", placeholder = "Confirm new password" })</td>
+                                </tr>
+                                <tr>
+                                    <th class="col-md-4"></th>
+                                    <td>
+                                        <button class="btn btn-primary btn-outline pull-right" type="submit">Change password</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

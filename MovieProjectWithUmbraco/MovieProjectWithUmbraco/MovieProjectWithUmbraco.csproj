@@ -456,6 +456,8 @@
     <Content Include="Views\Search.cshtml" />
     <Content Include="Views\Partials\SiteLayout\_Search.cshtml" />
     <Content Include="Views\Partials\Film\Soundtrack\_SoundtrackList.cshtml" />
+    <Content Include="Views\Partials\Account\_Profile.cshtml" />
+    <Content Include="Views\Profile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -520,7 +522,11 @@
       <DependentUpon>201612221239582_CustomContextModification.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountModels\BasicInfoModel.cs" />
+    <Compile Include="Models\AccountModels\ChangePassword.cs" />
+    <Compile Include="Models\AccountModels\ContactInfoModel.cs" />
     <Compile Include="Models\AccountModels\LoginModel.cs" />
+    <Compile Include="Models\AccountModels\ProfileModel.cs" />
     <Compile Include="Models\AccountModels\RegisterModel.cs" />
     <Compile Include="Models\DistributorModels\DetailedDistributorInfo.cs" />
     <Compile Include="Models\DistributorModels\DistributorInfo.cs" />
