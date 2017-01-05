@@ -126,7 +126,11 @@ namespace MovieProjectWithUmbraco.Controllers
             if (member == null)
                 return null;
 
-            var avatarId = int.Parse(member.GetValue<string>("avatar"));
+            var avatarId = member.GetValue<string>("avatar");
+
+            if (avatarId == null)
+                return null;
+
             var media = Umbraco.TypedMedia(avatarId);
 
             return media.GetCropUrl("image", "avatarSmallSize");

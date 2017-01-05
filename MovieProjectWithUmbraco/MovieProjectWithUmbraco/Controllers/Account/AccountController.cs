@@ -264,7 +264,14 @@ namespace MovieProjectWithUmbraco.Controllers.Account
 
         private string GetAvatarUrl(IMember member)
         {
-            var avatarId = int.Parse(member.GetValue<string>("avatar"));
+            if (member == null)
+                return null;
+
+            var avatarId = member.GetValue<string>("avatar");
+
+            if (avatarId == null)
+                return null;
+
             var media = Umbraco.TypedMedia(avatarId);
 
             return media.GetCropUrl("image", "avatarNormalSize");
