@@ -2,9 +2,12 @@
 using System;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Umbraco.Core.Models;
+using Umbraco.Core.Services;
+using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
 namespace MovieProjectWithUmbraco.Controllers.Account
@@ -58,9 +61,7 @@ namespace MovieProjectWithUmbraco.Controllers.Account
             }
 
             var member = memberService.CreateMemberWithIdentity(model.Login, model.Email, model.FullName, "Member");
-
             memberService.Save(member);
-
             memberService.SavePassword(member, model.Password);
 
             Members.Login(model.Login, model.Password);
@@ -101,14 +102,94 @@ namespace MovieProjectWithUmbraco.Controllers.Account
                 return CurrentUmbracoPage();
 
             var user = Membership.GetUser();
-
             var memberService = Services.MemberService;
             var member = memberService.GetByUsername(user?.UserName);
 
             if (member == null)
                 return Redirect("/login");
 
-            if (HashPassword(model.ChangePassword.OldPassword) != member.RawPasswordValue)
+            return PasswordValidation(memberService, member, model.ChangePassword.OldPassword, model.ChangePassword.NewPassword);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveContactInfo(ProfileModel model)
+        {
+            if (!ModelState.IsValid)
+                return CurrentUmbracoPage();
+
+            var user = Membership.GetUser();
+            var memberService = Services.MemberService;
+            var member = memberService.GetByUsername(user?.UserName);
+
+            if (member == null)
+                return Redirect("/login");
+
+            SetContactValues(member, model.ContactInfo);
+
+            memberService.Save(member);
+
+            return RedirectToCurrentUmbracoPage();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveBasicInfo(ProfileModel model)
+        {
+            if (!ModelState.IsValid)
+                return CurrentUmbracoPage();
+
+            var user = Membership.GetUser();
+            var memberService = Services.MemberService;
+            var member = memberService.GetByUsername(user?.UserName);
+
+            if (member == null)
+                return Redirect("/login");
+
+            SetBasicInfoValues(member, model.BasicInfo);
+
+            memberService.Save(member);
+
+            return RedirectToCurrentUmbracoPage();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeAvatar(HttpPostedFileBase avatar)
+        {
+            if (!ModelState.IsValid)
+                return CurrentUmbracoPage();
+
+            var user = Membership.GetUser();
+            var memberService = Services.MemberService;
+            var member = memberService.GetByUsername(user?.UserName);
+
+            if (member == null)
+                return Redirect("/login");
+
+            var media = Services.MediaService.CreateMedia(string.Format("{0}", avatar.FileName), 3188, "avatar");
+
+            if (avatar != null && avatar.ContentLength > 0)
+            {
+                media.SetValue("image", avatar.FileName, avatar.InputStream);
+            }
+
+            Services.MediaService.Save(media);
+
+            member.SetValue("avatar", media.Id);
+
+            memberService.Save(member);
+
+            return RedirectToCurrentUmbracoPage();
+        }
+
+        private ActionResult PasswordValidation(
+            IMemberService memberService, 
+            IMember member, 
+            string oldPassword, 
+            string newPassword)
+        {
+            if (HashPassword(oldPassword) != member.RawPasswordValue)
             {
                 ModelState.AddModelError("", "Old password was incorrect.");
                 return CurrentUmbracoPage();
@@ -116,7 +197,7 @@ namespace MovieProjectWithUmbraco.Controllers.Account
 
             try
             {
-                memberService.SavePassword(member, model.ChangePassword.NewPassword);
+                memberService.SavePassword(member, newPassword);
             }
             catch
             {
@@ -125,6 +206,22 @@ namespace MovieProjectWithUmbraco.Controllers.Account
             }
 
             return RedirectToCurrentUmbracoPage();
+        }
+
+        private void SetContactValues(IMember member, ContactInfoModel model)
+        {
+            member.SetValue("city", model.City);
+            member.SetValue("country", model.Country);
+            member.SetValue("skype", model.Skype);
+            member.SetValue("website", model.Website);
+            member.SetValue("phoneNumber", model.PhoneNumber);
+        }
+
+        private void SetBasicInfoValues(IMember member, BasicInfoModel model)
+        {
+            member.SetValue("firstName", model.FirstName);
+            member.SetValue("lastName", model.LastName);
+            member.SetValue("hometown", model.Hometown);
         }
 
         private string HashPassword(string password)
@@ -140,19 +237,17 @@ namespace MovieProjectWithUmbraco.Controllers.Account
         {
             var user = Membership.GetUser();
 
-            if (user != null)
+            var member = Services.MemberService.GetByUsername(user?.UserName);
+
+            if (member == null)
+                return null;
+
+            return new ProfileModel
             {
-                var member = Services.MemberService.GetByUsername(user.UserName);
-
-                return new ProfileModel
-                {
-                    BasicInfo = GetBasicInfo(member),
-                    ContactInfo = GetContactInfo(member),
-                    ChangePassword = new ChangePassword()
-                };
-            }
-
-            return null;
+                BasicInfo = GetBasicInfo(member),
+                ContactInfo = GetContactInfo(member),
+                ChangePassword = new ChangePassword()
+            };
         }
 
         private BasicInfoModel GetBasicInfo(IMember member)
@@ -162,8 +257,17 @@ namespace MovieProjectWithUmbraco.Controllers.Account
                 UserName = member.Username,
                 FirstName = member.GetValue<string>("firstName"),
                 LastName = member.GetValue<string>("lastName"),
-                Hometown = member.GetValue<string>("hometown")
+                Hometown = member.GetValue<string>("hometown"),
+                Avatar = GetAvatarUrl(member)
             };
+        }
+
+        private string GetAvatarUrl(IMember member)
+        {
+            var avatarId = int.Parse(member.GetValue<string>("avatar"));
+            var media = Umbraco.TypedMedia(avatarId);
+
+            return media.GetCropUrl("image", "avatarNormalSize");
         }
 
         private ContactInfoModel GetContactInfo(IMember member)

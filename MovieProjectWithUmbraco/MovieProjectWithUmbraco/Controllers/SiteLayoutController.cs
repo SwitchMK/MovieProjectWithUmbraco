@@ -6,6 +6,7 @@ using System.Linq;
 using Umbraco.Core.Models;
 using System.Web.Mvc;
 using System;
+using System.Web.Security;
 
 namespace MovieProjectWithUmbraco.Controllers
 {
@@ -17,8 +18,8 @@ namespace MovieProjectWithUmbraco.Controllers
 
         public ActionResult RenderHeader()
         {
-            var nav = GetNavigationModelFromDatabase();
-            return PartialView(PARTIALS_LAYOUT_PATH + "_Header.cshtml", nav);
+            var layoutModel = GetNavigationModelFromDatabase();
+            return PartialView(PARTIALS_LAYOUT_PATH + "_Header.cshtml", layoutModel);
         }
 
         public ActionResult RenderIntro()
@@ -97,7 +98,7 @@ namespace MovieProjectWithUmbraco.Controllers
             }
         }
 
-        private IEnumerable<NavigationListItem> GetNavigationModelFromDatabase()
+        private Layout GetNavigationModelFromDatabase()
         {
             var homePage = CurrentPage.AncestorOrSelf(1).DescendantsOrSelf().Where(x => x.DocumentTypeAlias == "home").FirstOrDefault();
 
@@ -105,7 +106,30 @@ namespace MovieProjectWithUmbraco.Controllers
             nav.Add(new NavigationListItem(new NavigationLink(homePage.Url, homePage.Name)));
             nav.AddRange(GetChildNavigationList(homePage));
 
-            return nav;
+            IMember member = null;
+            var user = Membership.GetUser();
+
+            if (user != null)
+                member = Services.MemberService.GetByUsername(user.UserName);
+
+            var layoutModel = new Layout
+            {
+                Links = nav,
+                UserImage = GetAvatarUrl(member)
+            };
+
+            return layoutModel;
+        }
+
+        private string GetAvatarUrl(IMember member)
+        {
+            if (member == null)
+                return null;
+
+            var avatarId = int.Parse(member.GetValue<string>("avatar"));
+            var media = Umbraco.TypedMedia(avatarId);
+
+            return media.GetCropUrl("image", "avatarSmallSize");
         }
 
         private IEnumerable<NavigationListItem> GetChildNavigationList(IPublishedContent page)

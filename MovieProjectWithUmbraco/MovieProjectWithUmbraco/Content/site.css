@@ -6,7 +6,7 @@
 }
 
 .wrapper {
-    margin-top: 20px;
+    margin-top: 30px;
     margin-bottom: 50px;
 }
 
@@ -104,6 +104,8 @@ li.login-item:hover {
 .navbar-nav a, .navbar-nav button {
     color: gray !important;
     background-color: transparent;
+    height: 60px !important;
+    display: flex !important;
 }
 
 .navbar-nav a:active, a:focus, .navbar-nav button:active, .navbar-nav button:focus {
@@ -112,6 +114,7 @@ li.login-item:hover {
 
 .navbar-header a, .navbar-header a:hover {
     color: orangered !important;
+     display: flex !important;
 }
 
 .navbar-toggle {
@@ -464,7 +467,46 @@ footer {
     padding-bottom: 0;
 }
 
-.btn-edit-field{
+.btn-edit-field {
     padding-top: 1px;
     padding-bottom: 1px;
+}
+
+.thumbnail {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  overflow: hidden;
+}
+.thumbnail img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: auto;
+  -webkit-transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+          transform: translate(-50%,-50%);
+}
+.thumbnail img.portrait {
+  width: 100%;
+  height: auto;
+}
+
+.profile-link {
+    display: flex !important;
+}
+
+.user-sm-img-container {
+    display: inline-block; 
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.user-text-container {
+    display: inline-block; 
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: auto;
+    margin-bottom: auto;
 }

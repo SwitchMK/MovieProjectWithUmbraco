@@ -366,6 +366,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\cropper.css" />
+    <Content Include="Content\cropper.min.css" />
     <Content Include="Content\site.css" />
     <Content Include="Content\star-rating.css" />
     <Content Include="Content\star-rating.min.css" />
@@ -384,6 +386,8 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="scripts\cropper.js" />
+    <Content Include="scripts\cropper.min.js" />
     <Content Include="scripts\jquery-1.10.2.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
@@ -540,6 +544,7 @@
     <Compile Include="Models\Common\NewsItem.cs" />
     <Compile Include="Models\LayoutModels\InfoItem.cs" />
     <Compile Include="Models\LayoutModels\InfoSection.cs" />
+    <Compile Include="Models\LayoutModels\Layout.cs" />
     <Compile Include="Models\PersonModels\DetailedPersonInfo.cs" />
     <Compile Include="Models\FilmModels\FilmInfo.cs" />
     <Compile Include="Models\FilmModels\FilmsModel.cs" />
