@@ -473,34 +473,35 @@ footer {
 }
 
 .thumbnail {
-  position: relative;
-  width: 250px;
-  height: 250px;
-  overflow: hidden;
+    position: relative;
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
 }
 .thumbnail img {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  height: 100%;
-  width: auto;
-  -webkit-transform: translate(-50%,-50%);
-      -ms-transform: translate(-50%,-50%);
-          transform: translate(-50%,-50%);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 100%;
+    width: auto;
+    -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
 }
 .thumbnail img.portrait {
-  width: 100%;
-  height: auto;
+    width: 100%;
+    height: auto;
 }
 
 .user-sm-img-container {
     display: inline-block; 
     margin-left: 3px;
     margin-right: 3px;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .user-text-container {
-    display: inline-block; 
     margin-left: 3px;
     margin-right: 3px;
     margin-top: auto;
@@ -517,4 +518,9 @@ footer {
 
 .profile-avatar-container .panel-heading img {
     border-radius: 3px;
+}
+
+.navbar-fixed-top .navbar-collapse,
+.navbar-fixed-bottom .navbar-collapse {
+    max-height: 440px !important;
 }
