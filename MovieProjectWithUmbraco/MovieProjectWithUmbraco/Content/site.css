@@ -114,7 +114,7 @@ li.login-item:hover {
 
 .navbar-header a, .navbar-header a:hover {
     color: orangered !important;
-     display: flex !important;
+    display: flex !important;
 }
 
 .navbar-toggle {
@@ -304,7 +304,7 @@ li.login-item:hover {
   background: transparent;
   color: #1FB57B;
   border: 2px solid #1FB57B;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 .btn-primary.btn-outline:hover, .btn-primary.btn-outline:focus, .btn-primary.btn-outline:active {
   background: #1FB57B;
@@ -493,10 +493,6 @@ footer {
   height: auto;
 }
 
-.profile-link {
-    display: flex !important;
-}
-
 .user-sm-img-container {
     display: inline-block; 
     margin-left: 3px;
@@ -509,4 +505,16 @@ footer {
     margin-right: 3px;
     margin-top: auto;
     margin-bottom: auto;
+}
+
+.edit-profile-btn {
+    margin-bottom: 0 !important;
+}
+
+.profile-avatar-container .panel-heading, .profile-avatar-container .panel-body {
+    padding: 5px;
+}
+
+.profile-avatar-container .panel-heading img {
+    border-radius: 3px;
 }

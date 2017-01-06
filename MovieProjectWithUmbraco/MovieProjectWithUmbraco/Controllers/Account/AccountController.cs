@@ -1,5 +1,6 @@
 ﻿using MovieProjectWithUmbraco.Models;
 using System;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -26,6 +27,7 @@ namespace MovieProjectWithUmbraco.Controllers.Account
             return PartialView(PATH_TO_ACCOUNT_PAGES +  "_Login.cshtml");
         }
 
+        [Authorize]
         public ActionResult RenderProfile()
         {
             var profileModel = GetProfileModel();
@@ -102,8 +104,12 @@ namespace MovieProjectWithUmbraco.Controllers.Account
                 return CurrentUmbracoPage();
 
             var user = Membership.GetUser();
+
+            if (user == null)
+                return Redirect("/login");
+
             var memberService = Services.MemberService;
-            var member = memberService.GetByUsername(user?.UserName);
+            var member = memberService.GetByUsername(user.UserName);
 
             if (member == null)
                 return Redirect("/login");
@@ -119,8 +125,12 @@ namespace MovieProjectWithUmbraco.Controllers.Account
                 return CurrentUmbracoPage();
 
             var user = Membership.GetUser();
+
+            if (user == null)
+                return Redirect("/login");
+
             var memberService = Services.MemberService;
-            var member = memberService.GetByUsername(user?.UserName);
+            var member = memberService.GetByUsername(user.UserName);
 
             if (member == null)
                 return Redirect("/login");
@@ -140,8 +150,12 @@ namespace MovieProjectWithUmbraco.Controllers.Account
                 return CurrentUmbracoPage();
 
             var user = Membership.GetUser();
+
+            if (user == null)
+                return Redirect("/login");
+
             var memberService = Services.MemberService;
-            var member = memberService.GetByUsername(user?.UserName);
+            var member = memberService.GetByUsername(user.UserName);
 
             if (member == null)
                 return Redirect("/login");
@@ -161,26 +175,49 @@ namespace MovieProjectWithUmbraco.Controllers.Account
                 return CurrentUmbracoPage();
 
             var user = Membership.GetUser();
+
+            if (user == null)
+                return Redirect("/login");
+
             var memberService = Services.MemberService;
-            var member = memberService.GetByUsername(user?.UserName);
+            var member = memberService.GetByUsername(user.UserName);
 
             if (member == null)
                 return Redirect("/login");
 
-            var media = Services.MediaService.CreateMedia(string.Format("{0}", avatar.FileName), 3188, "avatar");
-
             if (avatar != null && avatar.ContentLength > 0)
             {
-                media.SetValue("image", avatar.FileName, avatar.InputStream);
+                DeleteExistingAvatar(member);
+                SetNewAvatar(member, avatar.FileName, avatar.InputStream);
+
+                memberService.Save(member);
             }
 
-            Services.MediaService.Save(media);
+            return RedirectToCurrentUmbracoPage();
+        }
 
+        private void DeleteExistingAvatar(IMember member)
+        {
+            var currentAvatar = member.GetValue<string>("avatar");
+
+            if (currentAvatar != null)
+            {
+                var avatarMedia = Services.MediaService.GetById(int.Parse(currentAvatar));
+
+                if (avatarMedia != null)
+                    Services.MediaService.Delete(avatarMedia);
+            }
+        }
+
+        private void SetNewAvatar(IMember member, string fileName, Stream fileStream)
+        {
+            var media = Services.MediaService.CreateMedia(string.Format("{0}", fileName), 3188, "avatar");
+
+            media.SetValue("image", fileName, fileStream);
+            Services.MediaService.Save(media);
             member.SetValue("avatar", media.Id);
 
-            memberService.Save(member);
-
-            return RedirectToCurrentUmbracoPage();
+            Services.MediaService.Save(media);
         }
 
         private ActionResult PasswordValidation(
@@ -237,7 +274,10 @@ namespace MovieProjectWithUmbraco.Controllers.Account
         {
             var user = Membership.GetUser();
 
-            var member = Services.MemberService.GetByUsername(user?.UserName);
+            if (user == null)
+                return null;
+
+            var member = Services.MemberService.GetByUsername(user.UserName);
 
             if (member == null)
                 return null;
@@ -270,11 +310,21 @@ namespace MovieProjectWithUmbraco.Controllers.Account
             var avatarId = member.GetValue<string>("avatar");
 
             if (avatarId == null)
-                return null;
+                return GetDefaultAvatarUrl();
 
             var media = Umbraco.TypedMedia(avatarId);
 
+            if (media == null)
+                return GetDefaultAvatarUrl();
+
             return media.GetCropUrl("image", "avatarNormalSize");
+        }
+
+        private string GetDefaultAvatarUrl()
+        {
+            var defaultAvatar = Umbraco.TypedMedia(3192);
+
+            return defaultAvatar.GetCropUrl("image", "avatarNormalSize");
         }
 
         private ContactInfoModel GetContactInfo(IMember member)

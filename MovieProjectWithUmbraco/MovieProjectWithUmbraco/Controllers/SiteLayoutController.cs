@@ -129,16 +129,28 @@ namespace MovieProjectWithUmbraco.Controllers
             var avatarId = member.GetValue<string>("avatar");
 
             if (avatarId == null)
-                return null;
+                return GetDefaultAvatarUrl();
 
             var media = Umbraco.TypedMedia(avatarId);
+
+            if (media == null)
+                return GetDefaultAvatarUrl();
 
             return media.GetCropUrl("image", "avatarSmallSize");
         }
 
+        private string GetDefaultAvatarUrl()
+        {
+            var defaultAvatar = Umbraco.TypedMedia(3192);
+
+            return defaultAvatar.GetCropUrl("image", "avatarSmallSize");
+        }
+
         private IEnumerable<NavigationListItem> GetChildNavigationList(IPublishedContent page)
         {
-            var childPages = page.Children.Where("Visible").Where(x => !x.HasValue("hideFromNavigation") || (x.HasValue("hideFromNavigation") && !x.GetPropertyValue<bool>("hideFromNavigation")));
+            var childPages = page.Children.Where("Visible").Where(x => !x.HasValue("hideFromNavigation") || 
+                (x.HasValue("hideFromNavigation") && !x.GetPropertyValue<bool>("hideFromNavigation")));
+
             if (childPages != null && childPages.Any() && childPages.Count() > 0)
             {
                 foreach (var childPage in childPages)

@@ -368,6 +368,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\cropper.css" />
     <Content Include="Content\cropper.min.css" />
+    <Content Include="Content\jquery.Jcrop.css" />
+    <Content Include="Content\jquery.Jcrop.min.css" />
     <Content Include="Content\site.css" />
     <Content Include="Content\star-rating.css" />
     <Content Include="Content\star-rating.min.css" />
@@ -397,6 +399,8 @@
     <Content Include="scripts\jquery-1.9.1.js" />
     <Content Include="scripts\jquery-1.9.1.min.js" />
     <None Include="scripts\jquery.validate-vsdoc.js" />
+    <Content Include="scripts\jquery.Jcrop.js" />
+    <Content Include="scripts\jquery.Jcrop.min.js" />
     <Content Include="scripts\jquery.validate.js" />
     <Content Include="scripts\jquery.validate.min.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.js" />
@@ -440,11 +444,9 @@
     <Content Include="Views\FilmDetails.cshtml" />
     <Content Include="Views\Films.cshtml" />
     <Content Include="Views\Home.cshtml" />
-    <Content Include="Views\Layout.cshtml" />
+    <Content Include="Views\Shared\Layout.cshtml" />
     <Content Include="Views\People.cshtml" />
     <Content Include="Views\PersonDetails.cshtml" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Partials\SiteLayout\_Header.cshtml" />
     <Content Include="Views\DistributorDetails.cshtml" />
     <Content Include="Views\Distributors.cshtml" />
@@ -462,6 +464,7 @@
     <Content Include="Views\Partials\Film\Soundtrack\_SoundtrackList.cshtml" />
     <Content Include="Views\Partials\Account\_Profile.cshtml" />
     <Content Include="Views\Profile.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

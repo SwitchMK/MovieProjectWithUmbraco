@@ -3,14 +3,14 @@
 
 <div class="row">
     <div class="col-md-4">
-        <div class="panel panel-default">
+        <div class="panel panel-default profile-avatar-container">
             <div class="panel-heading">
                 <div>
                     <img id="profile-image" class="img-responsive img-rounded center-image" alt="Profile image" src="@Model.BasicInfo.Avatar" />
                 </div>
             </div>
             <div class="panel-body">
-                <button class="btn btn-primary btn-outline pull-right full-width-btn" data-toggle="modal" data-target="#upload-image-modal">Upload avatar</button>
+                <button class="btn btn-primary btn-outline pull-right full-width-btn edit-profile-btn" data-toggle="modal" data-target="#upload-image-modal">Upload avatar</button>
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
                                 <tr>
                                     <th class="col-md-4"></th>
                                     <td>
-                                        <button class="btn btn-primary btn-outline pull-right" type="submit">Save changes</button>
+                                        <button class="btn btn-primary btn-outline pull-right edit-profile-btn" type="submit">Save changes</button>
                                     </td>
                                 </tr>
                             }
@@ -92,7 +92,7 @@
                                 <tr>
                                     <th class="col-md-4"></th>
                                     <td>
-                                        <button class="btn btn-primary btn-outline pull-right" type="submit">Save changes</button>
+                                        <button class="btn btn-primary btn-outline pull-right edit-profile-btn" type="submit">Save changes</button>
                                     </td>
                                 </tr>
                             }
@@ -134,7 +134,7 @@
                                 <tr>
                                     <th class="col-md-4"></th>
                                     <td>
-                                        <button class="btn btn-primary btn-outline pull-right" type="submit">Change password</button>
+                                        <button class="btn btn-primary btn-outline pull-right edit-profile-btn" type="submit">Change password</button>
                                     </td>
                                 </tr>
                             }
