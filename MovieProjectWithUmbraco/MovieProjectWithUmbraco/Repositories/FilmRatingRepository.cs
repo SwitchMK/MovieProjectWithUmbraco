@@ -1,5 +1,6 @@
 ﻿using MovieProjectWithUmbraco.Entities;
 using MovieProjectWithUmbraco.Repositories.Interfaces;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
@@ -14,6 +15,11 @@ namespace MovieProjectWithUmbraco.Repositories
         {
             _context = context;
             _filmRatingDataSet = context.Set<FilmRating>();
+        }
+
+        public IEnumerable<FilmRating> GetFilmRatings(long userId)
+        {
+            return _filmRatingDataSet.Where(p => p.UserId == userId);
         }
 
         public double? GetPersonalRating(long? filmId, long? userId)

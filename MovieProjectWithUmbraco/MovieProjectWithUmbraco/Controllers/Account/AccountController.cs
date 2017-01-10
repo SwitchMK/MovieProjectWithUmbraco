@@ -1,4 +1,5 @@
-﻿using MovieProjectWithUmbraco.Models;
+﻿using MovieProjectWithUmbraco.Extensions;
+using MovieProjectWithUmbraco.Models;
 using System;
 using System.IO;
 using System.Security.Cryptography;
@@ -8,7 +9,6 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Umbraco.Core.Models;
 using Umbraco.Core.Services;
-using Umbraco.Web;
 using Umbraco.Web.Mvc;
 
 namespace MovieProjectWithUmbraco.Controllers.Account
@@ -298,33 +298,8 @@ namespace MovieProjectWithUmbraco.Controllers.Account
                 FirstName = member.GetValue<string>("firstName"),
                 LastName = member.GetValue<string>("lastName"),
                 Hometown = member.GetValue<string>("hometown"),
-                Avatar = GetAvatarUrl(member)
+                Avatar = member.GetAvatarUrl("avatarNormalSize")
             };
-        }
-
-        private string GetAvatarUrl(IMember member)
-        {
-            if (member == null)
-                return null;
-
-            var avatarId = member.GetValue<string>("avatar");
-
-            if (avatarId == null)
-                return GetDefaultAvatarUrl();
-
-            var media = Umbraco.TypedMedia(avatarId);
-
-            if (media == null)
-                return GetDefaultAvatarUrl();
-
-            return media.GetCropUrl("image", "avatarNormalSize");
-        }
-
-        private string GetDefaultAvatarUrl()
-        {
-            var defaultAvatar = Umbraco.TypedMedia(3192);
-
-            return defaultAvatar.GetCropUrl("image", "avatarNormalSize");
         }
 
         private ContactInfoModel GetContactInfo(IMember member)
