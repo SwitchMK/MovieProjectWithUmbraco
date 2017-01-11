@@ -7,6 +7,7 @@ using Umbraco.Core.Models;
 using System.Web.Mvc;
 using System;
 using System.Web.Security;
+using MovieProjectWithUmbraco.Extensions;
 
 namespace MovieProjectWithUmbraco.Controllers
 {
@@ -14,6 +15,7 @@ namespace MovieProjectWithUmbraco.Controllers
     {
         private const int RECENT_MOVIES = 1;
         private const int RECENT_PEOPLE = 1;
+        private const int SEARCH_PAGE_ID = 2160;
         private const string PARTIALS_LAYOUT_PATH = "~/Views/Partials/SiteLayout/";
 
         public ActionResult RenderHeader()
@@ -42,7 +44,12 @@ namespace MovieProjectWithUmbraco.Controllers
         [HttpPost]
         public ActionResult RenderSearchResults(Search model)
         {
-            return Redirect(Uri.EscapeUriString(string.Format("/search?query={0}", model.Query)));
+            var rootNodes = Umbraco.TypedContentAtRoot();
+            var homeNodeByAlias = rootNodes.First(x => x.DocumentTypeAlias == "home");
+
+            var searchPageUrl = homeNodeByAlias.Children.FirstOrDefault(p => p.Id == SEARCH_PAGE_ID).Url;
+
+            return Redirect(Uri.EscapeUriString(string.Format("{0}?query={1}", searchPageUrl, model.Query)));
         }
 
         private Intro GetIntro()
@@ -63,8 +70,8 @@ namespace MovieProjectWithUmbraco.Controllers
             
             return new InfoSection
             {
-                RecentMovies = GetRecentlyAddedFilms(homeNodeByAlias).Take(RECENT_MOVIES),
-                RecentPeople = GetRecentlyAddedPeople(homeNodeByAlias).Take(RECENT_PEOPLE)
+                RecentMovies = GetRecentlyAddedFilms(homeNodeByAlias),
+                RecentPeople = GetRecentlyAddedPeople(homeNodeByAlias)
             };
         }
 
@@ -72,7 +79,7 @@ namespace MovieProjectWithUmbraco.Controllers
         {
             var filmsPage = page.Children.Where(x => x.DocumentTypeAlias == "films").FirstOrDefault();
 
-            foreach (var item in filmsPage.Children.OrderByDescending(p => p.CreateDate))
+            foreach (var item in filmsPage.Children.OrderByDescending(p => p.CreateDate).Take(RECENT_MOVIES))
             {
                 yield return new InfoItem()
                 {
@@ -87,7 +94,7 @@ namespace MovieProjectWithUmbraco.Controllers
         {
             var peoplePage = page.Children.Where(x => x.DocumentTypeAlias == "people").FirstOrDefault();
 
-            foreach (var item in peoplePage.Children.OrderByDescending(p => p.CreateDate))
+            foreach (var item in peoplePage.Children.OrderByDescending(p => p.CreateDate).Take(RECENT_PEOPLE))
             {
                 yield return new InfoItem()
                 {
@@ -115,35 +122,10 @@ namespace MovieProjectWithUmbraco.Controllers
             var layoutModel = new Layout
             {
                 Links = nav,
-                UserImage = GetAvatarUrl(member)
+                UserImage = member.GetAvatarUrl("avatarSmallSize")
             };
 
             return layoutModel;
-        }
-
-        private string GetAvatarUrl(IMember member)
-        {
-            if (member == null)
-                return null;
-
-            var avatarId = member.GetValue<string>("avatar");
-
-            if (avatarId == null)
-                return GetDefaultAvatarUrl();
-
-            var media = Umbraco.TypedMedia(avatarId);
-
-            if (media == null)
-                return GetDefaultAvatarUrl();
-
-            return media.GetCropUrl("image", "avatarSmallSize");
-        }
-
-        private string GetDefaultAvatarUrl()
-        {
-            var defaultAvatar = Umbraco.TypedMedia(3192);
-
-            return defaultAvatar.GetCropUrl("image", "avatarSmallSize");
         }
 
         private IEnumerable<NavigationListItem> GetChildNavigationList(IPublishedContent page)
