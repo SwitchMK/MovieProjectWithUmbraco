@@ -1,13 +1,19 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-image: url("/Images/Background/b3.png");
-    background-repeat: repeat;
+    background-image: url("/Images/Background/re-fc.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-attachment: fixed;
 }
 
 .wrapper {
     margin-top: 30px;
     margin-bottom: 50px;
+    background-image: url("/Images/Background/b28.png");
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid silver;
 }
 
 .vertical-align {
@@ -518,6 +524,10 @@ footer {
 
 .profile-avatar-container .panel-heading img {
     border-radius: 3px;
+}
+
+.profile-avatar-container .profile-user-name {
+    margin-bottom: 0px;
 }
 
 .navbar-fixed-top .navbar-collapse,

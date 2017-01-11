@@ -4,8 +4,10 @@ using Umbraco.Web.Models;
 
 namespace MovieProjectWithUmbraco.Models
 {
-    public class UsersModel
+    public class UsersModel : RenderModel
     {
+        public UsersModel(IPublishedContent content) : base (content) { }
+
         public IEnumerable<UserInfo> UsersInfo { get; set; }
     }
 }

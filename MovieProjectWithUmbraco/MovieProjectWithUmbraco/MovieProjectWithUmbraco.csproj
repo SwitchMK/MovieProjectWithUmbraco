@@ -374,6 +374,7 @@
     <Content Include="Content\star-rating.css" />
     <Content Include="Content\star-rating.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Images\Background\b28.png" />
     <Content Include="Images\Background\b3.png" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
@@ -468,7 +469,6 @@
     <Content Include="Views\Users.cshtml" />
     <Content Include="Views\UserDetails.cshtml" />
     <Content Include="Views\Partials\User\_UserDetails.cshtml" />
-    <Content Include="Views\Partials\User\_Users.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

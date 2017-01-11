@@ -23,13 +23,15 @@ namespace MovieProjectWithUmbraco.Controllers.Users
 
         public ActionResult RenderUserDetails(int? memberId)
         {
+            var parentUrl = CurrentPage.Parent.Url;
+
             if (memberId == null)
-                ControllerContext.HttpContext.Response.Redirect("/users");
+                ControllerContext.HttpContext.Response.Redirect(parentUrl);
 
             var userModel = GetUserModel(memberId.Value);
 
             if (userModel == null)
-                ControllerContext.HttpContext.Response.Redirect("/users");
+                ControllerContext.HttpContext.Response.Redirect(parentUrl);
 
             return PartialView(USER_FOLDER_PATH + "_UserDetails.cshtml", userModel);
         }

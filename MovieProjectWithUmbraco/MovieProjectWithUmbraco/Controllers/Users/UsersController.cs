@@ -6,21 +6,20 @@ using Umbraco.Web;
 using Umbraco.Web.Mvc;
 using System.Linq;
 using MovieProjectWithUmbraco.Extensions;
+using Umbraco.Web.Models;
 
 namespace MovieProjectWithUmbraco.Controllers.Users
 {
-    public class UsersController : SurfaceController
+    public class UsersController : RenderMvcController
     {
-        private const string USER_FOLDER_PATH = "~/Views/Partials/User/";
-
-        public ActionResult RenderUsers()
+        public ActionResult Users(RenderModel model)
         {
-            var usersModel = new UsersModel
+            var usersModel = new UsersModel(model.Content)
             {
                 UsersInfo = GetUsers().OrderByDescending(p => p.LastName)
             };
 
-            return PartialView(USER_FOLDER_PATH + "_Users.cshtml", usersModel);
+            return base.Index(usersModel);
         }
 
         private IEnumerable<UserInfo> GetUsers()
