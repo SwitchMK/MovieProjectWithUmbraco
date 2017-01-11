@@ -36,7 +36,7 @@ namespace MovieProjectWithUmbraco.Controllers.Users
                 {
                     FirstName = member.GetValue<string>("firstName"),
                     LastName = member.GetValue<string>("lastName"),
-                    AvatarPath = member.GetAvatarUrl("avatarNormalSize"),
+                    AvatarPath = member.GetAvatarUrl("avatarListSize"),
                     Id = member.Id
                 };
             }
