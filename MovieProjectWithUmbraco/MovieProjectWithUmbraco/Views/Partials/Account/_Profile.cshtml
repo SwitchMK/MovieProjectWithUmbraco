@@ -1,0 +1,184 @@
+﻿@using MovieProjectWithUmbraco.Models
+@inherits UmbracoViewPage<ProfileModel>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default profile-avatar-container">
+            <div class="panel-heading">
+                <div>
+                    <img id="profile-image" class="img-responsive img-rounded center-image" alt="Profile image" src="@Model.BasicInfo.Avatar" />
+                </div>
+            </div>
+            <div class="panel-body">
+                <button class="btn btn-primary btn-outline full-width-btn edit-profile-btn" data-toggle="modal" data-target="#upload-image-modal">Upload avatar</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading movie-proj-panel-heading">
+                        <h4>General information</h4>
+                    </div>
+                    <table class="table table-responsive">
+                        <tbody>
+                            @using (Html.BeginUmbracoForm("SaveBasicInfo", "Account"))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <tr>
+                                    <th class="col-md-4">Login</th>
+                                    <td><span>@Model.BasicInfo.UserName</span></td>
+                                </tr>
+                                <tr>
+                                    <th class="col-md-4">First name</th>
+                                    <td>@Html.TextBoxFor(m => m.BasicInfo.FirstName, htmlAttributes: new { @class = "form-control", type = "text" })</td>
+                                </tr>
+                                <tr>
+                                    <th class="col-md-4">Last name</th>
+                                    <td>@Html.TextBoxFor(m => m.BasicInfo.LastName, htmlAttributes: new { @class = "form-control", type = "text" })</td>
+                                </tr>
+                                <tr>
+                                    <th class="col-md-4">Hometown</th>
+                                    <td>@Html.TextBoxFor(m => m.BasicInfo.Hometown, htmlAttributes: new { @class = "form-control", type = "text" })</td>
+                                </tr>
+                                <tr>
+                                    <th class="col-md-4"></th>
+                                    <td>
+                                        <button class="btn btn-primary btn-outline pull-right edit-profile-btn" type="submit">Save changes</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading movie-proj-panel-heading">
+                        <h4>Contact information</h4>
+                    </div>
+                    <table class="table table-responsive">
+                        <tbody>
+                            @using (Html.BeginUmbracoForm("SaveContactInfo", "Account"))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <tr>
+                                    <th class="col-md-4">Email</th>
+                                    <td><span>@Model.ContactInfo.Email</span></td>
+                                </tr>
+                                <tr>
+                                    <th class="col-md-4">Phone number</th>
+                                    <td>@Html.TextBoxFor(m => m.ContactInfo.PhoneNumber, htmlAttributes: new { @class = "form-control", type = "text" })</td>
+                                </tr>
+                                <tr>
+                                    <th class="col-md-4">Country</th>
+                                    <td>@Html.TextBoxFor(m => m.ContactInfo.Country, htmlAttributes: new { @class = "form-control", type = "text" })</td>
+                                </tr>
+                                <tr>
+                                    <th class="col-md-4">City</th>
+                                    <td>@Html.TextBoxFor(m => m.ContactInfo.City, htmlAttributes: new { @class = "form-control", type = "text" })</td>
+                                </tr>
+                                <tr>
+                                    <th class="col-md-4">Skype</th>
+                                    <td>@Html.TextBoxFor(m => m.ContactInfo.Skype, htmlAttributes: new { @class = "form-control", type = "text" })</td>
+                                </tr>
+                                <tr>
+                                    <th class="col-md-4">Website</th>
+                                    <td>@Html.TextBoxFor(m => m.ContactInfo.Website, htmlAttributes: new { @class = "form-control", type = "text" })</td>
+                                </tr>
+                                <tr>
+                                    <th class="col-md-4"></th>
+                                    <td>
+                                        <button class="btn btn-primary btn-outline pull-right edit-profile-btn" type="submit">Save changes</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading movie-proj-panel-heading">
+                        <h4>Change password</h4>
+                    </div>
+                    <table class="table table-responsive">
+                        <tbody>
+                            @using (Html.BeginUmbracoForm("ChangePassword", "Account"))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <tr>
+                                    <th class="col-md-4"></th>
+                                    <td>
+                                        <div class="form-group text-danger">
+                                            @Html.ValidationSummary()
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="col-md-4">Old password</th>
+                                    <td>@Html.TextBoxFor(m => m.ChangePassword.OldPassword, htmlAttributes: new { @class = "form-control", type = "password", placeholder = "Old password" })</td>
+                                </tr>
+                                <tr>
+                                    <th class="col-md-4">New password</th>
+                                    <td>@Html.TextBoxFor(m => m.ChangePassword.NewPassword, htmlAttributes: new { @class = "form-control", type = "password", placeholder = "New password" })</td>
+                                </tr>
+                                <tr>
+                                    <th class="col-md-4">Confirm new password</th>
+                                    <td>@Html.TextBoxFor(m => m.ChangePassword.ConfirmPassword, htmlAttributes: new { @class = "form-control", type = "password", placeholder = "Confirm new password" })</td>
+                                </tr>
+                                <tr>
+                                    <th class="col-md-4"></th>
+                                    <td>
+                                        <button class="btn btn-primary btn-outline pull-right edit-profile-btn" type="submit">Change password</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="upload-image-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        @using (Html.BeginUmbracoForm("ChangeAvatar", "Account"))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <img class="img-responsive center-image img-rounded" id="original-picture" src="@Model.BasicInfo.Avatar" alt="Original picture" />
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="thumbnail">
+                                        <img id="cropped-picture" class="portrait" src="@Model.BasicInfo.Avatar" alt="Cropped picture" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <input class="form-control" type='file' id="imgInp" name="avatar" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-outline pull-right">Upload avatar</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>

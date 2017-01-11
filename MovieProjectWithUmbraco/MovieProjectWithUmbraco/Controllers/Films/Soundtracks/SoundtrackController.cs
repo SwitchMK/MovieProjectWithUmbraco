@@ -25,6 +25,9 @@ namespace MovieProjectWithUmbraco.Controllers.Films.Soundtracks
         {
             var soundtrackList = CurrentPage.Children.Where(d => d.DocumentTypeAlias == "soundtracksList").FirstOrDefault();
 
+            if (soundtrackList == null)
+                return null;
+
             return new SoundtracksList
             {
                 ImagePath = soundtrackList.GetCropUrl(propertyAlias: "image", imageCropMode: ImageCropMode.Max),

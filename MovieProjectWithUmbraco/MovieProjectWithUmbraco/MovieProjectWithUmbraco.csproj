@@ -366,11 +366,17 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\cropper.css" />
+    <Content Include="Content\cropper.min.css" />
+    <Content Include="Content\jquery.Jcrop.css" />
+    <Content Include="Content\jquery.Jcrop.min.css" />
     <Content Include="Content\site.css" />
     <Content Include="Content\star-rating.css" />
     <Content Include="Content\star-rating.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Images\Background\b28.png" />
     <Content Include="Images\Background\b3.png" />
+    <Content Include="Images\Background\re-fc.png" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -384,6 +390,8 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="scripts\cropper.js" />
+    <Content Include="scripts\cropper.min.js" />
     <Content Include="scripts\jquery-1.10.2.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
@@ -393,6 +401,8 @@
     <Content Include="scripts\jquery-1.9.1.js" />
     <Content Include="scripts\jquery-1.9.1.min.js" />
     <None Include="scripts\jquery.validate-vsdoc.js" />
+    <Content Include="scripts\jquery.Jcrop.js" />
+    <Content Include="scripts\jquery.Jcrop.min.js" />
     <Content Include="scripts\jquery.validate.js" />
     <Content Include="scripts\jquery.validate.min.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.js" />
@@ -436,11 +446,9 @@
     <Content Include="Views\FilmDetails.cshtml" />
     <Content Include="Views\Films.cshtml" />
     <Content Include="Views\Home.cshtml" />
-    <Content Include="Views\Layout.cshtml" />
+    <Content Include="Views\Shared\Layout.cshtml" />
     <Content Include="Views\People.cshtml" />
     <Content Include="Views\PersonDetails.cshtml" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Partials\SiteLayout\_Header.cshtml" />
     <Content Include="Views\DistributorDetails.cshtml" />
     <Content Include="Views\Distributors.cshtml" />
@@ -456,6 +464,12 @@
     <Content Include="Views\Search.cshtml" />
     <Content Include="Views\Partials\SiteLayout\_Search.cshtml" />
     <Content Include="Views\Partials\Film\Soundtrack\_SoundtrackList.cshtml" />
+    <Content Include="Views\Partials\Account\_Profile.cshtml" />
+    <Content Include="Views\Profile.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Users.cshtml" />
+    <Content Include="Views\UserDetails.cshtml" />
+    <Content Include="Views\Partials\User\_UserDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -506,8 +520,11 @@
     <Compile Include="Controllers\People\PeopleController.cs" />
     <Compile Include="Controllers\People\PersonController.cs" />
     <Compile Include="Controllers\SiteLayoutController.cs" />
+    <Compile Include="Controllers\Users\UserController.cs" />
+    <Compile Include="Controllers\Users\UsersController.cs" />
     <Compile Include="DI Configuration\AutofacConfig.cs" />
     <Compile Include="Entities\FilmRating.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -520,7 +537,11 @@
       <DependentUpon>201612221239582_CustomContextModification.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountModels\BasicInfoModel.cs" />
+    <Compile Include="Models\AccountModels\ChangePassword.cs" />
+    <Compile Include="Models\AccountModels\ContactInfoModel.cs" />
     <Compile Include="Models\AccountModels\LoginModel.cs" />
+    <Compile Include="Models\AccountModels\ProfileModel.cs" />
     <Compile Include="Models\AccountModels\RegisterModel.cs" />
     <Compile Include="Models\DistributorModels\DetailedDistributorInfo.cs" />
     <Compile Include="Models\DistributorModels\DistributorInfo.cs" />
@@ -534,6 +555,7 @@
     <Compile Include="Models\Common\NewsItem.cs" />
     <Compile Include="Models\LayoutModels\InfoItem.cs" />
     <Compile Include="Models\LayoutModels\InfoSection.cs" />
+    <Compile Include="Models\LayoutModels\Layout.cs" />
     <Compile Include="Models\PersonModels\DetailedPersonInfo.cs" />
     <Compile Include="Models\FilmModels\FilmInfo.cs" />
     <Compile Include="Models\FilmModels\FilmsModel.cs" />
@@ -545,6 +567,9 @@
     <Compile Include="Models\Requests\RateRequest.cs" />
     <Compile Include="Models\Responses\FilmResponse.cs" />
     <Compile Include="Models\SearchModels\Search.cs" />
+    <Compile Include="Models\UserModels\DetailedUserInfo.cs" />
+    <Compile Include="Models\UserModels\UserInfo.cs" />
+    <Compile Include="Models\UserModels\UsersModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\FilmRatingRepository.cs" />
     <Compile Include="Repositories\Interfaces\IFilmRatingRepository.cs" />

@@ -1,5 +1,5 @@
 ﻿@using MovieProjectWithUmbraco.Models
-@inherits UmbracoViewPage<IEnumerable<NavigationListItem>>
+@inherits UmbracoViewPage<Layout>
 @{ 
     var loggedMember = Membership.GetUser();
 }
@@ -16,18 +16,41 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                @RenderChildItems(Model)
+                @RenderChildItems(Model.Links)
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @if (loggedMember == null)
                 {
-                    <li><a href="/register">Register</a></li>
-                    <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Log in</a></li>
+                    <li>
+                        <a href="/register">
+                            <div class="user-text-container">
+                                Register
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/login">
+                            <div class="user-text-container">
+                                <span class="glyphicon glyphicon-log-in"></span> Log in
+                            </div>
+                        </a>
+                    </li>
                 }
                 else
                 {
-                    <li class="user-greetings-item"><span class="user-name">Welcome <span class="glyphicon glyphicon-user"></span> @loggedMember.UserName</span></li>
-                    <li><a href="@Url.Action("MemberLogOut", "Account")"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                    <li>
+                        <a href="/profile">
+                            <div class="user-sm-img-container"><img class="img-responsive img-circle" src="@Model.UserImage" /></div>
+                            <div class="user-text-container"><span class="user-name">@loggedMember.UserName</span></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("MemberLogOut", "Account")">
+                            <div class="user-text-container">
+                                <span class="glyphicon glyphicon-log-out"></span> Log out
+                            </div>
+                        </a>
+                    </li>
                 }
             </ul>
         </div>
@@ -47,7 +70,9 @@
                 }
                 else if (item.Link != null)
                 {
-                    <a href="@item.Link.Url">@item.Link.Text</a>
+                    <a href="@item.Link.Url">
+                        <div class="user-text-container">@item.Link.Text</div>
+                    </a>
                 }
 
                 @if (item.HasChildren)

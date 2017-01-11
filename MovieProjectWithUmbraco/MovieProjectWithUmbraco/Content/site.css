@@ -1,13 +1,15 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-image: url("/Images/Background/b3.png");
-    background-repeat: repeat;
 }
 
 .wrapper {
-    margin-top: 20px;
+    margin-top: 30px;
     margin-bottom: 50px;
+    background-image: url("/Images/Background/b28.png");
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid silver;
 }
 
 .vertical-align {
@@ -104,6 +106,8 @@ li.login-item:hover {
 .navbar-nav a, .navbar-nav button {
     color: gray !important;
     background-color: transparent;
+    height: 60px !important;
+    display: flex !important;
 }
 
 .navbar-nav a:active, a:focus, .navbar-nav button:active, .navbar-nav button:focus {
@@ -112,6 +116,7 @@ li.login-item:hover {
 
 .navbar-header a, .navbar-header a:hover {
     color: orangered !important;
+    display: flex !important;
 }
 
 .navbar-toggle {
@@ -200,38 +205,16 @@ li.login-item:hover {
     display: none;
 }
 
-#fh5co-featured-section,
-#fh5co-intro-section,
-#fh5co-services-section,
-#fh5co-blog-section,
-#fh5co-client-section,
-#fh5co-work-section,
-#fh5co-main-services-section,
-#fh5co-about-section,
-#fh5co-contact-section {
+#fh5co-blog-section {
   padding-bottom: 6em;
 }
 @media screen and (max-width: 768px) {
-  #fh5co-featured-section,
-  #fh5co-intro-section,
-  #fh5co-services-section,
-  #fh5co-blog-section,
-  #fh5co-client-section,
-  #fh5co-work-section,
-  #fh5co-main-services-section,
-  #fh5co-about-section,
-  #fh5co-contact-section {
+  #fh5co-blog-section {
     padding: 3em 0;
   }
 }
 
-#fh5co-services-section,
-#fh5co-blog-section,
-#fh5co-client-section,
-#fh5co-work-section,
-#fh5co-main-services-section,
-#fh5co-about-section,
-#fh5co-contact-section {
+#fh5co-blog-section {
   padding-top: 6em;
 }
 
@@ -301,7 +284,7 @@ li.login-item:hover {
   background: transparent;
   color: #1FB57B;
   border: 2px solid #1FB57B;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 .btn-primary.btn-outline:hover, .btn-primary.btn-outline:focus, .btn-primary.btn-outline:active {
   background: #1FB57B;
@@ -462,4 +445,66 @@ footer {
 
 .soundtracks-container {
     padding-bottom: 0;
+}
+
+.btn-edit-field {
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.thumbnail {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+}
+.thumbnail img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 100%;
+    width: auto;
+    -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+}
+.thumbnail img.portrait {
+    width: 100%;
+    height: auto;
+}
+
+.user-sm-img-container {
+    display: inline-block; 
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.user-text-container {
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.edit-profile-btn {
+    margin-bottom: 0 !important;
+}
+
+.profile-avatar-container .panel-heading, .profile-avatar-container .panel-body {
+    padding: 5px;
+}
+
+.profile-avatar-container .panel-heading img {
+    border-radius: 3px;
+}
+
+.profile-avatar-container .profile-user-name {
+    margin-bottom: 0px;
+}
+
+.navbar-fixed-top .navbar-collapse,
+.navbar-fixed-bottom .navbar-collapse {
+    max-height: 440px !important;
 }

@@ -1,23 +1,26 @@
 ﻿@using MovieProjectWithUmbraco.Models
-@inherits UmbracoViewPage<DistributorsModel>
+@inherits UmbracoViewPage<UsersModel>
+@{ 
+    var childUrl = Model.Content.FirstChild().Url;
+}
 
 <div class="row">
     <div class="col-xs-12">
         <div class="panel panel-default">
             <div class="panel-heading movie-proj-panel-heading">
-                <h4>Distributors</h4>
+                <h4>Users</h4>
             </div>
             <table class="table table-responsive">
                 <tbody>
                     @{
-                        foreach (var distributor in Model.DistributorsInfo)
+                        foreach (var user in Model.UsersInfo)
                         {
                             <tr>
                                 <td class="vertical-align col-md-1 col-sm-2 col-xs-4">
-                                    <img src="@distributor.ImagePath" class="img-responsive" alt="Distributor Poster">
+                                    <img src="@user.AvatarPath" class="img-responsive" alt="Movie Poster">
                                 </td>
                                 <td class="vertical-align">
-                                    <h4><a href="@distributor.Url">@distributor.CompanyName (@distributor.DateOfFoundation.Year)</a></h4>
+                                    <h4><a href="@childUrl?memberId=@user.Id">@string.Format("{0} {1}", user.FirstName, user.LastName)</a></h4>
                                 </td>
                             </tr>
                         }
