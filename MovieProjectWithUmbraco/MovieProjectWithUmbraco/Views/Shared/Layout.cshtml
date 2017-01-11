@@ -1,4 +1,5 @@
 ﻿@using System.Web.Optimization
+@using MovieProjectWithUmbraco.Extensions
 @inherits UmbracoTemplatePage
 @{
     Layout = null;
@@ -16,6 +17,16 @@
 
         <link rel="stylesheet" href="~/Content/star-rating.min.css" />
         <link rel="stylesheet" href="~/Content/jquery.Jcrop.min.css" />
+
+        <style type="text/css">
+            body {
+                background: url(@Html.GetBackgroundImageUrl()) no-repeat center center fixed;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+            }
+        </style>
 
         @RenderSection("Styles", required: false)
     </head>

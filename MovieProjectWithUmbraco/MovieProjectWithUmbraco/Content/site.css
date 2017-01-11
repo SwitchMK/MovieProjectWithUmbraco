@@ -1,10 +1,6 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-image: url("/Images/Background/re-fc.png");
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-attachment: fixed;
 }
 
 .wrapper {
@@ -209,38 +205,16 @@ li.login-item:hover {
     display: none;
 }
 
-#fh5co-featured-section,
-#fh5co-intro-section,
-#fh5co-services-section,
-#fh5co-blog-section,
-#fh5co-client-section,
-#fh5co-work-section,
-#fh5co-main-services-section,
-#fh5co-about-section,
-#fh5co-contact-section {
+#fh5co-blog-section {
   padding-bottom: 6em;
 }
 @media screen and (max-width: 768px) {
-  #fh5co-featured-section,
-  #fh5co-intro-section,
-  #fh5co-services-section,
-  #fh5co-blog-section,
-  #fh5co-client-section,
-  #fh5co-work-section,
-  #fh5co-main-services-section,
-  #fh5co-about-section,
-  #fh5co-contact-section {
+  #fh5co-blog-section {
     padding: 3em 0;
   }
 }
 
-#fh5co-services-section,
-#fh5co-blog-section,
-#fh5co-client-section,
-#fh5co-work-section,
-#fh5co-main-services-section,
-#fh5co-about-section,
-#fh5co-contact-section {
+#fh5co-blog-section {
   padding-top: 6em;
 }
 

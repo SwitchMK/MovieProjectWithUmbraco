@@ -1,5 +1,9 @@
-﻿using Umbraco.Core.Models;
+﻿using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Umbraco.Core.Models;
 using Umbraco.Web;
+using Umbraco.Web.Models;
 
 namespace MovieProjectWithUmbraco.Extensions
 {
@@ -25,6 +29,18 @@ namespace MovieProjectWithUmbraco.Extensions
                 return GetDefaultAvatarUrl(alias);
 
             return media.GetCropUrl("image", alias);
+        }
+
+        public static IHtmlString GetBackgroundImageUrl(this HtmlHelper html)
+        {
+            var uHelper = new UmbracoHelper(UmbracoContext.Current);
+
+            var rootNodes = uHelper.TypedContentAtRoot();
+            var homeNodeByAlias = rootNodes.First(x => x.DocumentTypeAlias == "home");
+
+            var backgroundUrl = homeNodeByAlias.GetCropUrl(propertyAlias: "background", imageCropMode: ImageCropMode.Max);
+
+            return new HtmlString(backgroundUrl);
         }
 
         private static string GetDefaultAvatarUrl(string alias)

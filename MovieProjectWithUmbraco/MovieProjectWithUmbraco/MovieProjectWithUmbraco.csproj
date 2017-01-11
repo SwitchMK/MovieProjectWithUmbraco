@@ -376,6 +376,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Images\Background\b28.png" />
     <Content Include="Images\Background\b3.png" />
+    <Content Include="Images\Background\re-fc.png" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
