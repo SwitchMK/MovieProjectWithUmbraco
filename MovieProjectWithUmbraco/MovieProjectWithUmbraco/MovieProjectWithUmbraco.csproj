@@ -567,6 +567,7 @@
     <Compile Include="Models\Requests\RateRequest.cs" />
     <Compile Include="Models\Responses\FilmResponse.cs" />
     <Compile Include="Models\SearchModels\Search.cs" />
+    <Compile Include="Models\UserModels\Comments\UserComment.cs" />
     <Compile Include="Models\UserModels\DetailedUserInfo.cs" />
     <Compile Include="Models\UserModels\UserInfo.cs" />
     <Compile Include="Models\UserModels\UsersModel.cs" />

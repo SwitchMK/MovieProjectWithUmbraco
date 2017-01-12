@@ -122,7 +122,8 @@ namespace MovieProjectWithUmbraco.Controllers
             var layoutModel = new Layout
             {
                 Links = nav,
-                UserImage = member.GetAvatarUrl("avatarSmallSize")
+                UserImage = member?.GetAvatarUrl("avatarSmallSize"),
+                UserName = member?.Username
             };
 
             return layoutModel;

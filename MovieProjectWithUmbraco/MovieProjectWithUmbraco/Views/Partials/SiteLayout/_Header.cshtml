@@ -1,8 +1,5 @@
 ﻿@using MovieProjectWithUmbraco.Models
 @inherits UmbracoViewPage<Layout>
-@{ 
-    var loggedMember = Membership.GetUser();
-}
 
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -19,7 +16,7 @@
                 @RenderChildItems(Model.Links)
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                @if (loggedMember == null)
+                @if (Model.UserName == null)
                 {
                     <li>
                         <a href="/register">
@@ -41,7 +38,7 @@
                     <li>
                         <a href="/profile">
                             <div class="user-sm-img-container"><img class="img-responsive img-circle" src="@Model.UserImage" /></div>
-                            <div class="user-text-container"><span class="user-name">@loggedMember.UserName</span></div>
+                            <div class="user-text-container"><span class="user-name">@Model.UserName</span></div>
                         </a>
                     </li>
                     <li>

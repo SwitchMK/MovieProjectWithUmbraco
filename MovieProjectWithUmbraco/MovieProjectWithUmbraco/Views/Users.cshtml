@@ -20,7 +20,7 @@
                                     <img src="@user.AvatarPath" class="img-responsive" alt="Movie Poster">
                                 </td>
                                 <td class="vertical-align">
-                                    <h4><a href="@childUrl?memberId=@user.Id">@string.Format("{0} {1}", user.FirstName, user.LastName)</a></h4>
+                                    <h4><a href="@childUrl?memberId=@user.Id">@string.Format("{0} {1} ({2})", user.FirstName, user.LastName, user.Username)</a></h4>
                                 </td>
                             </tr>
                         }

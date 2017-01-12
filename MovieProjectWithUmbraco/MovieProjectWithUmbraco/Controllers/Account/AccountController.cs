@@ -2,6 +2,7 @@
 using MovieProjectWithUmbraco.Models;
 using System;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -62,7 +63,8 @@ namespace MovieProjectWithUmbraco.Controllers.Account
                 return CurrentUmbracoPage();
             }
 
-            var member = memberService.CreateMemberWithIdentity(model.Login, model.Email, model.FullName, "Member");
+            var member = memberService.CreateMemberWithIdentity(model.Email, model.Email, model.FullName, "Member");
+
             memberService.Save(member);
             memberService.SavePassword(member, model.Password);
 
@@ -79,13 +81,15 @@ namespace MovieProjectWithUmbraco.Controllers.Account
                 return CurrentUmbracoPage();
 
             var memberService = Services.MemberService;
-            if (memberService.GetByUsername(model.Login) == null)
+            var member = memberService.GetByEmail(model.Login);
+
+            if (member == null)
             {
                 ModelState.AddModelError("", "This member doesn't exist or locked out.");
                 return CurrentUmbracoPage();
             }
 
-            var result = Members.Login(model.Login, model.Password);
+            var result = Members.Login(member.Username, model.Password);
 
             if (!result)
             {
@@ -310,8 +314,7 @@ namespace MovieProjectWithUmbraco.Controllers.Account
                 Country = member.GetValue<string>("country"),
                 Skype = member.GetValue<string>("skype"),
                 Website = member.GetValue<string>("website"),
-                PhoneNumber = member.GetValue<string>("phoneNumber"),
-                Email = member.Email
+                PhoneNumber = member.GetValue<string>("phoneNumber")
             };
         }
     }

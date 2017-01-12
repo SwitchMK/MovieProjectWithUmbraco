@@ -14,6 +14,9 @@ namespace MovieProjectWithUmbraco.Controllers.Users
     public class UserController : SurfaceController
     {
         private const string USER_FOLDER_PATH = "~/Views/Partials/User/";
+        private const string PATH_TO_FEEDBACK_FOLDER = "~/Views/Partials/Feedback/";
+        private const int FILMS_PAGE_ID = 1089;
+        private const int AMOUNT_OF_COMMENTS = 5;
         private readonly IFilmRatingRepository _filmRatingRepository;
 
         public UserController(IFilmRatingRepository filmRatingRepository)
@@ -47,7 +50,8 @@ namespace MovieProjectWithUmbraco.Controllers.Users
             {
                 BasicInfo = GetBasicInfo(member),
                 ContactInfo = GetContactInfo(member),
-                FilmsInfo = GetRatedMovies(memberId)
+                FilmsInfo = GetRatedMovies(memberId),
+                Comments = GetUserComments(memberId).Take(AMOUNT_OF_COMMENTS)
             };
         }
 
@@ -60,16 +64,30 @@ namespace MovieProjectWithUmbraco.Controllers.Users
 
             var filmList = homeNodeByAlias.Children.Where(p => p.DocumentTypeAlias == "films").First();
 
-            foreach (var film in filmList.Children.Where(p => filmRatings.Any(s => s.FilmId == p.Id && s.UserId == memberId)))
+            foreach (var film in filmList.Children
+                .Where(p => filmRatings.Any(s => s.FilmId == p.Id && s.UserId == memberId)))
             {
-                yield return new FilmInfo
+                yield return GetFilmInfo(film, memberId);
+            }
+        }
+
+        private IEnumerable<UserComment> GetUserComments(int memberId)
+        {
+            var rootNodes = Umbraco.TypedContentAtRoot();
+            var homeNodeByAlias = rootNodes.First(x => x.DocumentTypeAlias == "home");
+
+            var filmsPage = homeNodeByAlias.FirstChild(p => p.Id == FILMS_PAGE_ID);
+
+            foreach (var filmPage in filmsPage.Children())
+            {
+                foreach (var comment in filmPage.Children
+                    .Where(p => p.DocumentTypeAlias == "feedback" && p.GetPropertyValue<int>("memberId") == memberId)
+                    .OrderByDescending(p => p.CreateDate))
                 {
-                    Title = film.GetPropertyValue<string>("title"),
-                    YearOfRelease = film.GetPropertyValue<DateTime>("yearOfRelease"),
-                    ImagePath = film.GetCropUrl("image", "smSzImgCropper"),
-                    Url = film.Url,
-                    PersonalRating = GetPersonalRating(film.Id, memberId)
-                };
+                    var member = Services.MemberService.GetById(memberId);
+
+                    yield return GetUserComment(filmPage, comment, member);
+                }
             }
         }
 
@@ -93,14 +111,38 @@ namespace MovieProjectWithUmbraco.Controllers.Users
                 Country = member.GetValue<string>("country"),
                 Skype = member.GetValue<string>("skype"),
                 Website = member.GetValue<string>("website"),
-                PhoneNumber = member.GetValue<string>("phoneNumber"),
-                Email = member.Email
+                PhoneNumber = member.GetValue<string>("phoneNumber")
             };
         }
 
         private double? GetPersonalRating(long? filmId, long? userId)
         {
             return _filmRatingRepository.GetPersonalRating(filmId, userId);
+        }
+
+        private FilmInfo GetFilmInfo(IPublishedContent film, int memberId)
+        {
+            return new FilmInfo
+            {
+                Title = film.GetPropertyValue<string>("title"),
+                YearOfRelease = film.GetPropertyValue<DateTime>("yearOfRelease"),
+                ImagePath = film.GetCropUrl("image", "smSzImgCropper"),
+                Url = film.Url,
+                PersonalRating = GetPersonalRating(film.Id, memberId)
+            };
+        }
+
+        private UserComment GetUserComment(IPublishedContent filmPage, IPublishedContent comment, IMember member)
+        {
+            return new UserComment
+            {
+                Content = comment.GetPropertyValue<string>("feedbackText"),
+                DateOfPublication = comment.CreateDate,
+                Publisher = member?.Username ?? "Unknown",
+                PublisherProfileUrl = member != null ? string.Format("{0}?memberId={1}", CurrentPage.Url, member.Id) : null,
+                FilmName = filmPage.GetPropertyValue<string>("title"),
+                FilmPageUrl = filmPage.Url
+            };
         }
     }
 }

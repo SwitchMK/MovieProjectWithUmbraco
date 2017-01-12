@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Security;
-using Umbraco.Web;
 using Umbraco.Web.Mvc;
 using System.Linq;
 using MovieProjectWithUmbraco.Extensions;
@@ -30,13 +29,14 @@ namespace MovieProjectWithUmbraco.Controllers.Users
             if (loggedMember != null)
                 userId = (int)loggedMember.ProviderUserKey;
 
-            foreach (var member in Services.MemberService.GetAllMembers().Where(p => p.Id != userId))
+            foreach (var member in Services.MemberService.GetAllMembers())
             {
                 yield return new UserInfo
                 {
                     FirstName = member.GetValue<string>("firstName"),
                     LastName = member.GetValue<string>("lastName"),
                     AvatarPath = member.GetAvatarUrl("avatarListSize"),
+                    Username = member.Username,
                     Id = member.Id
                 };
             }

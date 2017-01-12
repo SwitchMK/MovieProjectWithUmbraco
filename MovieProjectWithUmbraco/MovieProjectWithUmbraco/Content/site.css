@@ -508,3 +508,15 @@ footer {
 .navbar-fixed-bottom .navbar-collapse {
     max-height: 440px !important;
 }
+
+.user-comment-heading {
+    padding: 5px;
+}
+
+.user-comment-heading .panel-default {
+    margin-bottom: 0;
+}
+
+.user-comment-heading .panel-body {
+    padding: 5px;
+}
