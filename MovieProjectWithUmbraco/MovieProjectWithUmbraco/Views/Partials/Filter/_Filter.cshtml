@@ -1,0 +1,44 @@
+﻿@using MovieProjectWithUmbraco.Models
+@inherits UmbracoViewPage<SearchFilter>
+@{ 
+    Model.Query = Request.QueryString["query"];
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading movie-proj-panel-heading">
+                <h4>Filters</h4>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginUmbracoForm("SubmitFilterForm", "Filter", FormMethod.Get))
+                {
+                    <div class="form-group text-danger">
+                        @Html.ValidationSummary()
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.DocumentTypes.Film)
+                        @Html.CheckBoxFor(m => m.DocumentTypes.Film)
+                        @Html.ValidationMessageFor(m => m.DocumentTypes.Film)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.DocumentTypes.Person)
+                        @Html.CheckBoxFor(m => m.DocumentTypes.Person)
+                        @Html.ValidationMessageFor(m => m.DocumentTypes.Person)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.DocumentTypes.Distributor)
+                        @Html.CheckBoxFor(m => m.DocumentTypes.Distributor)
+                        @Html.ValidationMessageFor(m => m.DocumentTypes.Distributor)
+                    </div>
+                    <div class="form-group">
+                        @Html.HiddenFor(m => m.Query)
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-outline pull-right" type="submit">Filter</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

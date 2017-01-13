@@ -470,6 +470,7 @@
     <Content Include="Views\Users.cshtml" />
     <Content Include="Views\UserDetails.cshtml" />
     <Content Include="Views\Partials\User\_UserDetails.cshtml" />
+    <Content Include="Views\Partials\Filter\_Filter.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -515,6 +516,7 @@
     <Compile Include="Controllers\Films\FilmController.cs" />
     <Compile Include="Controllers\Films\FilmsController.cs" />
     <Compile Include="Controllers\Films\Soundtracks\SoundtrackController.cs" />
+    <Compile Include="Controllers\Filter\FilterController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Controllers\News\NewsController.cs" />
     <Compile Include="Controllers\People\PeopleController.cs" />
@@ -550,6 +552,7 @@
     <Compile Include="Models\FilmModels\FeedbackModels\Feedback.cs" />
     <Compile Include="Models\FilmModels\SoundtrackModels\Soundtrack.cs" />
     <Compile Include="Models\FilmModels\SoundtrackModels\SoundtracksList.cs" />
+    <Compile Include="Models\FilterModels\Filter.cs" />
     <Compile Include="Models\HomePageModels\HomePage.cs" />
     <Compile Include="Models\HomePageModels\Intro.cs" />
     <Compile Include="Models\Common\NewsItem.cs" />

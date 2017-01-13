@@ -4,6 +4,8 @@
     var charactersToDisplay = 200;
 }
 
+@{ Html.RenderAction("RenderFilterPage", "Filter"); }
+
 <div class="row">
     <div class="col-xs-12">
         <div class="panel panel-default">
@@ -42,22 +44,40 @@
 
                             if (searchResults.Count() > 0)
                             {
-                                foreach (var result in searchResults)
-                                {
-                                    var node = Umbraco.TypedContent(result.Fields["id"]);
+                                var nodes = searchResults.Select(p => Umbraco.TypedContent(p.Fields["id"]));
 
+                                var types = new List<string>();
+
+                                var typeFilter = Request.QueryString["types"];
+
+                                if (!string.IsNullOrEmpty(typeFilter))
+                                {
+                                    types = typeFilter.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                                }
+
+                                var finalResults = nodes.Where(p => types.Count() == 0 || (types.Any(x => x.ToLower() == p.DocumentTypeAlias)));
+
+                                if (finalResults.Count() > 0)
+                                {
+                                    foreach (var node in finalResults)
+                                    {
                                     <tr>
                                         <td>
                                             <div class="panel panel-default">
                                                 <div class="panel-body search-item">
                                                     <h4><a href="@node.Url">@node.Name</a></h4>
                                                     <p class="link-to-document">@node.Url</p>
-                                                    @Umbraco.Truncate((@node.GetPropertyValue<string>("plot") ?? @node.GetPropertyValue<string>("biography")) 
+                                                    @Umbraco.Truncate((@node.GetPropertyValue<string>("plot") ?? @node.GetPropertyValue<string>("biography"))
                                                         ?? @node.GetPropertyValue<string>("history"), charactersToDisplay)
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    @NothingFoundHelper()
                                 }
                             }
                             else
