@@ -520,3 +520,15 @@ footer {
 .user-comment-heading .panel-body {
     padding: 5px;
 }
+
+.user-comment-heading .panel-body:hover, 
+.user-comment-heading .panel-body:active, 
+.user-comment-heading .panel-body:focus {
+    background-color: #1FB57B;
+    color: white;
+}
+
+.user-comment-heading .panel-body:hover a {
+    text-decoration: none;
+    color: white;
+}

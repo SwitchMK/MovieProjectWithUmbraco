@@ -6,6 +6,7 @@ using Umbraco.Web.Mvc;
 using System.Linq;
 using MovieProjectWithUmbraco.Extensions;
 using Umbraco.Web.Models;
+using Umbraco.Core.Models;
 
 namespace MovieProjectWithUmbraco.Controllers.Users
 {
@@ -15,7 +16,7 @@ namespace MovieProjectWithUmbraco.Controllers.Users
         {
             var usersModel = new UsersModel(model.Content)
             {
-                UsersInfo = GetUsers().OrderByDescending(p => p.LastName)
+                UsersInfo = GetUsers()
             };
 
             return base.Index(usersModel);
@@ -29,17 +30,22 @@ namespace MovieProjectWithUmbraco.Controllers.Users
             if (loggedMember != null)
                 userId = (int)loggedMember.ProviderUserKey;
 
-            foreach (var member in Services.MemberService.GetAllMembers())
+            foreach (var member in Services.MemberService.GetAllMembers().OrderByDescending(p => p.CreateDate))
             {
-                yield return new UserInfo
-                {
-                    FirstName = member.GetValue<string>("firstName"),
-                    LastName = member.GetValue<string>("lastName"),
-                    AvatarPath = member.GetAvatarUrl("avatarListSize"),
-                    Username = member.Username,
-                    Id = member.Id
-                };
+                yield return GetUserInfo(member);
             }
+        }
+
+        private UserInfo GetUserInfo(IMember member)
+        {
+            return new UserInfo
+            {
+                FirstName = member.GetValue<string>("firstName"),
+                LastName = member.GetValue<string>("lastName"),
+                AvatarPath = member.GetAvatarUrl("avatarListSize"),
+                Username = member.Username,
+                Id = member.Id
+            };
         }
     }
 }

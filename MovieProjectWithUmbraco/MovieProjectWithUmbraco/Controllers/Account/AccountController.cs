@@ -2,7 +2,6 @@
 using MovieProjectWithUmbraco.Models;
 using System;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -16,7 +15,8 @@ namespace MovieProjectWithUmbraco.Controllers.Account
 {
     public class AccountController : SurfaceController
     {
-        const string PATH_TO_ACCOUNT_PAGES = "~/Views/Partials/Account/";
+        private const int USER_AVATARS_FOLDER_ID = 3188;
+        private const string PATH_TO_ACCOUNT_PAGES = "~/Views/Partials/Account/";
 
         public ActionResult RenderRegisterForm()
         {
@@ -215,7 +215,7 @@ namespace MovieProjectWithUmbraco.Controllers.Account
 
         private void SetNewAvatar(IMember member, string fileName, Stream fileStream)
         {
-            var media = Services.MediaService.CreateMedia(string.Format("{0}", fileName), 3188, "avatar");
+            var media = Services.MediaService.CreateMedia(string.Format("{0}", fileName), USER_AVATARS_FOLDER_ID, "avatar");
 
             media.SetValue("image", fileName, fileStream);
             Services.MediaService.Save(media);
