@@ -1,17 +1,18 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace MovieProjectWithUmbraco.Models
 {
-    public class Feedback
+    public class UserComment
     {
         public string Publisher { get; set; }
         public string PublisherProfileUrl { get; set; }
         public int MemberId { get; set; }
-
-        [Required(ErrorMessage = "This field is required!")]
-        [MaxLength(400, ErrorMessage = "The comment message must not exceed 400 characters.")]
         public string Content { get; set; }
+        public string FilmName { get; set; }
+        public string FilmPageUrl { get; set; }
         public DateTime DateOfPublication { get; set; }
     }
 }

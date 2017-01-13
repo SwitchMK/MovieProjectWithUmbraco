@@ -508,3 +508,27 @@ footer {
 .navbar-fixed-bottom .navbar-collapse {
     max-height: 440px !important;
 }
+
+.user-comment-heading {
+    padding: 5px;
+}
+
+.user-comment-heading .panel-default {
+    margin-bottom: 0;
+}
+
+.user-comment-heading .panel-body {
+    padding: 5px;
+}
+
+.user-comment-heading .panel-body:hover, 
+.user-comment-heading .panel-body:active, 
+.user-comment-heading .panel-body:focus {
+    background-color: #1FB57B;
+    color: white;
+}
+
+.user-comment-heading .panel-body:hover a {
+    text-decoration: none;
+    color: white;
+}

@@ -15,7 +15,8 @@ namespace MovieProjectWithUmbraco.Controllers.Account
 {
     public class AccountController : SurfaceController
     {
-        const string PATH_TO_ACCOUNT_PAGES = "~/Views/Partials/Account/";
+        private const int USER_AVATARS_FOLDER_ID = 3188;
+        private const string PATH_TO_ACCOUNT_PAGES = "~/Views/Partials/Account/";
 
         public ActionResult RenderRegisterForm()
         {
@@ -62,7 +63,8 @@ namespace MovieProjectWithUmbraco.Controllers.Account
                 return CurrentUmbracoPage();
             }
 
-            var member = memberService.CreateMemberWithIdentity(model.Login, model.Email, model.FullName, "Member");
+            var member = memberService.CreateMemberWithIdentity(model.Email, model.Email, model.FullName, "Member");
+
             memberService.Save(member);
             memberService.SavePassword(member, model.Password);
 
@@ -79,13 +81,15 @@ namespace MovieProjectWithUmbraco.Controllers.Account
                 return CurrentUmbracoPage();
 
             var memberService = Services.MemberService;
-            if (memberService.GetByUsername(model.Login) == null)
+            var member = memberService.GetByEmail(model.Login);
+
+            if (member == null)
             {
                 ModelState.AddModelError("", "This member doesn't exist or locked out.");
                 return CurrentUmbracoPage();
             }
 
-            var result = Members.Login(model.Login, model.Password);
+            var result = Members.Login(member.Username, model.Password);
 
             if (!result)
             {
@@ -211,7 +215,7 @@ namespace MovieProjectWithUmbraco.Controllers.Account
 
         private void SetNewAvatar(IMember member, string fileName, Stream fileStream)
         {
-            var media = Services.MediaService.CreateMedia(string.Format("{0}", fileName), 3188, "avatar");
+            var media = Services.MediaService.CreateMedia(string.Format("{0}", fileName), USER_AVATARS_FOLDER_ID, "avatar");
 
             media.SetValue("image", fileName, fileStream);
             Services.MediaService.Save(media);
@@ -310,8 +314,7 @@ namespace MovieProjectWithUmbraco.Controllers.Account
                 Country = member.GetValue<string>("country"),
                 Skype = member.GetValue<string>("skype"),
                 Website = member.GetValue<string>("website"),
-                PhoneNumber = member.GetValue<string>("phoneNumber"),
-                Email = member.Email
+                PhoneNumber = member.GetValue<string>("phoneNumber")
             };
         }
     }

@@ -9,7 +9,14 @@
                 <div class="col-xs-12">
                     <div class="panel panel-default">
                         <div class="panel-heading movie-proj-panel-heading comment-header">
-                            <h6>@comment.Publisher</h6>
+                            @if (!string.IsNullOrEmpty(@comment.PublisherProfileUrl))
+                            {
+                                <a href="@comment.PublisherProfileUrl"><h5>@comment.Publisher</h5></a>
+                            }
+                            else
+                            {
+                                <h5>@comment.Publisher</h5>
+                            }
                         </div>
                         <div class="panel-body comment-content">
                             <p>@comment.Content</p>

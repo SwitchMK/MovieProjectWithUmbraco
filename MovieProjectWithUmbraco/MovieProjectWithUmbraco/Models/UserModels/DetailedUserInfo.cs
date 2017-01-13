@@ -7,5 +7,6 @@ namespace MovieProjectWithUmbraco.Models
         public BasicInfoModel BasicInfo { get; set; }
         public ContactInfoModel ContactInfo { get; set; }
         public IEnumerable<FilmInfo> FilmsInfo { get; set; }
+        public IEnumerable<UserComment> Comments { get; set; }
     }
 }

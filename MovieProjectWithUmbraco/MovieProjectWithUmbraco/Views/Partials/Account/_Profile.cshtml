@@ -66,10 +66,6 @@
                                 @Html.AntiForgeryToken()
 
                                 <tr>
-                                    <th class="col-md-4">Email</th>
-                                    <td><span>@Model.ContactInfo.Email</span></td>
-                                </tr>
-                                <tr>
                                     <th class="col-md-4">Phone number</th>
                                     <td>@Html.TextBoxFor(m => m.ContactInfo.PhoneNumber, htmlAttributes: new { @class = "form-control", type = "text" })</td>
                                 </tr>
