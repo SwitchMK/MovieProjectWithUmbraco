@@ -1,9 +1,6 @@
 ﻿@inherits UmbracoViewPage<MovieProjectWithUmbraco.Models.Search>
 
-
-@using (Html.BeginUmbracoForm("RenderSearchResults", "SiteLayout", FormMethod.Get))
-{
-    @Html.AntiForgeryToken()
+<form action="/search" method="get">
     <div class="form-group">
         <div class="input-group">
             @Html.TextBoxFor(m => m.Query, htmlAttributes: new { @class = "form-control" })
@@ -12,4 +9,4 @@
             </div>
         </div>
     </div>
-}
+</form>

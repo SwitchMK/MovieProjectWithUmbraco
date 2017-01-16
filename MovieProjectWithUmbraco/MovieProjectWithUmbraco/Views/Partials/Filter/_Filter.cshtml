@@ -1,44 +1,71 @@
 ﻿@using MovieProjectWithUmbraco.Models
 @inherits UmbracoViewPage<SearchFilter>
-@{ 
+@{
     Model.Query = Request.QueryString["query"];
+
 }
 
-<div class="row">
-    <div class="col-xs-12">
-        <div class="panel panel-default">
-            <div class="panel-heading movie-proj-panel-heading">
-                <h4>Filters</h4>
-            </div>
+<div class="col-xs-12 col-md-4">
+    <div class="panel panel-default">
+        <div class="panel-heading movie-proj-panel-heading">
+            <h4>Filters</h4>
+        </div>
+        <div class="panel-body">
             <div class="panel-body">
-                @using (Html.BeginUmbracoForm("SubmitFilterForm", "Filter", FormMethod.Get))
-                {
-                    <div class="form-group text-danger">
-                        @Html.ValidationSummary()
+                <form action="/search" method="get">
+                    @Html.HiddenFor(m => m.Query)
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading filter-heading">
+                                    <h5>Document types</h5>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <input class="type-filter" type="checkbox" name="types" value="film" />
+                                        @Html.Label("Film")
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="type-filter" type="checkbox" name="types" value="person" />
+                                        @Html.Label("Person")
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="type-filter" type="checkbox" name="types" value="distributor" />
+                                        @Html.Label("Distributor")
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.DocumentTypes.Film)
-                        @Html.CheckBoxFor(m => m.DocumentTypes.Film)
-                        @Html.ValidationMessageFor(m => m.DocumentTypes.Film)
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading filter-heading">
+                                    <h5>Sort by...</h5>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <input type="radio" class="sort-filter" name="orderby" value="Name" />
+                                        <label>Title</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="radio" class="sort-filter" name="orderby" value="CreateDate" checked />
+                                        <label>Creation date</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.DocumentTypes.Person)
-                        @Html.CheckBoxFor(m => m.DocumentTypes.Person)
-                        @Html.ValidationMessageFor(m => m.DocumentTypes.Person)
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-outline pull-right" type="submit">Filter</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.DocumentTypes.Distributor)
-                        @Html.CheckBoxFor(m => m.DocumentTypes.Distributor)
-                        @Html.ValidationMessageFor(m => m.DocumentTypes.Distributor)
-                    </div>
-                    <div class="form-group">
-                        @Html.HiddenFor(m => m.Query)
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary btn-outline pull-right" type="submit">Filter</button>
-                    </div>
-                }
+                </form>
             </div>
         </div>
     </div>
 </div>
+

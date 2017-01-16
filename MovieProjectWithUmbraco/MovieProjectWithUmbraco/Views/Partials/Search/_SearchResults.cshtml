@@ -1,0 +1,17 @@
+﻿@inherits UmbracoViewPage<IEnumerable<IPublishedContent>>
+
+@foreach (var node in Model)
+{
+    <tr>
+        <td>
+            <div class="panel panel-default">
+                <div class="panel-body search-item">
+                    <h4><a href="@node.Url">@node.Name</a></h4>
+                    <p class="link-to-document">@node.Url</p>
+                    @Umbraco.Truncate((@node.GetPropertyValue<string>("plot") ?? @node.GetPropertyValue<string>("biography"))
+                                                     ?? @node.GetPropertyValue<string>("history"), 200)
+                </div>
+            </div>
+        </td>
+    </tr>
+}

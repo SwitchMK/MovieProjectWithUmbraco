@@ -31,6 +31,22 @@
         readURL(this);
     });
 
+    $('.type-filter').each(function () {
+        var self = $(this),
+          label = self.nextAll('label:first'),
+          label_text = label.text();
+
+        label.remove();
+        self.iCheck({
+            checkboxClass: 'icheckbox_line-green',
+            insert: '<div class="icheck_line-icon"></div>' + label_text
+        });
+    });
+
+    $('.sort-filter').iCheck({
+        radioClass: 'iradio_square-green'
+    });
+
     MovieApp.Rating = {
         selectRateableMovie: function (filmId) {
             ratedMovieId = filmId;

@@ -1,13 +1,8 @@
 ﻿@inherits UmbracoTemplatePage
-@using Examine.LuceneEngine.SearchCriteria
-@{
-    var charactersToDisplay = 200;
-}
-
-@{ Html.RenderAction("RenderFilterPage", "Filter"); }
 
 <div class="row">
-    <div class="col-xs-12">
+    @{ Html.RenderAction("RenderFilterPage", "Filter"); }
+    <div class="col-xs-12 col-md-8">
         <div class="panel panel-default">
             <div class="panel-heading movie-proj-panel-heading">
                 <h4>Search results</h4>
@@ -17,73 +12,13 @@
                     <tbody>
                         @if (!string.IsNullOrEmpty(Request.QueryString["query"]))
                         {
-                            var q = Request.QueryString["query"].Trim();
+                            var query = Request.QueryString["query"].Trim();
 
-                            var Searcher = ExamineManager.Instance.SearchProviderCollection["MySearchSearcher"];
+                            var typeFilter = Request.QueryString["types"];
 
-                            var searchCriteria = Searcher.CreateSearchCriteria(Examine.SearchCriteria.BooleanOperation.Or);
-                            var query = searchCriteria
-                                .Field("nodeName", q).Or()
-                                .Field("nodeName", q.Fuzzy(0.7f)).Or()
-                                .Field("cast", q).Or()
-                                .Field("cast", q.Fuzzy(0.7f)).Or()
-                                .Field("directors", q).Or()
-                                .Field("directors", q.Fuzzy(0.7f)).Or()
-                                .Field("writers", q).Or()
-                                .Field("writers", q.Fuzzy(0.7f)).Or()
-                                .Field("producers", q).Or()
-                                .Field("producers", q.Fuzzy(0.7f)).Or()
-                                .Field("plot", q).Or()
-                                .Field("plot", q.Fuzzy(0.7f)).Or()
-                                .Field("history", q).Or()
-                                .Field("history", q.Fuzzy(0.7f)).Or()
-                                .Field("biography", q).Or()
-                                .Field("biography", q.Fuzzy(0.7f));
+                            var orderBy = Request.QueryString["orderby"];
 
-                            var searchResults = Searcher.Search(query.Compile());
-
-                            if (searchResults.Count() > 0)
-                            {
-                                var nodes = searchResults.Select(p => Umbraco.TypedContent(p.Fields["id"]));
-
-                                var types = new List<string>();
-
-                                var typeFilter = Request.QueryString["types"];
-
-                                if (!string.IsNullOrEmpty(typeFilter))
-                                {
-                                    types = typeFilter.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
-                                }
-
-                                var finalResults = nodes.Where(p => types.Count() == 0 || (types.Any(x => x.ToLower() == p.DocumentTypeAlias)));
-
-                                if (finalResults.Count() > 0)
-                                {
-                                    foreach (var node in finalResults)
-                                    {
-                                    <tr>
-                                        <td>
-                                            <div class="panel panel-default">
-                                                <div class="panel-body search-item">
-                                                    <h4><a href="@node.Url">@node.Name</a></h4>
-                                                    <p class="link-to-document">@node.Url</p>
-                                                    @Umbraco.Truncate((@node.GetPropertyValue<string>("plot") ?? @node.GetPropertyValue<string>("biography"))
-                                                        ?? @node.GetPropertyValue<string>("history"), charactersToDisplay)
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    }
-                                }
-                                else
-                                {
-                                    @NothingFoundHelper()
-                                }
-                            }
-                            else
-                            {
-                                @NothingFoundHelper()
-                            }
+                            @Html.Action("RenderSearchResults", "Search", new { query = query, types = typeFilter, orderby = orderBy });
                         }
                         else
                         {
