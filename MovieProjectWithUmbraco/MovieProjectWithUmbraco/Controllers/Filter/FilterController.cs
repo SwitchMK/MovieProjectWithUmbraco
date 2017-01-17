@@ -1,6 +1,12 @@
 ﻿using MovieProjectWithUmbraco.Models;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
 using System.Web.Mvc;
 using Umbraco.Web.Mvc;
+using System.Linq.Dynamic;
+using Examine.LuceneEngine.Config;
 
 namespace MovieProjectWithUmbraco.Controllers.Filter
 {
@@ -8,21 +14,84 @@ namespace MovieProjectWithUmbraco.Controllers.Filter
     {
         public ActionResult RenderFilterPage()
         {
-            return PartialView("~/Views/Partials/Filter/_Filter.cshtml", new SearchFilter());
+            var filterModel = ReestablishSearchFilter();
+            return PartialView("~/Views/Partials/Filter/_Filter.cshtml", filterModel);
         }
 
-        public ActionResult SubmitFilterForm(SearchFilter model)
+        private SearchFilter ReestablishSearchFilter()
         {
-            if (!ModelState.IsValid)
-                return CurrentUmbracoPage();
+            var queryString = Request.QueryString["query"];
 
-            var queryParam = !string.IsNullOrEmpty(model.Query) ? string.Format("?query={0}", model.Query) : string.Empty;
-            var typesParam = model.Types.Length > 0 ? string.Format("&types={0}", string.Join(",", model.Types)) : string.Empty;
+            var filterModel = new SearchFilter
+            {
+                Types = GetTypesCollection(),
+                OrderBy = new Models.Type[] { new Models.Type { IsChecked = true, Name = "CreateDate" }, new Models.Type { IsChecked = false, Name = "Name" } },
+                Query = queryString
+            };
 
-            TempData["CurrentModel"] = TempData["CurrentModel"] ?? model;
-            TempData.Keep("CurrentModel");
+            RefreshTypesValues(filterModel.Types, GetTypesFromResponse());
 
-            return RedirectToCurrentUmbracoPage(string.Format("{0}{1}", queryParam, typesParam));
+            ReestablishOrderbyFromResponse(filterModel.OrderBy);
+
+            return filterModel;
+        }
+
+        private void ReestablishOrderbyFromResponse(IEnumerable<Models.Type> orderByCollection)
+        {
+            var orderByString = Request.QueryString["orderby"];
+
+            if (orderByString != null)
+                RefreshOrderByValues(orderByCollection, orderByString);
+            else
+                RefreshOrderByValues(orderByCollection, orderByCollection.First().Name);
+        }
+
+        private Models.Type[] GetTypesFromResponse()
+        {
+            var typesString = Request.QueryString["types"];
+            var types = typesString != null ? typesString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList() : new List<string>();
+
+            return types.Select(p => new Models.Type { IsChecked = true, Name = p }).ToArray();
+        }
+
+        private Models.Type[] GetTypesCollection()
+        {
+            var section = ConfigurationManager.GetSection("ExamineLuceneIndexSets") as IndexSets;
+
+            return section.Sets["MySearch"].IncludeNodeTypes.ToList().Select(p => new Models.Type
+            {
+                IsChecked = false,
+                Name = p.Name
+            })
+            .ToArray();
+        }
+
+        private void RefreshOrderByValues(IEnumerable<Models.Type> collection, string param)
+        {
+            foreach (var value in collection)
+            {
+                if (value.Name == param)
+                {
+                    value.IsChecked = true;
+                    continue;
+                }
+
+                value.IsChecked = false;
+            }
+        }
+
+        private void RefreshTypesValues(IEnumerable<Models.Type> collection, Models.Type[] param)
+        {
+            foreach (var value in collection)
+            {
+                if (param.Any(p => p.Name == value.Name))
+                {
+                    value.IsChecked = true;
+                    continue;
+                }
+
+                value.IsChecked = false;
+            }
         }
     }
 }

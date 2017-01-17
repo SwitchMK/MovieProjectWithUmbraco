@@ -10,35 +10,11 @@
             <div class="panel-body">
                 <table class="table table-responsive">
                     <tbody>
-                        @if (!string.IsNullOrEmpty(Request.QueryString["query"]))
-                        {
-                            var query = Request.QueryString["query"].Trim();
-
-                            var typeFilter = Request.QueryString["types"];
-
-                            var orderBy = Request.QueryString["orderby"];
-
-                            @Html.Action("RenderSearchResults", "Search", new { query = query, types = typeFilter, orderby = orderBy });
-                        }
-                        else
-                        {
-                            @NothingFoundHelper()
-                        }
+                        @Html.Action("RenderSearchResults", "Search")
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
-
-@helper NothingFoundHelper()
-{
-    <tr>
-        <td>
-            <div class="jumbotron text-center">
-                <h4>Nothing has been found</h4>
-            </div>
-        </td>
-    </tr>
-}
 
