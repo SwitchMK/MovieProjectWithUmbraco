@@ -58,11 +58,11 @@ namespace MovieProjectWithUmbraco.Controllers.Filter
 
         private Models.Type[] GetTypesCollection()
         {
-            var section = ConfigurationManager.GetSection("ExamineLuceneIndexSets") as IndexSets;
+            var section = (IndexSets)ConfigurationManager.GetSection("ExamineLuceneIndexSets");
 
             return section.Sets["MySearch"].IncludeNodeTypes.ToList().Select(p => new Models.Type
             {
-                IsChecked = false,
+                IsChecked = true,
                 Name = p.Name
             })
             .ToArray();
@@ -86,7 +86,7 @@ namespace MovieProjectWithUmbraco.Controllers.Filter
         {
             foreach (var value in collection)
             {
-                if (param.Any(p => p.Name == value.Name))
+                if (param.Length == 0 || param.Any(p => p.Name == value.Name))
                 {
                     value.IsChecked = true;
                     continue;

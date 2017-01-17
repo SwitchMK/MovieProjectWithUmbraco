@@ -46,9 +46,14 @@
                     </div>
                     <div class="col-sm-4 col-md-3">
                         <div class="row">
-                            <div class="col-xs-12">
-                                @{ Html.RenderAction("RenderSearch", "SiteLayout"); }
-                            </div>
+                            @if (!(Model.Content.Url.Contains("/search") || 
+                                Model.Content.Url.Contains("/register") ||
+                                Model.Content.Url.Contains("/login")))
+                            {
+                                <div class="col-xs-12">
+                                    @{ Html.RenderAction("RenderSearch", "SiteLayout"); }
+                                </div>
+                            }
                             <div class="col-xs-12">
                                 @{ Html.RenderAction("RenderInfoSection", "SiteLayout"); }
                             </div>

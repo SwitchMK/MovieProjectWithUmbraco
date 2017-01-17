@@ -24,13 +24,18 @@ namespace MovieProjectWithUmbraco.Controllers.Search
 
             var foundResults = GetFoundResults(model.Query.Trim());
 
-            var finalResults = foundResults.Where(p => model.Types == null || model.Types.Count() == 0 || (model.Types.Any(x => x.ToLower() == p.DocumentTypeAlias)));
-
-            var param = model.OrderBy ?? DEFAULT_ORDER_VALUE;
-            var propertyInfo = typeof(IPublishedContent).GetProperty(param);
-            var ordered = finalResults.OrderBy(x => propertyInfo.GetValue(x, null));
+            var finalResults = foundResults.Where(p => model.Types == null || model.Types.Count() == 0 || model.Types.Any(x => x.ToLower() == p.DocumentTypeAlias));
+            var ordered = OrderFoundResults(finalResults, model.OrderBy);
 
             return PartialView(FOLDER_SEARCH_PATH + "_SearchResults.cshtml", ordered);
+        }
+
+        private IEnumerable<IPublishedContent> OrderFoundResults(IEnumerable<IPublishedContent> foundResults, string orderBy)
+        {
+            var param = orderBy ?? DEFAULT_ORDER_VALUE;
+            var propertyInfo = typeof(IPublishedContent).GetProperty(param);
+
+            return foundResults.OrderBy(x => propertyInfo.GetValue(x, null));
         }
 
         private IEnumerable<IPublishedContent> GetFoundResults(string query)
