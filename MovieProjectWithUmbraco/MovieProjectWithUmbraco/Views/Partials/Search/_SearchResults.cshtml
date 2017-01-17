@@ -10,8 +10,8 @@
                     <div class="panel-body search-item">
                         <h4><a href="@node.Url">@node.Name</a></h4>
                         <p class="link-to-document">@node.Url</p>
-                        @Umbraco.Truncate((@node.GetPropertyValue<string>("plot") ?? @node.GetPropertyValue<string>("biography")) ??
-                              @node.GetPropertyValue<string>("content") ?? @node.GetPropertyValue<string>("history"), 200)
+                        @Umbraco.Truncate(((@node.GetPropertyValue<string>("plot") ?? @node.GetPropertyValue<string>("biography")) ??
+                              @node.GetPropertyValue<string>("content")) ?? @node.GetPropertyValue<string>("history"), 200)
                     </div>
                 </div>
             </td>

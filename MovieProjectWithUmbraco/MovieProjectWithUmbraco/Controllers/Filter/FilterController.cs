@@ -12,10 +12,12 @@ namespace MovieProjectWithUmbraco.Controllers.Filter
 {
     public class FilterController : SurfaceController
     {
+        private const string FOLDER_FILTER_PATH = "~/Views/Partials/Filter/";
+
         public ActionResult RenderFilterPage()
         {
             var filterModel = ReestablishSearchFilter();
-            return PartialView("~/Views/Partials/Filter/_Filter.cshtml", filterModel);
+            return PartialView(FOLDER_FILTER_PATH + "_Filter.cshtml", filterModel);
         }
 
         private SearchFilter ReestablishSearchFilter()
