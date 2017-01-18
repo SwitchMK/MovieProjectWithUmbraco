@@ -70,7 +70,7 @@
         checkDec: function (el) {
             var ex = /^\d*\.?\d{0,1}$/;
             if(ex.test(el.value)==false) {
-                el.value = el.value.substring(0,el.value.length - 1);
+                el.value = el.value.replace(el.value, '');
             }
         }
     };

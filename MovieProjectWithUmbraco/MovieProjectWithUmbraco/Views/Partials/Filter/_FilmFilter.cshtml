@@ -1,7 +1,11 @@
 ﻿@using MovieProjectWithUmbraco.Models
 @inherits UmbracoViewPage<FilmFilter>
+@{
+    var filmsPageId = 1089;
+    var filmsPageUrl = Umbraco.TypedContent(filmsPageId).Url;
+}
 
-<form action="/films" method="get">
+<form action="@(filmsPageUrl)" method="get">
     <div class="col-xs-12">
         <div class="panel panel-default">
             <div class="panel-heading movie-proj-panel-heading">

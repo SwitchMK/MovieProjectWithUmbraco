@@ -24,8 +24,9 @@ namespace MovieProjectWithUmbraco.Controllers.Filter
             var filterModel = new SearchFilter
             {
                 Types = GetTypesCollection(),
-                OrderBy = new Type[] { new Type { IsChecked = true, Name = "CreateDate" }, new Type { IsChecked = false, Name = "Name" } },
-                Query = model.Query
+                OrderBy = new Type[] {
+                    new Type { IsChecked = true, Name = "CreateDate" },
+                    new Type { IsChecked = false, Name = "Name" } }
             };
 
             RefreshTypesValues(filterModel.Types, GetTypesFromResponse(model.Types));
