@@ -3,11 +3,16 @@
 
 <form action="/search" method="get">
     <div class="col-xs-12">
-        <div class="form-group">
-            <div class="input-group">
-                @Html.TextBoxFor(m => m.Query, htmlAttributes: new { @class = "form-control", placeholder = "Enter some words" })
-                <div class="input-group-btn">
-                    <button class="btn btn-default btn-search" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+        <div class="panel panel-default">
+            <div class="panel-heading movie-proj-panel-heading">
+                <h4>Search here...</h4>
+            </div>
+            <div class="panel-body">
+                <div class="input-group">
+                    @Html.TextBoxFor(m => m.Query, htmlAttributes: new { @class = "form-control", placeholder = "Enter some words" })
+                    <div class="input-group-btn">
+                        <button class="btn btn-default btn-search" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
                 </div>
             </div>
         </div>

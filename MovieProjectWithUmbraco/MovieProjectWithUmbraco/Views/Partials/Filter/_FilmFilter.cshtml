@@ -1,0 +1,92 @@
+﻿@using MovieProjectWithUmbraco.Models
+@inherits UmbracoViewPage<FilmFilter>
+
+<form action="/films" method="get">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading movie-proj-panel-heading">
+                <h4>Search here...</h4>
+            </div>
+            <div class="panel-body">
+                <div class="input-group">
+                    @Html.TextBoxFor(m => m.Query, htmlAttributes: new { @class = "form-control", placeholder = "Enter some words" })
+                    <div class="input-group-btn">
+                        <button class="btn btn-default btn-search" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading movie-proj-panel-heading">
+                <h4>Filters</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading filter-heading">
+                                <h5>Rating</h5>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.Rating, htmlAttributes: new { @class = "form-control", name = "Rating",
+                                        placeholder = "Enter desired rating", onkeyup="MovieApp.Rating.checkDec(this);" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading filter-heading">
+                                <h5>Date of release</h5>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label>Start date</label>
+                                    <div class="input-group date" data-provide="datepicker">
+                                        @Html.TextBoxFor(m => m.StartDate, htmlAttributes: new { @class = "form-control", name = "StartDate", placeholder = "Select date" })
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-th"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>End date</label>
+                                    <div class="input-group date" data-provide="datepicker">
+                                        @Html.TextBoxFor(m => m.EndDate, htmlAttributes: new { @class = "form-control", name = "EndDate", placeholder = "Select date" })
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-th"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading filter-heading">
+                                <h5>Sort by...</h5>
+                            </div>
+                            <div class="panel-body">
+                                @foreach (var model in Model.OrderBy)
+                                {
+                                    <div class="form-group">
+                                        <input type="radio" class="sort-filter" name="orderby" value="@(model.Name)" @(model.IsChecked ? "checked" : string.Empty) />
+                                        @Html.Label(model.Label)
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-outline pull-right" type="submit">Filter</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

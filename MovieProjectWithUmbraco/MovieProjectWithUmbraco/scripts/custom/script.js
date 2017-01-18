@@ -27,14 +27,16 @@
         }
     }
 
+    $('.datepicker').datepicker();
+
     $("#imgInp").change(function () {
         readURL(this);
     });
 
     $('.type-filter').each(function () {
-        var self = $(this),
-          label = self.nextAll('label:first'),
-          label_text = label.text();
+        var self = $(this);
+        label = self.nextAll('label:first');
+        label_text = label.text();
 
         label.remove();
         self.iCheck({
@@ -64,6 +66,12 @@
                     $("#PersonalRatingValue" + ratedMovieId).val(rating);
                     $("#TotalRating" + ratedMovieId).text(response.toFixed(1));
                 });
+        },
+        checkDec: function (el) {
+            var ex = /^\d*\.?\d{0,1}$/;
+            if(ex.test(el.value)==false) {
+                el.value = el.value.substring(0,el.value.length - 1);
+            }
         }
     };
 })(jQuery);

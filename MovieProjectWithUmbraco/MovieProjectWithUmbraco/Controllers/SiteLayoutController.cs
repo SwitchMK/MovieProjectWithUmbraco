@@ -5,7 +5,6 @@ using Umbraco.Web.Mvc;
 using System.Linq;
 using Umbraco.Core.Models;
 using System.Web.Mvc;
-using System;
 using System.Web.Security;
 using MovieProjectWithUmbraco.Extensions;
 using Examine.LuceneEngine.SearchCriteria;
@@ -39,21 +38,8 @@ namespace MovieProjectWithUmbraco.Controllers
 
         public ActionResult RenderSearch()
         {
-            return PartialView(PARTIALS_LAYOUT_PATH + "_Search.cshtml", new Models.Search());
+            return PartialView(PARTIALS_LAYOUT_PATH + "_Search.cshtml");
         }
-
-        [HttpGet]
-        public ActionResult RenderSearchResults(Models.Search model)
-        {
-            var rootNodes = Umbraco.TypedContentAtRoot();
-            var homeNodeByAlias = rootNodes.First(x => x.DocumentTypeAlias == "home");
-
-            var searchPageUrl = homeNodeByAlias.Children.FirstOrDefault(p => p.Id == SEARCH_PAGE_ID).Url;
-            var cuttedUrl = searchPageUrl.Substring(0, searchPageUrl.Length - 1);
-            var queryParam = !string.IsNullOrEmpty(model.Query) ? string.Format("?query={0}", model.Query) : string.Empty;
-
-            return Redirect(Uri.EscapeUriString(string.Format("{0}{1}", cuttedUrl, queryParam)));
-;        }
 
         private Intro GetIntro()
         {

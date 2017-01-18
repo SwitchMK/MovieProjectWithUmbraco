@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="~/Content/line/green.css" />
         <link rel="stylesheet" href="~/Content/square/square.css" />
         <link rel="stylesheet" href="~/Content/square/green.css" />
+        <link rel="stylesheet" href="~/Content/bootstrap-datepicker.min.css" />
 
         <style type="text/css">
             body {
@@ -46,9 +47,9 @@
                     </div>
                     <div class="col-sm-4 col-md-3">
                         <div class="row">
-                            @if (!(Model.Content.Url.Contains("/search") || 
-                                Model.Content.Url.Contains("/register") ||
-                                Model.Content.Url.Contains("/login")))
+                            @if (!(Model.Content.DocumentTypeAlias == "login" ||
+                                Model.Content.DocumentTypeAlias == "register" ||
+                                Model.Content.DocumentTypeAlias == "search"))
                             {
                                 <div class="col-xs-12">
                                     @{ Html.RenderAction("RenderSearch", "SiteLayout"); }
@@ -75,6 +76,7 @@
         <script src="~/scripts/star-rating.js"></script>
         <script src="~/scripts/jquery.Jcrop.js"></script>
         <script src="~/scripts/icheck.js"></script>
+        <script src="~/scripts/bootstrap-datepicker.js"></script>
         <script src="~/scripts/custom/script.js"></script>
 
         @RenderSection("Scripts", required: false)

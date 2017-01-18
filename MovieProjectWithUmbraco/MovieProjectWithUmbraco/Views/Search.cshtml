@@ -10,7 +10,7 @@
             <div class="panel-body">
                 <table class="table table-responsive">
                     <tbody>
-                        @Html.Action("RenderSearchResults", "Search")
+                        @{ Html.RenderAction("RenderSearchResults", "Search"); }
                     </tbody>
                 </table>
             </div>

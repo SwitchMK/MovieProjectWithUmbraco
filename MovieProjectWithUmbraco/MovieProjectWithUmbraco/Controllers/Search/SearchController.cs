@@ -1,5 +1,6 @@
 ﻿using Examine;
 using Examine.LuceneEngine.SearchCriteria;
+using MovieProjectWithUmbraco.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -14,7 +15,7 @@ namespace MovieProjectWithUmbraco.Controllers.Search
         private const string FOLDER_SEARCH_PATH = "~/Views/Partials/Search/";
         private const float SEARCH_PRECISION = 0.7f;
 
-        public ActionResult RenderSearchResults(Models.Search model)
+        public ActionResult RenderSearchResults(SearchResponse model)
         {
             var rootNodes = Umbraco.TypedContentAtRoot();
             var homeNodeByAlias = rootNodes.First(x => x.DocumentTypeAlias == "home");

@@ -1,5 +1,4 @@
 ﻿using MovieProjectWithUmbraco.Models;
-using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -14,53 +13,48 @@ namespace MovieProjectWithUmbraco.Controllers.Filter
     {
         private const string FOLDER_FILTER_PATH = "~/Views/Partials/Filter/";
 
-        public ActionResult RenderFilterPage()
+        public ActionResult RenderFilterPage(SearchResponse model)
         {
-            var filterModel = ReestablishSearchFilter();
+            var filterModel = ReestablishSearchFilter(model);
             return PartialView(FOLDER_FILTER_PATH + "_Filter.cshtml", filterModel);
         }
 
-        private SearchFilter ReestablishSearchFilter()
+        private SearchFilter ReestablishSearchFilter(SearchResponse model)
         {
-            var queryString = Request.QueryString["query"];
-
             var filterModel = new SearchFilter
             {
                 Types = GetTypesCollection(),
-                OrderBy = new Models.Type[] { new Models.Type { IsChecked = true, Name = "CreateDate" }, new Models.Type { IsChecked = false, Name = "Name" } },
-                Query = queryString
+                OrderBy = new Type[] { new Type { IsChecked = true, Name = "CreateDate" }, new Type { IsChecked = false, Name = "Name" } },
+                Query = model.Query
             };
 
-            RefreshTypesValues(filterModel.Types, GetTypesFromResponse());
+            RefreshTypesValues(filterModel.Types, GetTypesFromResponse(model.Types));
 
-            ReestablishOrderbyFromResponse(filterModel.OrderBy);
+            ReestablishOrderbyFromResponse(filterModel.OrderBy, model.OrderBy);
 
             return filterModel;
         }
 
-        private void ReestablishOrderbyFromResponse(IEnumerable<Models.Type> orderByCollection)
+        private void ReestablishOrderbyFromResponse(IEnumerable<Type> orderByCollection, string orderByString)
         {
-            var orderByString = Request.QueryString["orderby"];
-
             if (orderByString != null)
                 RefreshOrderByValues(orderByCollection, orderByString);
             else
                 RefreshOrderByValues(orderByCollection, orderByCollection.First().Name);
         }
 
-        private Models.Type[] GetTypesFromResponse()
+        private Type[] GetTypesFromResponse(IEnumerable<string> types)
         {
-            var typesString = Request.QueryString["types"];
-            var types = typesString != null ? typesString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList() : new List<string>();
-
-            return types.Select(p => new Models.Type { IsChecked = true, Name = p }).ToArray();
+            return types != null 
+                ? types.Select(p => new Type { IsChecked = true, Name = p }).ToArray() 
+                : new List<Type>().ToArray();
         }
 
-        private Models.Type[] GetTypesCollection()
+        private Type[] GetTypesCollection()
         {
             var section = (IndexSets)ConfigurationManager.GetSection("ExamineLuceneIndexSets");
 
-            return section.Sets["MySearch"].IncludeNodeTypes.ToList().Select(p => new Models.Type
+            return section.Sets["MySearch"].IncludeNodeTypes.ToList().Select(p => new Type
             {
                 IsChecked = true,
                 Name = p.Name
@@ -68,7 +62,7 @@ namespace MovieProjectWithUmbraco.Controllers.Filter
             .ToArray();
         }
 
-        private void RefreshOrderByValues(IEnumerable<Models.Type> collection, string param)
+        private void RefreshOrderByValues(IEnumerable<Type> collection, string param)
         {
             foreach (var value in collection)
             {
@@ -82,7 +76,7 @@ namespace MovieProjectWithUmbraco.Controllers.Filter
             }
         }
 
-        private void RefreshTypesValues(IEnumerable<Models.Type> collection, Models.Type[] param)
+        private void RefreshTypesValues(IEnumerable<Type> collection, Type[] param)
         {
             foreach (var value in collection)
             {

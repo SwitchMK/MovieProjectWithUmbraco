@@ -362,6 +362,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-datepicker.css" />
+    <Content Include="Content\bootstrap-datepicker.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -465,6 +467,8 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="scripts\bootstrap-datepicker.js" />
+    <Content Include="scripts\bootstrap-datepicker.min.js" />
     <Content Include="scripts\cropper.js" />
     <Content Include="scripts\cropper.min.js" />
     <Content Include="scripts\icheck.js" />
@@ -549,6 +553,7 @@
     <Content Include="Views\Partials\User\_UserDetails.cshtml" />
     <Content Include="Views\Partials\Filter\_Filter.cshtml" />
     <Content Include="Views\Partials\Search\_SearchResults.cshtml" />
+    <Content Include="Views\Partials\Filter\_FilmFilter.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -594,6 +599,7 @@
     <Compile Include="Controllers\Films\FilmController.cs" />
     <Compile Include="Controllers\Films\FilmsController.cs" />
     <Compile Include="Controllers\Films\Soundtracks\SoundtrackController.cs" />
+    <Compile Include="Controllers\Filter\FilmFilterController.cs" />
     <Compile Include="Controllers\Filter\FilterController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Controllers\News\NewsController.cs" />
@@ -629,9 +635,11 @@
     <Compile Include="Models\DistributorModels\DistributorsModel.cs" />
     <Compile Include="Models\FilmModels\DetailedFilmInfo.cs" />
     <Compile Include="Models\FilmModels\FeedbackModels\Feedback.cs" />
+    <Compile Include="Models\FilmModels\FilmSearchResponse.cs" />
     <Compile Include="Models\FilmModels\SoundtrackModels\Soundtrack.cs" />
     <Compile Include="Models\FilmModels\SoundtrackModels\SoundtracksList.cs" />
-    <Compile Include="Models\FilterModels\Filter.cs" />
+    <Compile Include="Models\FilterModels\FilmFilter.cs" />
+    <Compile Include="Models\FilterModels\SearchFilter.cs" />
     <Compile Include="Models\HomePageModels\HomePage.cs" />
     <Compile Include="Models\HomePageModels\Intro.cs" />
     <Compile Include="Models\Common\NewsItem.cs" />
