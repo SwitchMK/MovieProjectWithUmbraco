@@ -5,9 +5,9 @@ using Umbraco.Web.Mvc;
 using System.Linq;
 using Umbraco.Core.Models;
 using System.Web.Mvc;
-using System;
 using System.Web.Security;
 using MovieProjectWithUmbraco.Extensions;
+using Examine.LuceneEngine.SearchCriteria;
 
 namespace MovieProjectWithUmbraco.Controllers
 {
@@ -39,17 +39,6 @@ namespace MovieProjectWithUmbraco.Controllers
         public ActionResult RenderSearch()
         {
             return PartialView(PARTIALS_LAYOUT_PATH + "_Search.cshtml");
-        }
-
-        [HttpPost]
-        public ActionResult RenderSearchResults(Search model)
-        {
-            var rootNodes = Umbraco.TypedContentAtRoot();
-            var homeNodeByAlias = rootNodes.First(x => x.DocumentTypeAlias == "home");
-
-            var searchPageUrl = homeNodeByAlias.Children.FirstOrDefault(p => p.Id == SEARCH_PAGE_ID).Url;
-
-            return Redirect(Uri.EscapeUriString(string.Format("{0}?query={1}", searchPageUrl, model.Query)));
         }
 
         private Intro GetIntro()

@@ -36,11 +36,6 @@ namespace MovieProjectWithUmbraco.Controllers.Account
             return PartialView(PATH_TO_ACCOUNT_PAGES + "_Profile.cshtml", profileModel);
         }
 
-        public ActionResult ChangePassword()
-        {
-            return PartialView(PATH_TO_ACCOUNT_PAGES + "_ChangePassword.cshtml");
-        }
-
         public ActionResult MemberLogOut()
         {
             Session.Clear();

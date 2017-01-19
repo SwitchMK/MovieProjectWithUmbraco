@@ -1,5 +1,6 @@
 ﻿using MovieProjectWithUmbraco.Entities;
 using MovieProjectWithUmbraco.Repositories.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace MovieProjectWithUmbraco.Repositories
             if (records.Count() == 0)
                 return null;
 
-            return records.Average(p => p.Rating);
+            return Math.Round(records.Average(p => p.Rating), 1);
         }
 
         public void AddRating(long filmId, long userId, double rating)

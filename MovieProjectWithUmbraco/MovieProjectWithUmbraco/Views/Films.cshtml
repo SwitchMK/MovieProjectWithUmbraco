@@ -6,7 +6,8 @@
 
 <div>
     <div class="row">
-        <div class="col-xs-12">
+        @{ Html.RenderAction("RenderFilmFilterPage", "FilmFilter"); }
+        <div class="col-xs-12 col-md-8">
             <div class="panel panel-default">
                 <div class="panel-heading movie-proj-panel-heading">
                     <h4>Films</h4>
@@ -14,32 +15,47 @@
                 <table class="table table-responsive">
                     <tbody>
                         @{
-                            foreach (var film in Model.FilmsInfo)
+                            if (Model.FilmsInfo.Count() > 0)
+                            {
+                                foreach (var film in Model.FilmsInfo)
+                                {
+                                    <tr>
+                                        <td class="vertical-align col-md-2 col-sm-2 col-xs-4">
+                                            <img src="@film.ImagePath" class="img-responsive" alt="Movie Poster">
+                                        </td>
+                                        <td class="vertical-align">
+                                            <h4><a href="@film.Url">@film.Title (@film.YearOfRelease.Year)</a></h4>
+                                        </td>
+                                        <td class="vertical-align total-rating text-right">
+                                            <h3 class="movie-item-vertical-align">
+                                                <span class="glyphicon glyphicon-star rating-item"></span>
+                                                <span id="@string.Format("TotalRating{0}", film.Id)" class="label label-default rating-item">
+                                                    @string.Format("{0:0.0}", film.TotalRating ?? 0)
+                                                </span>
+                                                @Html.Hidden(string.Format("PersonalRatingValue{0}", film.Id), film.PersonalRating)
+                                            </h3>
+                                        </td>
+                                        @if (loggedMember != null)
+                                        {
+                                            <td class="vertical-align rating">
+                                                <button onclick="MovieApp.Rating.selectRateableMovie('@film.Id')"
+                                                        data-toggle="modal" data-target="#rating-model"
+                                                        class="btn btn-warning">
+                                                    Rate
+                                                </button>
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            }
+                            else
                             {
                                 <tr>
-                                    <td class="vertical-align col-md-1 col-sm-2 col-xs-4">
-                                        <img src="@film.ImagePath" class="img-responsive" alt="Movie Poster">
+                                    <td>
+                                        <div class="jumbotron text-center">
+                                            <h4>Nothing has been found</h4>
+                                        </div>
                                     </td>
-                                    <td class="vertical-align">
-                                        <h4><a href="@film.Url">@film.Title (@film.YearOfRelease.Year)</a></h4>
-                                    </td>
-                                    <td class="vertical-align total-rating">
-                                        <h3 class="movie-item-vertical-align">
-                                            <span class="glyphicon glyphicon-star rating-item"></span>
-                                            <span id="@string.Format("TotalRating{0}", film.Id)" class="label label-default rating-item">
-                                                  @string.Format("{0:0.0}", film.TotalRating ?? 0)
-                                            </span>
-                                            @Html.Hidden(string.Format("PersonalRatingValue{0}", film.Id), film.PersonalRating)
-                                        </h3>
-                                    </td>
-                                    @if (loggedMember != null)
-                                    {
-                                        <td class="vertical-align rating">
-                                            <button onclick="MovieApp.Rating.selectRateableMovie('@film.Id')" 
-                                                    data-toggle="modal" data-target="#rating-model" 
-                                                    class="btn btn-warning">Rate</button>
-                                        </td>
-                                    }
                                 </tr>
                             }
                         }

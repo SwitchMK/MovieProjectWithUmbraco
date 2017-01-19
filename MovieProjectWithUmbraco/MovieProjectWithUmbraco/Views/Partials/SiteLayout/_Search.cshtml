@@ -1,15 +1,17 @@
-﻿@inherits UmbracoViewPage<MovieProjectWithUmbraco.Models.Search>
+﻿@using MovieProjectWithUmbraco.Models;
+@inherits UmbracoViewPage<SearchResponse>
+@{
+    var searchPageId = 2160;
+    var searchPageUrl = Umbraco.TypedContent(searchPageId).Url;
+}
 
-
-@using (Html.BeginUmbracoForm("RenderSearchResults", "SiteLayout", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
+<form action="@(searchPageUrl)" method="get">
     <div class="form-group">
         <div class="input-group">
-            @Html.TextBoxFor(m => m.Query, htmlAttributes: new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.Query, htmlAttributes: new { @class = "form-control", placeholder = "Site search..." })
             <div class="input-group-btn">
                 <button class="btn btn-default btn-search"><i class="glyphicon glyphicon-search"></i></button>
             </div>
         </div>
     </div>
-}
+</form>
