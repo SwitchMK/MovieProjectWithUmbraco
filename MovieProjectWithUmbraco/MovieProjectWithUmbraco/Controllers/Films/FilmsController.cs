@@ -31,12 +31,13 @@ namespace MovieProjectWithUmbraco.Controllers
             IEnumerable<FilmInfo> results = null;
 
             var query = response.Query;
-            var rating = ParseRating(response.Rating);
+            var startRating = ParseRating(response.StartRating);
+            var endRating = ParseRating(response.EndRating);
 
             if (!string.IsNullOrEmpty(query) && !string.IsNullOrEmpty(query.Trim()))
-                results = SearchFilms(query.Trim(), response.StartDate, response.EndDate, rating).ToList();
+                results = SearchFilms(query.Trim(), response.StartDate, response.EndDate, startRating, endRating).ToList();
             else
-                results = GetFilms(model.Content, response.StartDate, response.EndDate, rating);
+                results = GetFilms(model.Content, response.StartDate, response.EndDate, startRating, endRating);
 
             var param = response.OrderBy ?? "TotalRating";
             var propertyInfo = typeof(FilmInfo).GetProperty(param);
@@ -51,10 +52,16 @@ namespace MovieProjectWithUmbraco.Controllers
             double parsedRating;
             if (double.TryParse(rating, out parsedRating))
                 return parsedRating;
+
             return null;
         }
 
-        private IEnumerable<FilmInfo> SearchFilms(string query, DateTime? startDate, DateTime? endDate, double? rating)
+        private IEnumerable<FilmInfo> SearchFilms(
+            string query, 
+            DateTime? startDate, 
+            DateTime? endDate, 
+            double? startRating, 
+            double? endRating)
         {
             var Searcher = ExamineManager.Instance.SearchProviderCollection["MyFilmSearchSearcher"];
             var searchCriteria = Searcher.CreateSearchCriteria(Examine.SearchCriteria.BooleanOperation.Or);
@@ -84,16 +91,18 @@ namespace MovieProjectWithUmbraco.Controllers
             return searchResults
                 .Select(p => Umbraco.TypedContent(p.Fields["id"]))
                 .Select(p => GetFilmInfo(p, userId))
-                .Where(p => FilterFilms(p, startDate, endDate, rating));
+                .Where(p => FilterFilms(p, startDate, endDate, startRating, endRating));
         }
 
         private bool FilterFilms(
             FilmInfo p,
             DateTime? startDate,
             DateTime? endDate,
-            double? rating)
+            double? startRating,
+            double? endRating)
         {
-            return (rating == null || p.TotalRating == rating) &&
+            return (startRating == null || p.TotalRating >= startRating) &&
+                (endRating == null || p.TotalRating <= endRating) &&
                 (startDate == null || p.YearOfRelease >= startDate) && 
                 (endDate == null || p.YearOfRelease <= endDate);
         }
@@ -102,13 +111,14 @@ namespace MovieProjectWithUmbraco.Controllers
             IPublishedContent page,
             DateTime? startDate,
             DateTime? endDate,
-            double? rating)
+            double? startRating,
+            double? endRating)
         {
             long? userId = GetUserId();
 
             return page.Children
                 .Select(p => GetFilmInfo(p, userId))
-                .Where(p => FilterFilms(p, startDate, endDate, rating));
+                .Where(p => FilterFilms(p, startDate, endDate, startRating, endRating));
         }
 
         private long? GetUserId()

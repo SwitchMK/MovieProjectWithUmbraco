@@ -540,3 +540,7 @@ footer {
     text-decoration: none;
     color: white;
 }
+
+.filter-label {
+    font-weight: normal;
+}

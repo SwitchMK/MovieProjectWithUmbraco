@@ -27,48 +27,46 @@
                 <h4>Filters</h4>
             </div>
             <div class="panel-body">
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="panel panel-default">
-                                <div class="panel-heading filter-heading">
-                                    <h5>Document types</h5>
-                                </div>
-                                <div class="panel-body">
-                                    @foreach (var model in Model.Types)
-                                    {
-                                        <div class="form-group">
-                                            <input class="type-filter" type="checkbox" name="types" value="@(model.Name)" @(model.IsChecked ? "checked" : string.Empty) />
-                                            @Html.Label(model.Name)
-                                        </div>
-                                    }
-                                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading filter-heading">
+                                <h5><strong>Document types</strong></h5>
+                            </div>
+                            <div class="panel-body">
+                                @foreach (var model in Model.Types)
+                                {
+                                    <div class="form-group">
+                                        <input class="type-filter" type="checkbox" name="types" value="@(model.Name)" @(model.IsChecked ? "checked" : string.Empty) />
+                                        @Html.Label(model.Name)
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="panel panel-default">
-                                <div class="panel-heading filter-heading">
-                                    <h5>Sort by...</h5>
-                                </div>
-                                <div class="panel-body">
-                                    @foreach (var model in Model.OrderBy)
-                                    {
-                                        <div class="form-group">
-                                            <input type="radio" class="sort-filter" name="orderby" value="@(model.Name)" @(model.IsChecked ? "checked" : string.Empty) />
-                                            @Html.Label(model.Name)
-                                        </div>
-                                    }
-                                </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading filter-heading">
+                                <h5><strong>Sort by...</strong></h5>
+                            </div>
+                            <div class="panel-body">
+                                @foreach (var model in Model.OrderBy)
+                                {
+                                    <div class="form-group">
+                                        <input type="radio" class="sort-filter" name="orderby" value="@(model.Name)" @(model.IsChecked ? "checked" : string.Empty) />
+                                        @Html.Label(model.Name, htmlAttributes: new { @class = "filter-label" })
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="form-group">
-                                <button class="btn btn-primary btn-outline pull-right" type="submit">Filter</button>
-                            </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-outline pull-right" type="submit">Filter</button>
                         </div>
                     </div>
                 </div>

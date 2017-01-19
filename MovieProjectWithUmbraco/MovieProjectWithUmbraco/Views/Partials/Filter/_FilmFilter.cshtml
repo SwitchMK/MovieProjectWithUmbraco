@@ -31,12 +31,18 @@
                     <div class="col-xs-12">
                         <div class="panel panel-default">
                             <div class="panel-heading filter-heading">
-                                <h5>Rating</h5>
+                                <h5><strong>Rating</strong></h5>
                             </div>
                             <div class="panel-body">
                                 <div class="form-group">
-                                    @Html.TextBoxFor(m => m.Rating, htmlAttributes: new { @class = "form-control", name = "Rating",
-                                        placeholder = "Enter desired rating", onkeyup="MovieApp.Rating.checkDec(this);" })
+                                    @Html.Label("Start rating", htmlAttributes: new { @class = "filter-label" })
+                                    @Html.TextBoxFor(m => m.StartRating, htmlAttributes: new { @class = "form-control", name = "StartRating",
+                                   placeholder = "Enter desired rating", onkeyup="MovieApp.Rating.checkDec(this);" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("End rating", htmlAttributes: new { @class = "filter-label" })
+                                    @Html.TextBoxFor(m => m.EndRating, htmlAttributes: new { @class = "form-control", name = "EndRating",
+                                   placeholder = "Enter desired rating", onkeyup="MovieApp.Rating.checkDec(this);" })
                                 </div>
                             </div>
                         </div>
@@ -44,11 +50,11 @@
                     <div class="col-xs-12">
                         <div class="panel panel-default">
                             <div class="panel-heading filter-heading">
-                                <h5>Date of release</h5>
+                                <h5><strong>Date of release</strong></h5>
                             </div>
                             <div class="panel-body">
                                 <div class="form-group">
-                                    <label>Start date</label>
+                                    @Html.Label("Start date", htmlAttributes: new { @class = "filter-label" })
                                     <div class="input-group date" data-provide="datepicker">
                                         @Html.TextBoxFor(m => m.StartDate, htmlAttributes: new { @class = "form-control", name = "StartDate", placeholder = "Select date" })
                                         <div class="input-group-addon">
@@ -57,7 +63,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>End date</label>
+                                    @Html.Label("End date", htmlAttributes: new { @class = "filter-label" })
                                     <div class="input-group date" data-provide="datepicker">
                                         @Html.TextBoxFor(m => m.EndDate, htmlAttributes: new { @class = "form-control", name = "EndDate", placeholder = "Select date" })
                                         <div class="input-group-addon">
@@ -71,14 +77,14 @@
                     <div class="col-xs-12">
                         <div class="panel panel-default">
                             <div class="panel-heading filter-heading">
-                                <h5>Sort by...</h5>
+                                <h5><strong>Sort by...</strong></h5>
                             </div>
                             <div class="panel-body">
                                 @foreach (var model in Model.OrderBy)
                                 {
                                     <div class="form-group">
                                         <input type="radio" class="sort-filter" name="orderby" value="@(model.Name)" @(model.IsChecked ? "checked" : string.Empty) />
-                                        @Html.Label(model.Label)
+                                        @Html.Label(model.Label, htmlAttributes: new { @class = "filter-label" })
                                     </div>
                                 }
                             </div>

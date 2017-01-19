@@ -6,7 +6,8 @@ namespace MovieProjectWithUmbraco.Models
     {
         public FilmOrderType[] OrderBy { get; set; }
         public string Query { get; set; }
-        public string Rating { get; set; }
+        public string StartRating { get; set; }
+        public string EndRating { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
     }
