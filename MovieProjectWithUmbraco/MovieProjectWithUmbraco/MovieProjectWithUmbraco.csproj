@@ -554,6 +554,7 @@
     <Content Include="Views\Partials\Filter\_Filter.cshtml" />
     <Content Include="Views\Partials\Search\_SearchResults.cshtml" />
     <Content Include="Views\Partials\Filter\_FilmFilter.cshtml" />
+    <Content Include="Views\Partials\Film\_Films.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -664,6 +665,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\FilmRatingRepository.cs" />
     <Compile Include="Repositories\Interfaces\IFilmRatingRepository.cs" />
+    <Compile Include="Services\FilmRatingService.cs" />
+    <Compile Include="Services\FilmsService.cs" />
+    <Compile Include="Services\FilmsSearchService.cs" />
+    <Compile Include="Services\Interfaces\IFilmRatingService.cs" />
+    <Compile Include="Services\Interfaces\IFilmsService.cs" />
+    <Compile Include="Services\Interfaces\IFilmsSearchService.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

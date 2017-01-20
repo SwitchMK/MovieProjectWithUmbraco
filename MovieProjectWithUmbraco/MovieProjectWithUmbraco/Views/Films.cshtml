@@ -1,8 +1,5 @@
 ﻿@using MovieProjectWithUmbraco.Models
-@inherits UmbracoViewPage<FilmsModel>
-@{
-    var loggedMember = Membership.GetUser();
-}
+@inherits UmbracoTemplatePage
 
 <div>
     <div class="row">
@@ -12,7 +9,8 @@
                 <div class="panel-heading movie-proj-panel-heading">
                     <h4>Films</h4>
                 </div>
-                <table class="table table-responsive">
+                @{ Html.RenderAction("RenderFilms", "Films"); }
+                @*<table class="table table-responsive">
                     <tbody>
                         @{
                             if (Model.FilmsInfo.Count() > 0)
@@ -60,7 +58,7 @@
                             }
                         }
                     </tbody>
-                </table>
+                </table>*@
             </div>
         </div>
     </div>

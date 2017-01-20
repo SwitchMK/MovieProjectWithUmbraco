@@ -4,6 +4,8 @@ using Autofac.Integration.WebApi;
 using MovieProjectWithUmbraco.Contexts;
 using MovieProjectWithUmbraco.Repositories;
 using MovieProjectWithUmbraco.Repositories.Interfaces;
+using MovieProjectWithUmbraco.Services;
+using MovieProjectWithUmbraco.Services.Interfaces;
 using System.Data.Entity;
 using System.Reflection;
 using System.Web.Http;
@@ -23,12 +25,20 @@ namespace MovieProjectWithUmbraco.DI_Configuration
             builder.RegisterApiControllers(typeof(UmbracoApplication).Assembly);
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
-
             builder.RegisterType<CustomDbContext>()
                 .As<DbContext>();
 
             builder.RegisterType<FilmRatingRepository>()
                 .As<IFilmRatingRepository>();
+
+            builder.RegisterType<FilmsSearchService>()
+                .As<IFilmsSearchService>();
+
+            builder.RegisterType<FilmsService>()
+                .As<IFilmsService>();
+
+            builder.RegisterType<FilmRatingService>()
+                .As<IFilmRatingService>();
 
             var container = builder.Build();
             var resolver = new AutofacWebApiDependencyResolver(container);
