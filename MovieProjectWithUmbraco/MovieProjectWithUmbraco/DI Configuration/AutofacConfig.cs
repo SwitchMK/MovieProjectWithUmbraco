@@ -34,6 +34,9 @@ namespace MovieProjectWithUmbraco.DI_Configuration
             builder.RegisterType<FilmsSearchService>()
                 .As<IFilmsSearchService>();
 
+            builder.RegisterType<SearchService>()
+                .As<ISearchService>();
+
             builder.RegisterType<FilmsService>()
                 .As<IFilmsService>();
 

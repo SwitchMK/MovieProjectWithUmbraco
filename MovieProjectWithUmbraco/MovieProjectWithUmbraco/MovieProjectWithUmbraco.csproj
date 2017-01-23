@@ -385,6 +385,8 @@
     <Content Include="Content\line\red.css" />
     <Content Include="Content\line\yellow.css" />
     <Content Include="Content\line\_all.css" />
+    <Content Include="Content\magicsuggest-min.css" />
+    <Content Include="Content\magicsuggest.css" />
     <Content Include="Content\minimal\aero%402x.png" />
     <Content Include="Content\minimal\aero.css" />
     <Content Include="Content\minimal\aero.png" />
@@ -488,6 +490,8 @@
     <Content Include="scripts\jquery.validate.min.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="scripts\magicsuggest-min.js" />
+    <Content Include="scripts\magicsuggest.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="scripts\custom\script.js" />
     <Content Include="scripts\star-rating.js" />
@@ -594,6 +598,7 @@
     <Compile Include="Contexts\CustomDbContext.cs" />
     <Compile Include="Controllers\Account\AccountController.cs" />
     <Compile Include="Controllers\Api\FilmRatingController.cs" />
+    <Compile Include="Controllers\Api\SearchResultsController.cs" />
     <Compile Include="Controllers\Distributors\DistributorController.cs" />
     <Compile Include="Controllers\Distributors\DistributorsController.cs" />
     <Compile Include="Controllers\Films\Feedbacks\FeedbackController.cs" />
@@ -656,7 +661,9 @@
     <Compile Include="Models\PersonModels\PeopleModel.cs" />
     <Compile Include="Models\PersonModels\PersonInfo.cs" />
     <Compile Include="Models\Requests\RateRequest.cs" />
+    <Compile Include="Models\Requests\SearchRequest.cs" />
     <Compile Include="Models\Responses\FilmResponse.cs" />
+    <Compile Include="Models\Responses\AjaxSearchResponse.cs" />
     <Compile Include="Models\SearchModels\Search.cs" />
     <Compile Include="Models\UserModels\Comments\UserComment.cs" />
     <Compile Include="Models\UserModels\DetailedUserInfo.cs" />
@@ -671,6 +678,8 @@
     <Compile Include="Services\Interfaces\IFilmRatingService.cs" />
     <Compile Include="Services\Interfaces\IFilmsService.cs" />
     <Compile Include="Services\Interfaces\IFilmsSearchService.cs" />
+    <Compile Include="Services\Interfaces\ISearchService.cs" />
+    <Compile Include="Services\SearchService.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

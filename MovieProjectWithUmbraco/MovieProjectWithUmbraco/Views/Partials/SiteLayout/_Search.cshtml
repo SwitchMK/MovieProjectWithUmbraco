@@ -5,13 +5,16 @@
     var searchPageUrl = Umbraco.TypedContent(searchPageId).Url;
 }
 
-<form action="@(searchPageUrl)" method="get">
+<form action="@(searchPageUrl)" method="get" autocomplete="off">
     <div class="form-group">
-        <div class="input-group">
-            @Html.TextBoxFor(m => m.Query, htmlAttributes: new { @class = "form-control", placeholder = "Site search..." })
+        <div class="input-group" id="search-input-group">
+            @Html.TextBoxFor(m => m.Query, htmlAttributes: new { @class = "form-control", placeholder = "Site search...", id = "search-query" })
             <div class="input-group-btn">
                 <button class="btn btn-default btn-search"><i class="glyphicon glyphicon-search"></i></button>
             </div>
+        </div>
+        <div class="panel panel-default" id="search-results-container">
+            <table class="table responsive-table" id="search-results"></table>
         </div>
     </div>
 </form>

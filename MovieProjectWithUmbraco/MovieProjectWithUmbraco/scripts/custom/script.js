@@ -3,6 +3,18 @@
 ; (function ($) {
     var rating = null;
     var ratedMovieId = null;
+    var clickTimer = false;
+    var ajaxCallDelay = 500;
+
+    $("#search-results-container").css({
+        'width': ($("#search-input-group").width() + 'px')
+    });
+
+    $("#search-results-container").hide();
+
+    $(window).resize(function () {
+        $("#search-results-container").hide();
+    });
 
     $("#input-id").rating({ size: 'xs' });
 
@@ -12,6 +24,15 @@
 
     $('#input-id').on('rating.clear', function (event) {
         rating = 0;
+    });
+
+    $(function() {
+        $('#magicsuggest').magicSuggest({
+            placeholder: "Site search...",
+            name: "Query",
+            hideTrigger: true,
+            highlight: false
+        });
     });
 
     function readURL(input) {
@@ -29,9 +50,19 @@
 
     $('.datepicker').datepicker();
 
-    $("#imgInp").change(function () {
-        readURL(this);
+    $("#search-query").on('input', function () {
+        var query = $(this).val();
+
+        if (clickTimer) {
+            clearTimeout(clickTimer);
+        }
+
+        clickTimer = setTimeout(function () {
+            MovieApp.Search.getResults(query);
+        }, ajaxCallDelay);
     });
+
+
 
     $('.type-filter').each(function () {
         var self = $(this);
@@ -47,6 +78,19 @@
 
     $('.sort-filter').iCheck({
         radioClass: 'iradio_square-green'
+    });
+
+    $("#search-results-container").on("clickoutside", function () {
+        $("#search-results-container").hide();
+    });
+
+    $(document).click(function (evt) {
+        if (evt.target.id !== "search-query")
+            $("#search-results-container").hide();
+    });
+
+    $("#search-results-container").click(function (e) {
+        e.stopPropagation();
     });
 
     MovieApp.Rating = {
@@ -72,6 +116,34 @@
             if(ex.test(el.value)==false) {
                 el.value = el.value.replace(el.value, '');
             }
+        }
+    };
+
+    MovieApp.Search = {
+        getResults: function (query) {
+            var searchRequest = {
+                query: query
+            };
+
+            $.post("/umbraco/api/SearchResults/GetFoundResults",
+                searchRequest, function (response) {
+                    $("#search-results-container").hide();
+
+                    var searchResultsTable = $("#search-results");
+                    searchResultsTable.empty();
+
+                    if (response.length > 0) {
+                        response.forEach(function (item) {
+                            var node = document.createElement("tr");
+                            node.innerHTML =
+                                "<td class=\"col-md-2\"><img class=\"img-responsive\" src=\"" + item.ImagePath + "\" /></td>" +
+                                "<td class=\"vertical-align\"><h5><a href=\"" + item.Url + "\">" + item.Name + "</a></h5></td>"
+                            searchResultsTable.append(node);
+                        });
+
+                        $("#search-results-container").show();
+                    }
+                });
         }
     };
 })(jQuery);
