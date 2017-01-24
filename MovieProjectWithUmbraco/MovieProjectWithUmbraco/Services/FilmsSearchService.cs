@@ -6,8 +6,6 @@ using Umbraco.Core.Models;
 using Umbraco.Web;
 using System.Linq;
 using System.Web.Security;
-using Examine.LuceneEngine.SearchCriteria;
-using Examine;
 using MovieProjectWithUmbraco.Services.Interfaces;
 
 namespace MovieProjectWithUmbraco.Services
@@ -17,10 +15,14 @@ namespace MovieProjectWithUmbraco.Services
         private const float SEARCH_PRECISION = 0.7f;
         private const int FILMS_PAGE_ID = 1089;
         private readonly IFilmRatingRepository _filmRatingRepository;
+        private readonly ISearchService _searchService;
 
-        public FilmsSearchService(IFilmRatingRepository filmRatingRepository)
+        public FilmsSearchService(
+            IFilmRatingRepository filmRatingRepository,
+            ISearchService searchService)
         {
             _filmRatingRepository = filmRatingRepository;
+            _searchService = searchService;
         }
 
         public IEnumerable<FilmInfo> SearchFilms(
@@ -30,35 +32,11 @@ namespace MovieProjectWithUmbraco.Services
             double? startRating,
             double? endRating)
         {
-            var umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
-
-            var Searcher = ExamineManager.Instance.SearchProviderCollection["MyFilmSearchSearcher"];
-            var searchCriteria = Searcher.CreateSearchCriteria(Examine.SearchCriteria.BooleanOperation.Or);
-
-            var operation = searchCriteria
-                .Field("nodeName", query).Or()
-                .Field("nodeName", query.Fuzzy(SEARCH_PRECISION)).Or()
-                .Field("cast", query).Or()
-                .Field("cast", query.Fuzzy(SEARCH_PRECISION)).Or()
-                .Field("directors", query).Or()
-                .Field("directors", query.Fuzzy(SEARCH_PRECISION)).Or()
-                .Field("writers", query).Or()
-                .Field("writers", query.Fuzzy(SEARCH_PRECISION)).Or()
-                .Field("producers", query).Or()
-                .Field("producers", query.Fuzzy(SEARCH_PRECISION)).Or()
-                .Field("title", query).Or()
-                .Field("title", query.Fuzzy(SEARCH_PRECISION)).Or()
-                .Field("distributors", query).Or()
-                .Field("distributors", query.Fuzzy(SEARCH_PRECISION)).Or()
-                .Field("plot", query).Or()
-                .Field("plot", query.Fuzzy(SEARCH_PRECISION));
-
-            var searchResults = Searcher.Search(operation.Compile());
+            var searchResults = _searchService.SearchFilms(query);
 
             long? userId = GetUserId();
 
             return searchResults
-                .Select(p => umbracoHelper.TypedContent(p.Fields["id"]))
                 .Select(p => GetFilmInfo(p, userId))
                 .Where(p => FilterFilms(p, startDate, endDate, startRating, endRating));
         }

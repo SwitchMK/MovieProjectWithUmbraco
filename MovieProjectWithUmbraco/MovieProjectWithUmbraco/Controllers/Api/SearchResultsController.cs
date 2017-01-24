@@ -31,5 +31,24 @@ namespace MovieProjectWithUmbraco.Controllers.Api
                 })
                 .Take(AMOUNT_OF_TAKEN_ITEMS);
         }
+
+        [HttpPost]
+        public IEnumerable<AjaxSearchResponse> SearchFilms([FromBody] SearchRequest searchRequest)
+        {
+            if (string.IsNullOrWhiteSpace(searchRequest.Query))
+                return new List<AjaxSearchResponse>(); 
+
+            var results = _searchService.SearchFilms(searchRequest.Query)
+                .OrderByDescending(p => p.CreateDate)
+                .Select(p => new AjaxSearchResponse
+                {
+                    Name = p.Name,
+                    Url = p.Url,
+                    ImagePath = p.GetCropUrl("image", "smSzImgCropper")
+                })
+                .Take(AMOUNT_OF_TAKEN_ITEMS);
+
+            return results;
+        }
     }
 }
