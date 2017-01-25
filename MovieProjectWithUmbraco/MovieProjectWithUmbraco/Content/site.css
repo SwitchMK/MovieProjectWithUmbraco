@@ -544,3 +544,21 @@ footer {
 .filter-label {
     font-weight: normal;
 }
+
+#search-results-container {
+    position: absolute !important; 
+    z-index: 100; 
+    width: 100%; 
+    margin-bottom: 60px; 
+    border: 1px solid gray; 
+    display: none;
+}
+
+#film-search-results-container {
+    position: absolute !important; 
+    z-index: 100; 
+    width: 100%; 
+    margin-bottom: 60px; 
+    border: 1px solid gray; 
+    display: none;
+}
