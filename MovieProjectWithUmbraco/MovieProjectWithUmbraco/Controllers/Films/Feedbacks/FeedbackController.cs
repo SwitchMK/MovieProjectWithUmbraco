@@ -10,7 +10,6 @@ namespace MovieProjectWithUmbraco.Controllers.Films.Feedbacks
 {
     public class FeedbackController : SurfaceController
     {
-        const int PROFILE_PAGE_ID = 5219;
         const string PATH_TO_FEEDBACK_FOLDER = "~/Views/Partials/Feedback/";
 
         public ActionResult RenderFeedbackTicker()
@@ -51,7 +50,7 @@ namespace MovieProjectWithUmbraco.Controllers.Films.Feedbacks
             var rootNodes = Umbraco.TypedContentAtRoot();
             var homeNodeByAlias = rootNodes.First(x => x.DocumentTypeAlias == "home");
 
-            var publisherProfileUrl = homeNodeByAlias.Descendants(2).FirstOrDefault(p => p.Id == PROFILE_PAGE_ID).Url;
+            var publisherProfileUrl = homeNodeByAlias.Descendant("profile").Url;
 
             foreach (var comment in CurrentPage.Children.Where(d => d.DocumentTypeAlias == "feedback").OrderByDescending(p => p.CreateDate))
             {

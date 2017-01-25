@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.Models;
@@ -9,8 +10,6 @@ namespace MovieProjectWithUmbraco.Extensions
 {
     public static class Extensions
     {
-        private const int DEFAULT_AVATAR_ID = 3192;
-
         public static string GetAvatarUrl(this IMember member, string alias)
         {
             var uHelper = new UmbracoHelper(UmbracoContext.Current);
@@ -47,7 +46,13 @@ namespace MovieProjectWithUmbraco.Extensions
         {
             var uHelper = new UmbracoHelper(UmbracoContext.Current);
 
-            var defaultAvatar = uHelper.TypedMedia(DEFAULT_AVATAR_ID);
+            var avatarsFolder = uHelper
+                .TypedMediaAtRoot()
+                .FirstOrDefault(m => m.Name.InvariantEquals("User Avatars"));
+
+            var defaultImageId = avatarsFolder?.Children().FirstOrDefault(c => c.Name.InvariantEquals("Default")).Id;
+
+            var defaultAvatar = uHelper.TypedMedia(defaultImageId);
 
             return defaultAvatar.GetCropUrl("image", alias);
         }

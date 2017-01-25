@@ -1,8 +1,10 @@
 ﻿@using MovieProjectWithUmbraco.Models
 @inherits UmbracoViewPage<FilmFilter>
 @{
-    var filmsPageId = 1089;
-    var filmsPageUrl = Umbraco.TypedContent(filmsPageId).Url;
+    var rootNodes = Umbraco.TypedContentAtRoot();
+    var homeNode = rootNodes.First(x => x.DocumentTypeAlias == "home");
+
+    var filmsPageUrl = homeNode.Descendant("films").Url;
 }
 
 <form action="@(filmsPageUrl)" method="get" autocomplete="off">

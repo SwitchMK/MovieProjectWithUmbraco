@@ -15,7 +15,6 @@ namespace MovieProjectWithUmbraco.Controllers.Users
     {
         private const string USER_FOLDER_PATH = "~/Views/Partials/User/";
         private const string PATH_TO_FEEDBACK_FOLDER = "~/Views/Partials/Feedback/";
-        private const int FILMS_PAGE_ID = 1089;
         private const int AMOUNT_OF_COMMENTS = 5;
         private readonly IFilmRatingRepository _filmRatingRepository;
 
@@ -76,7 +75,7 @@ namespace MovieProjectWithUmbraco.Controllers.Users
             var rootNodes = Umbraco.TypedContentAtRoot();
             var homeNodeByAlias = rootNodes.First(x => x.DocumentTypeAlias == "home");
 
-            var filmsPage = homeNodeByAlias.FirstChild(p => p.Id == FILMS_PAGE_ID);
+            var filmsPage = homeNodeByAlias.Descendant("films");
 
             foreach (var filmPage in filmsPage.Children())
             {

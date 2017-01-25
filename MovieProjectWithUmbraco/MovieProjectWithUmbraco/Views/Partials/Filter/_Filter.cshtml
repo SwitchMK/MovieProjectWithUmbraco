@@ -1,8 +1,10 @@
 ﻿@using MovieProjectWithUmbraco.Models
 @inherits UmbracoViewPage<SearchFilter>
 @{ 
-    var searchPageId = 2160;
-    var searchPageUrl = Umbraco.TypedContent(searchPageId).Url;
+    var rootNodes = Umbraco.TypedContentAtRoot();
+    var homeNode = rootNodes.First(x => x.DocumentTypeAlias == "home");
+
+    var searchPageUrl = homeNode.Descendant("search").Url;
 }
 
 <form action="@(searchPageUrl)" method="get" autocomplete="off">
