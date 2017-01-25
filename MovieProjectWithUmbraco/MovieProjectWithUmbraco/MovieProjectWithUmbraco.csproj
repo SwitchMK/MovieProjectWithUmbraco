@@ -131,6 +131,14 @@
       <HintPath>..\packages\uSync.3.3.1.740\lib\net45\Jumoo.uSync.BackOffice.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Jumoo.uSync.Content, Version=3.3.1.740, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uSync.ContentEdition.3.3.1.740\lib\net45\Jumoo.uSync.Content.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Jumoo.uSync.ContentMappers, Version=3.3.1.740, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uSync.ContentMappers.3.3.1.740\lib\net45\Jumoo.uSync.ContentMappers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Jumoo.uSync.Core, Version=5.6.1.740, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\uSync.Core.5.6.1.740\lib\net45\Jumoo.uSync.Core.dll</HintPath>
       <Private>True</Private>
@@ -371,6 +379,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\uSync.Content\uSyncDashboardContent.html" />
+    <Content Include="App_Plugins\uSync.Content\uSyncDashboardContentController.js" />
     <Content Include="App_Plugins\uSync\uSyncDashboard.css" />
     <Content Include="App_Plugins\uSync\uSyncDashboard.html" />
     <Content Include="App_Plugins\uSync\uSyncDashboardController.js" />
@@ -469,7 +479,9 @@
     <Content Include="Images\Background\b28.png" />
     <Content Include="Images\Background\b3.png" />
     <Content Include="Images\Background\re-fc.png" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -484,6 +496,7 @@
     <Content Include="Config\uSyncCore.Config" />
     <Content Include="Config\uSyncBackOffice.Config" />
     <Content Include="App_Plugins\uSync\package.manifest" />
+    <Content Include="App_Plugins\uSync.Content\package.manifest" />
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="scripts\bootstrap-datepicker.js" />
     <Content Include="scripts\bootstrap-datepicker.min.js" />
@@ -575,6 +588,7 @@
     <Content Include="Views\Partials\Search\_SearchResults.cshtml" />
     <Content Include="Views\Partials\Filter\_FilmFilter.cshtml" />
     <Content Include="Views\Partials\Film\_Films.cshtml" />
+    <Content Include="Views\Layout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -607,7 +621,9 @@
     <Content Include="Config\Lang\zh-CN.user.xml" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
