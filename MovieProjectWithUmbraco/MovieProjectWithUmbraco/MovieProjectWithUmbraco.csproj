@@ -560,7 +560,6 @@
     <Content Include="Views\FilmDetails.cshtml" />
     <Content Include="Views\Films.cshtml" />
     <Content Include="Views\Home.cshtml" />
-    <Content Include="Views\Shared\Layout.cshtml" />
     <Content Include="Views\People.cshtml" />
     <Content Include="Views\PersonDetails.cshtml" />
     <Content Include="Views\Partials\SiteLayout\_Header.cshtml" />

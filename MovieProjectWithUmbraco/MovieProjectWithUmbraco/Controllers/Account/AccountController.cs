@@ -58,7 +58,7 @@ namespace MovieProjectWithUmbraco.Controllers.Account
                 return CurrentUmbracoPage();
             }
 
-            var member = memberService.CreateMemberWithIdentity(model.Email, model.Email, model.FullName, "Member");
+            var member = memberService.CreateMemberWithIdentity(model.Login, model.Email, model.FullName, "Member");
 
             memberService.Save(member);
             memberService.SavePassword(member, model.Password);
