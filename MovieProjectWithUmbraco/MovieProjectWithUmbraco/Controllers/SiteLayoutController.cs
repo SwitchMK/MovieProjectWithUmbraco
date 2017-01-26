@@ -15,7 +15,6 @@ namespace MovieProjectWithUmbraco.Controllers
     {
         private const int RECENT_MOVIES = 1;
         private const int RECENT_PEOPLE = 1;
-        private const int SEARCH_PAGE_ID = 2160;
         private const string PARTIALS_LAYOUT_PATH = "~/Views/Partials/SiteLayout/";
 
         public ActionResult RenderHeader()

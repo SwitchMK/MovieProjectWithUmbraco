@@ -13,7 +13,6 @@ namespace MovieProjectWithUmbraco.Services
     public class FilmsSearchService : IFilmsSearchService
     {
         private const float SEARCH_PRECISION = 0.7f;
-        private const int FILMS_PAGE_ID = 1089;
         private readonly IFilmRatingRepository _filmRatingRepository;
         private readonly ISearchService _searchService;
 
@@ -71,7 +70,10 @@ namespace MovieProjectWithUmbraco.Services
         {
             var umbracoHelper = new UmbracoHelper(UmbracoContext.Current);
 
-            return umbracoHelper.TypedContent(FILMS_PAGE_ID);
+            var rootNodes = umbracoHelper.TypedContentAtRoot();
+            var homeNode = rootNodes.First(x => x.DocumentTypeAlias == "home");
+
+            return homeNode.Descendant("films");
         }
 
         private long? GetUserId()

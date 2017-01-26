@@ -146,6 +146,32 @@
         }
     };
 
+    function initializeDocument() {
+        $("#search-results-container").css({
+            'width': ($("#search-input-group").width() + "px")
+        });
+
+        $("#film-search-results-container").css({
+            'width': ($("#film-search-input-group").width() + "px")
+        });
+
+        $("#search-results-container").hide();
+
+        $("#film-search-results-container").hide();
+    };
+
+    function initializeRating() {
+        $("#input-id").rating({ size: "xs" });
+
+        $("#input-id").on("rating.change", function (event, value, caption) {
+            rating = value;
+        });
+
+        $("#input-id").on("rating.clear", function (event) {
+            rating = 0;
+        });
+    };
+
     MovieApp.Search = {
         getResults: function (query) {
             var searchRequest = {
@@ -179,29 +205,3 @@
         }
     };
 })(jQuery);
-
-function initializeDocument() {
-    $("#search-results-container").css({
-        'width': ($("#search-input-group").width() + "px")
-    });
-
-    $("#film-search-results-container").css({
-        'width': ($("#film-search-input-group").width() + "px")
-    });
-
-    $("#search-results-container").hide();
-
-    $("#film-search-results-container").hide();
-}
-
-function initializeRating() {
-    $("#input-id").rating({ size: "xs" });
-
-    $("#input-id").on("rating.change", function (event, value, caption) {
-        rating = value;
-    });
-
-    $("#input-id").on("rating.clear", function (event) {
-        rating = 0;
-    });
-}
