@@ -38,28 +38,39 @@ namespace MovieProjectWithUmbraco.Controllers.Films.Feedbacks
             if (user == null)
                 return Redirect("~/Views/Login.cshtml");
 
-            CreateFeedbackContent(model, CurrentPage.Name, user.UserName);
+            var member = Services.MemberService.GetByUsername(user.UserName);
+
+            CreateFeedbackContent(model, CurrentPage.Name, member.Id);
 
             return RedirectToCurrentUmbracoUrl();
         }
 
         private IEnumerable<Feedback> GetFeedbacksForMovie()
         {
-            foreach (var comment in CurrentPage.Children.OrderByDescending(p => p.CreateDate))
+            var rootNodes = Umbraco.TypedContentAtRoot();
+            var homeNodeByAlias = rootNodes.First(x => x.DocumentTypeAlias == "home");
+
+            var publisherProfileUrl = homeNodeByAlias.Descendant("profile").Url;
+
+            foreach (var comment in CurrentPage.Children.Where(d => d.DocumentTypeAlias == "feedback").OrderByDescending(p => p.CreateDate))
             {
+                var memberId = comment.GetPropertyValue<int>("memberId");
+                var member = Services.MemberService.GetById(memberId);
+
                 yield return new Feedback
                 {
                     Content = comment.GetPropertyValue<string>("feedbackText"),
                     DateOfPublication = comment.CreateDate,
-                    Publisher = Membership.GetUser(comment.GetPropertyValue<string>("member")).UserName
+                    Publisher = member?.Username ?? "Unknown",
+                    PublisherProfileUrl = member != null ? string.Format("{0}?memberId={1}", publisherProfileUrl, memberId) : null
                 };
             }
         }
 
-        private void CreateFeedbackContent(Feedback model, string filmName, string userEmail)
+        private void CreateFeedbackContent(Feedback model, string filmName, int memberId)
         {
-            var content = Services.ContentService.CreateContent(string.Format("{0}-{1}-Comment", userEmail, filmName), CurrentPage.Id, "Feedback");
-            content.SetValue("member", userEmail);
+            var content = Services.ContentService.CreateContent(string.Format("{0}-{1}-Comment", memberId, filmName), CurrentPage.Id, "Feedback");
+            content.SetValue("memberId", memberId);
             content.SetValue("feedbackText", model.Content);
             content.SetValue("hideFromNavigation", true);
             Services.ContentService.SaveAndPublishWithStatus(content);

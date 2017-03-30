@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\uSync.3.3.1.740\build\uSync.props" Condition="Exists('..\packages\uSync.3.3.1.740\build\uSync.props')" />
   <Import Project="..\packages\UmbracoCms.7.5.6\build\UmbracoCms.props" Condition="Exists('..\packages\UmbracoCms.7.5.6\build\UmbracoCms.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
@@ -124,6 +125,22 @@
     </Reference>
     <Reference Include="interfaces, Version=1.0.6185.24081, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\UmbracoCms.Core.7.5.6\lib\interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Jumoo.uSync.BackOffice, Version=3.3.1.740, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uSync.3.3.1.740\lib\net45\Jumoo.uSync.BackOffice.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Jumoo.uSync.Content, Version=3.3.1.740, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uSync.ContentEdition.3.3.1.740\lib\net45\Jumoo.uSync.Content.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Jumoo.uSync.ContentMappers, Version=3.3.1.740, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uSync.ContentMappers.3.3.1.740\lib\net45\Jumoo.uSync.ContentMappers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Jumoo.uSync.Core, Version=5.6.1.740, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uSync.Core.5.6.1.740\lib\net45\Jumoo.uSync.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, processorArchitecture=MSIL">
@@ -362,16 +379,109 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\uSync.Content\uSyncDashboardContent.html" />
+    <Content Include="App_Plugins\uSync.Content\uSyncDashboardContentController.js" />
+    <Content Include="App_Plugins\uSync\uSyncDashboard.css" />
+    <Content Include="App_Plugins\uSync\uSyncDashboard.html" />
+    <Content Include="App_Plugins\uSync\uSyncDashboardController.js" />
+    <Content Include="App_Plugins\uSync\uSyncDashboardService.js" />
+    <Content Include="Content\bootstrap-datepicker.css" />
+    <Content Include="Content\bootstrap-datepicker.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\cropper.css" />
+    <Content Include="Content\cropper.min.css" />
+    <Content Include="Content\jquery.Jcrop.css" />
+    <Content Include="Content\jquery.Jcrop.min.css" />
+    <Content Include="Content\line\aero.css" />
+    <Content Include="Content\line\blue.css" />
+    <Content Include="Content\line\green.css" />
+    <Content Include="Content\line\grey.css" />
+    <Content Include="Content\line\line%402x.png" />
+    <Content Include="Content\line\line.css" />
+    <Content Include="Content\line\line.png" />
+    <Content Include="Content\line\orange.css" />
+    <Content Include="Content\line\pink.css" />
+    <Content Include="Content\line\purple.css" />
+    <Content Include="Content\line\red.css" />
+    <Content Include="Content\line\yellow.css" />
+    <Content Include="Content\line\_all.css" />
+    <Content Include="Content\magicsuggest-min.css" />
+    <Content Include="Content\magicsuggest.css" />
+    <Content Include="Content\minimal\aero%402x.png" />
+    <Content Include="Content\minimal\aero.css" />
+    <Content Include="Content\minimal\aero.png" />
+    <Content Include="Content\minimal\blue%402x.png" />
+    <Content Include="Content\minimal\blue.css" />
+    <Content Include="Content\minimal\blue.png" />
+    <Content Include="Content\minimal\green%402x.png" />
+    <Content Include="Content\minimal\green.css" />
+    <Content Include="Content\minimal\green.png" />
+    <Content Include="Content\minimal\grey%402x.png" />
+    <Content Include="Content\minimal\grey.css" />
+    <Content Include="Content\minimal\grey.png" />
+    <Content Include="Content\minimal\minimal%402x.png" />
+    <Content Include="Content\minimal\minimal.css" />
+    <Content Include="Content\minimal\minimal.png" />
+    <Content Include="Content\minimal\orange%402x.png" />
+    <Content Include="Content\minimal\orange.css" />
+    <Content Include="Content\minimal\orange.png" />
+    <Content Include="Content\minimal\pink%402x.png" />
+    <Content Include="Content\minimal\pink.css" />
+    <Content Include="Content\minimal\pink.png" />
+    <Content Include="Content\minimal\purple%402x.png" />
+    <Content Include="Content\minimal\purple.css" />
+    <Content Include="Content\minimal\purple.png" />
+    <Content Include="Content\minimal\red%402x.png" />
+    <Content Include="Content\minimal\red.css" />
+    <Content Include="Content\minimal\red.png" />
+    <Content Include="Content\minimal\yellow%402x.png" />
+    <Content Include="Content\minimal\yellow.css" />
+    <Content Include="Content\minimal\yellow.png" />
+    <Content Include="Content\minimal\_all.css" />
     <Content Include="Content\site.css" />
+    <Content Include="Content\square\aero%402x.png" />
+    <Content Include="Content\square\aero.css" />
+    <Content Include="Content\square\aero.png" />
+    <Content Include="Content\square\blue%402x.png" />
+    <Content Include="Content\square\blue.css" />
+    <Content Include="Content\square\blue.png" />
+    <Content Include="Content\square\green%402x.png" />
+    <Content Include="Content\square\green.css" />
+    <Content Include="Content\square\green.png" />
+    <Content Include="Content\square\grey%402x.png" />
+    <Content Include="Content\square\grey.css" />
+    <Content Include="Content\square\grey.png" />
+    <Content Include="Content\square\orange%402x.png" />
+    <Content Include="Content\square\orange.css" />
+    <Content Include="Content\square\orange.png" />
+    <Content Include="Content\square\pink%402x.png" />
+    <Content Include="Content\square\pink.css" />
+    <Content Include="Content\square\pink.png" />
+    <Content Include="Content\square\purple%402x.png" />
+    <Content Include="Content\square\purple.css" />
+    <Content Include="Content\square\purple.png" />
+    <Content Include="Content\square\red%402x.png" />
+    <Content Include="Content\square\red.css" />
+    <Content Include="Content\square\red.png" />
+    <Content Include="Content\square\square%402x.png" />
+    <Content Include="Content\square\square.css" />
+    <Content Include="Content\square\square.png" />
+    <Content Include="Content\square\yellow%402x.png" />
+    <Content Include="Content\square\yellow.css" />
+    <Content Include="Content\square\yellow.png" />
+    <Content Include="Content\square\_all.css" />
     <Content Include="Content\star-rating.css" />
     <Content Include="Content\star-rating.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Images\Background\b28.png" />
     <Content Include="Images\Background\b3.png" />
-    <Content Include="packages.config" />
+    <Content Include="Images\Background\re-fc.png" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -383,7 +493,17 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Config\uSyncCore.Config" />
+    <Content Include="Config\uSyncBackOffice.Config" />
+    <Content Include="App_Plugins\uSync\package.manifest" />
+    <Content Include="App_Plugins\uSync.Content\package.manifest" />
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="scripts\bootstrap-datepicker.js" />
+    <Content Include="scripts\bootstrap-datepicker.min.js" />
+    <Content Include="scripts\cropper.js" />
+    <Content Include="scripts\cropper.min.js" />
+    <Content Include="scripts\icheck.js" />
+    <Content Include="scripts\icheck.min.js" />
     <Content Include="scripts\jquery-1.10.2.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
@@ -393,10 +513,14 @@
     <Content Include="scripts\jquery-1.9.1.js" />
     <Content Include="scripts\jquery-1.9.1.min.js" />
     <None Include="scripts\jquery.validate-vsdoc.js" />
+    <Content Include="scripts\jquery.Jcrop.js" />
+    <Content Include="scripts\jquery.Jcrop.min.js" />
     <Content Include="scripts\jquery.validate.js" />
     <Content Include="scripts\jquery.validate.min.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="scripts\magicsuggest-min.js" />
+    <Content Include="scripts\magicsuggest.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="scripts\custom\script.js" />
     <Content Include="scripts\star-rating.js" />
@@ -436,11 +560,8 @@
     <Content Include="Views\FilmDetails.cshtml" />
     <Content Include="Views\Films.cshtml" />
     <Content Include="Views\Home.cshtml" />
-    <Content Include="Views\Layout.cshtml" />
     <Content Include="Views\People.cshtml" />
     <Content Include="Views\PersonDetails.cshtml" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Partials\SiteLayout\_Header.cshtml" />
     <Content Include="Views\DistributorDetails.cshtml" />
     <Content Include="Views\Distributors.cshtml" />
@@ -453,6 +574,20 @@
     <Content Include="Views\Partials\SiteLayout\_InfoSection.cshtml" />
     <Content Include="Views\Partials\Feedback\_FeedbacksTicker.cshtml" />
     <Content Include="Views\Partials\Feedback\_Feedback.cshtml" />
+    <Content Include="Views\Search.cshtml" />
+    <Content Include="Views\Partials\SiteLayout\_Search.cshtml" />
+    <Content Include="Views\Partials\Film\Soundtrack\_SoundtrackList.cshtml" />
+    <Content Include="Views\Partials\Account\_Profile.cshtml" />
+    <Content Include="Views\Profile.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Users.cshtml" />
+    <Content Include="Views\UserDetails.cshtml" />
+    <Content Include="Views\Partials\User\_UserDetails.cshtml" />
+    <Content Include="Views\Partials\Filter\_Filter.cshtml" />
+    <Content Include="Views\Partials\Search\_SearchResults.cshtml" />
+    <Content Include="Views\Partials\Filter\_FilmFilter.cshtml" />
+    <Content Include="Views\Partials\Film\_Films.cshtml" />
+    <Content Include="Views\Layout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -485,25 +620,35 @@
     <Content Include="Config\Lang\zh-CN.user.xml" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Contexts\CustomDbContext.cs" />
     <Compile Include="Controllers\Account\AccountController.cs" />
     <Compile Include="Controllers\Api\FilmRatingController.cs" />
+    <Compile Include="Controllers\Api\SearchResultsController.cs" />
     <Compile Include="Controllers\Distributors\DistributorController.cs" />
     <Compile Include="Controllers\Distributors\DistributorsController.cs" />
     <Compile Include="Controllers\Films\Feedbacks\FeedbackController.cs" />
     <Compile Include="Controllers\Films\FilmController.cs" />
     <Compile Include="Controllers\Films\FilmsController.cs" />
+    <Compile Include="Controllers\Films\Soundtracks\SoundtrackController.cs" />
+    <Compile Include="Controllers\Filter\FilmFilterController.cs" />
+    <Compile Include="Controllers\Filter\FilterController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Controllers\News\NewsController.cs" />
     <Compile Include="Controllers\People\PeopleController.cs" />
     <Compile Include="Controllers\People\PersonController.cs" />
+    <Compile Include="Controllers\Search\SearchController.cs" />
     <Compile Include="Controllers\SiteLayoutController.cs" />
+    <Compile Include="Controllers\Users\UserController.cs" />
+    <Compile Include="Controllers\Users\UsersController.cs" />
     <Compile Include="DI Configuration\AutofacConfig.cs" />
     <Compile Include="Entities\FilmRating.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -516,18 +661,28 @@
       <DependentUpon>201612221239582_CustomContextModification.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountModels\BasicInfoModel.cs" />
+    <Compile Include="Models\AccountModels\ChangePassword.cs" />
+    <Compile Include="Models\AccountModels\ContactInfoModel.cs" />
     <Compile Include="Models\AccountModels\LoginModel.cs" />
+    <Compile Include="Models\AccountModels\ProfileModel.cs" />
     <Compile Include="Models\AccountModels\RegisterModel.cs" />
     <Compile Include="Models\DistributorModels\DetailedDistributorInfo.cs" />
     <Compile Include="Models\DistributorModels\DistributorInfo.cs" />
     <Compile Include="Models\DistributorModels\DistributorsModel.cs" />
     <Compile Include="Models\FilmModels\DetailedFilmInfo.cs" />
     <Compile Include="Models\FilmModels\FeedbackModels\Feedback.cs" />
+    <Compile Include="Models\FilmModels\FilmSearchResponse.cs" />
+    <Compile Include="Models\FilmModels\SoundtrackModels\Soundtrack.cs" />
+    <Compile Include="Models\FilmModels\SoundtrackModels\SoundtracksList.cs" />
+    <Compile Include="Models\FilterModels\FilmFilter.cs" />
+    <Compile Include="Models\FilterModels\SearchFilter.cs" />
     <Compile Include="Models\HomePageModels\HomePage.cs" />
     <Compile Include="Models\HomePageModels\Intro.cs" />
     <Compile Include="Models\Common\NewsItem.cs" />
     <Compile Include="Models\LayoutModels\InfoItem.cs" />
     <Compile Include="Models\LayoutModels\InfoSection.cs" />
+    <Compile Include="Models\LayoutModels\Layout.cs" />
     <Compile Include="Models\PersonModels\DetailedPersonInfo.cs" />
     <Compile Include="Models\FilmModels\FilmInfo.cs" />
     <Compile Include="Models\FilmModels\FilmsModel.cs" />
@@ -537,10 +692,25 @@
     <Compile Include="Models\PersonModels\PeopleModel.cs" />
     <Compile Include="Models\PersonModels\PersonInfo.cs" />
     <Compile Include="Models\Requests\RateRequest.cs" />
+    <Compile Include="Models\Requests\SearchRequest.cs" />
     <Compile Include="Models\Responses\FilmResponse.cs" />
+    <Compile Include="Models\Responses\AjaxSearchResponse.cs" />
+    <Compile Include="Models\SearchModels\Search.cs" />
+    <Compile Include="Models\UserModels\Comments\UserComment.cs" />
+    <Compile Include="Models\UserModels\DetailedUserInfo.cs" />
+    <Compile Include="Models\UserModels\UserInfo.cs" />
+    <Compile Include="Models\UserModels\UsersModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\FilmRatingRepository.cs" />
     <Compile Include="Repositories\Interfaces\IFilmRatingRepository.cs" />
+    <Compile Include="Services\FilmRatingService.cs" />
+    <Compile Include="Services\FilmsService.cs" />
+    <Compile Include="Services\FilmsSearchService.cs" />
+    <Compile Include="Services\Interfaces\IFilmRatingService.cs" />
+    <Compile Include="Services\Interfaces\IFilmsService.cs" />
+    <Compile Include="Services\Interfaces\IFilmsSearchService.cs" />
+    <Compile Include="Services\Interfaces\ISearchService.cs" />
+    <Compile Include="Services\SearchService.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -591,9 +761,12 @@
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\UmbracoCms.7.5.6\build\UmbracoCms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UmbracoCms.7.5.6\build\UmbracoCms.props'))" />
     <Error Condition="!Exists('..\packages\UmbracoCms.7.5.6\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UmbracoCms.7.5.6\build\UmbracoCms.targets'))" />
+    <Error Condition="!Exists('..\packages\uSync.3.3.1.740\build\uSync.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\uSync.3.3.1.740\build\uSync.props'))" />
+    <Error Condition="!Exists('..\packages\uSync.3.3.1.740\build\uSync.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\uSync.3.3.1.740\build\uSync.targets'))" />
   </Target>
   <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <Import Project="..\packages\UmbracoCms.7.5.6\build\UmbracoCms.targets" Condition="Exists('..\packages\UmbracoCms.7.5.6\build\UmbracoCms.targets')" />
+  <Import Project="..\packages\uSync.3.3.1.740\build\uSync.targets" Condition="Exists('..\packages\uSync.3.3.1.740\build\uSync.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

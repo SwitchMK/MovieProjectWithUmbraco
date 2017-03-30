@@ -1,8 +1,5 @@
 ﻿@using MovieProjectWithUmbraco.Models
 @inherits UmbracoViewPage<DetailedFilmInfo>
-@{
-    Layout = "Layout.cshtml";
-}
 
 <div class="row">
     <div class="col-md-4">
@@ -11,7 +8,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading image-content">
                         <div class="middle-align">
-                            <img src="@Model.ImagePath" class="img-responsive movie-image" />
+                            <img src="@Model.ImagePath" class="img-responsive movie-image center-image" />
                         </div>
                     </div>
                     <table class="table table-responsive">
@@ -95,6 +92,22 @@
                                 </td>
                             </tr>
                         }
+                        @if (Model.Distributors != null && Model.Distributors.Count() > 0)
+                        {
+                            <tr>
+                                <th>Distributed by</th>
+                                <td>
+                                    <ul class="participants-ul">
+                                        @foreach (var distributor in Model.Distributors)
+                                        {
+                                            <li>
+                                                <a href="@distributor.Url">@distributor.Caption</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
                         <tr>
                             <th>Release date</th>
                             <td>
@@ -134,8 +147,8 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading" style="background-color: black; opacity: 0.75;">
-                        <h4 style="color: gray">Plot</h4>
+                    <div class="panel-heading movie-proj-panel-heading">
+                        <h4>Plot</h4>
                     </div>
                     <div class="panel-body">
                         <p>@Html.Raw(Model.Plot)</p>
@@ -145,11 +158,32 @@
         </div>
     </div>
 </div>
+
+@if (!string.IsNullOrEmpty(Model.Trailer))
+{
+    <div class="row">
+        <div class="col-xs-12 col-md-offset-4 col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading movie-proj-panel-heading">
+                    <h4>Movie trailer</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" frameborder="0" allowfullscreen src="@Model.Trailer"></iframe>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@{ Html.RenderAction("RenderSoundtracksList", "Soundtrack"); }
+
 <div class="row">
     <div class="col-xs-12 col-md-offset-4 col-md-8">
         <div class="panel panel-default">
-            <div class="panel-heading" style="background-color: black; opacity: 0.75;">
-                <h4 style="color: gray">Comments</h4>
+            <div class="panel-heading movie-proj-panel-heading">
+                <h4>Comments</h4>
             </div>
             <div class="panel-body">
                 @if (Membership.GetUser() != null)
@@ -162,7 +196,7 @@
                 {
                     <div class="row">
                         <div class="col-xs-12">
-                            <a href="/login" class="btn btn-success" style="width: 100%">You need to log in to leave comments</a>
+                            <a href="/login" class="btn btn-success full-width-btn">You need to log in to leave comments</a>
                         </div>
                     </div>
                 }

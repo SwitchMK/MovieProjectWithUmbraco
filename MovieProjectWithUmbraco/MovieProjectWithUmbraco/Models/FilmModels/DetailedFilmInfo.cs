@@ -13,6 +13,7 @@ namespace MovieProjectWithUmbraco.Models
         public DateTime YearOfRelease { get; set; }
         public string ImagePath { get; set; }
         public string Plot { get; set; }
+        public string Trailer { get; set; }
         public decimal Budget { get; set; }
         public decimal BoxOffice { get; set; }
         public IEnumerable<LinkResponse> Stars { get; set; }

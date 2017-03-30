@@ -1,0 +1,107 @@
+﻿@using MovieProjectWithUmbraco.Models
+@inherits UmbracoViewPage<FilmFilter>
+@{
+    var rootNodes = Umbraco.TypedContentAtRoot();
+    var homeNode = rootNodes.First(x => x.DocumentTypeAlias == "home");
+
+    var filmsPageUrl = homeNode.Descendant("films").Url;
+}
+
+<form action="@(filmsPageUrl)" method="get" autocomplete="off">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading movie-proj-panel-heading">
+                <h4>Search here...</h4>
+            </div>
+            <div class="panel-body">
+                <div class="input-group" id="film-search-input-group">
+                    @Html.TextBoxFor(m => m.Query, htmlAttributes: new { @class = "form-control", placeholder = "Enter some words", id = "film-search-query" })
+                    <div class="input-group-btn">
+                        <button class="btn btn-default btn-search" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+                <div class="panel panel-default" id="film-search-results-container">
+                    <table class="table responsive-table" id="film-search-results"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading movie-proj-panel-heading">
+                <h4>Filters</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading filter-heading">
+                                <h5><strong>Rating</strong></h5>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    @Html.Label("Start rating", htmlAttributes: new { @class = "filter-label" })
+                                    @Html.TextBoxFor(m => m.StartRating, htmlAttributes: new { @class = "form-control", name = "StartRating",
+                                   placeholder = "Enter desired rating", onkeyup="MovieApp.Rating.checkDec(this);" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("End rating", htmlAttributes: new { @class = "filter-label" })
+                                    @Html.TextBoxFor(m => m.EndRating, htmlAttributes: new { @class = "form-control", name = "EndRating",
+                                   placeholder = "Enter desired rating", onkeyup="MovieApp.Rating.checkDec(this);" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading filter-heading">
+                                <h5><strong>Date of release</strong></h5>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    @Html.Label("Start date", htmlAttributes: new { @class = "filter-label" })
+                                    <div class="input-group date" data-provide="datepicker">
+                                        @Html.TextBoxFor(m => m.StartDate, htmlAttributes: new { @class = "form-control", name = "StartDate", placeholder = "Select date" })
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-th"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("End date", htmlAttributes: new { @class = "filter-label" })
+                                    <div class="input-group date" data-provide="datepicker">
+                                        @Html.TextBoxFor(m => m.EndDate, htmlAttributes: new { @class = "form-control", name = "EndDate", placeholder = "Select date" })
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-th"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading filter-heading">
+                                <h5><strong>Sort by...</strong></h5>
+                            </div>
+                            <div class="panel-body">
+                                @foreach (var model in Model.OrderBy)
+                                {
+                                    <div class="form-group">
+                                        <input type="radio" class="sort-filter" name="orderby" value="@(model.Name)" @(model.IsChecked ? "checked" : string.Empty) />
+                                        @Html.Label(model.Label, htmlAttributes: new { @class = "filter-label" })
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-outline pull-right" type="submit">Filter</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

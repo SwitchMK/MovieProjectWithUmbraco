@@ -1,5 +1,5 @@
 ﻿using MovieProjectWithUmbraco.Models.Requests;
-using MovieProjectWithUmbraco.Repositories.Interfaces;
+using MovieProjectWithUmbraco.Services.Interfaces;
 using System.Web.Http;
 using System.Web.Security;
 using Umbraco.Web.WebApi;
@@ -8,11 +8,11 @@ namespace MovieProjectWithUmbraco.Controllers.Api
 {
     public class FilmRatingController : UmbracoApiController
     {
-        private readonly IFilmRatingRepository _filmRatingRepository;
+        private readonly IFilmRatingService _filmRatingService;
 
-        public FilmRatingController(IFilmRatingRepository filmRatingRepository)
+        public FilmRatingController(IFilmRatingService filmRatingService)
         {
-            _filmRatingRepository = filmRatingRepository;
+            _filmRatingService = filmRatingService;
         }
 
         [HttpPost]
@@ -23,21 +23,9 @@ namespace MovieProjectWithUmbraco.Controllers.Api
             if (user == null)
                 return Unauthorized();
 
-            var rating = RateMovie(rateRequest, (int)user.ProviderUserKey);
+            var rating = _filmRatingService.RateMovie(rateRequest, (int)user.ProviderUserKey);
 
             return Ok(rating);
-        }
-
-        private double? RateMovie(RateRequest rateRequest, long userId)
-        {
-            var personalRating = _filmRatingRepository.GetPersonalRating(rateRequest.FilmId, userId);
-
-            if (personalRating != null)
-                _filmRatingRepository.UpdateRating(rateRequest.FilmId, userId, rateRequest.Rating);
-            else
-                _filmRatingRepository.AddRating(rateRequest.FilmId, userId, rateRequest.Rating);
-
-            return _filmRatingRepository.GetTotalRating(rateRequest.FilmId);
         }
     }
 }

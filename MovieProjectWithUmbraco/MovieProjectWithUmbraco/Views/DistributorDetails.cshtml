@@ -1,20 +1,5 @@
 ﻿@using MovieProjectWithUmbraco.Models
 @inherits UmbracoViewPage<DetailedDistributorInfo>
-@{
-    Layout = "Layout.cshtml";
-}
-
-<style>
-    .image-content {
-        padding: 5px;
-        position: relative;
-    }
-
-    .distributor-image {
-        margin-left: auto;
-        margin-right: auto;
-    }
-</style>
 
 <div class="row">
     <div class="col-md-4">
@@ -64,8 +49,8 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading" style="background-color: black; opacity: 0.75;">
-                        <h4 style="color: gray">Plot</h4>
+                    <div class="panel-heading movie-proj-panel-heading">
+                        <h4>Plot</h4>
                     </div>
                     <div class="panel-body">
                         <p>@Html.Raw(Model.History)</p>
@@ -75,3 +60,23 @@
         </div>
     </div>
 </div>
+@if (Model.DistributedMovies != null && Model.DistributedMovies.Count() > 0)
+{
+    <div class="row">
+        <div class="col-xs-12 col-md-offset-4 col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading movie-proj-panel-heading">
+                    <h4>Distributed movies</h4>
+                </div>
+                <table class="table table-responsive">
+                    @foreach (var movie in Model.DistributedMovies)
+                    {
+                        <tr>
+                            <td><a href="@movie.Url">@movie.Caption</a></td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+}

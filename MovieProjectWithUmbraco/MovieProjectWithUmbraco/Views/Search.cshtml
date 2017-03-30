@@ -1,0 +1,20 @@
+﻿@inherits UmbracoTemplatePage
+
+<div class="row">
+    @{ Html.RenderAction("RenderFilterPage", "Filter"); }
+    <div class="col-xs-12 col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading movie-proj-panel-heading">
+                <h4>Search results</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table table-responsive">
+                    <tbody>
+                        @{ Html.RenderAction("RenderSearchResults", "Search"); }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

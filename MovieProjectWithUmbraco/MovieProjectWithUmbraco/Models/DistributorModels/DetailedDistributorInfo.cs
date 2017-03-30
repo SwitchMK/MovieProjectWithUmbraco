@@ -14,5 +14,6 @@ namespace MovieProjectWithUmbraco.Models
         public string ImagePath { get; set; }
         public string History { get; set; }
         public IEnumerable<LinkResponse> Founders { get; set; }
+        public IEnumerable<LinkResponse> DistributedMovies { get; set; }
     }
 }

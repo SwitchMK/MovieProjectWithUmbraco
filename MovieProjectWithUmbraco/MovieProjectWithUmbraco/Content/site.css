@@ -1,13 +1,15 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-image: url("/Images/Background/b3.png");
-    background-repeat: repeat;
 }
 
 .wrapper {
-    margin-top: 20px;
+    margin-top: 30px;
     margin-bottom: 50px;
+    background-image: url("/Images/Background/b28.png");
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid silver;
 }
 
 .vertical-align {
@@ -104,6 +106,8 @@ li.login-item:hover {
 .navbar-nav a, .navbar-nav button {
     color: gray !important;
     background-color: transparent;
+    height: 60px !important;
+    display: flex !important;
 }
 
 .navbar-nav a:active, a:focus, .navbar-nav button:active, .navbar-nav button:focus {
@@ -112,6 +116,7 @@ li.login-item:hover {
 
 .navbar-header a, .navbar-header a:hover {
     color: orangered !important;
+    display: flex !important;
 }
 
 .navbar-toggle {
@@ -154,6 +159,7 @@ li.login-item:hover {
 .quote {
     margin: 0;
     background: linear-gradient(-45deg, #31C3E7, #21BEDE, #00FA9A);
+    margin-bottom: 20px;
 }
 
 .quote blockquote {
@@ -170,6 +176,17 @@ li.login-item:hover {
 .quote-image {
     margin-right: 15px;
     margin-left: 15px;
+    float: left;
+}
+
+.quote-content {
+    min-height: 250px; 
+    display: flex;
+}
+
+.quote-content div {
+    margin-bottom: auto; 
+    margin-top: auto;
 }
 
 .about-header {
@@ -188,38 +205,16 @@ li.login-item:hover {
     display: none;
 }
 
-#fh5co-featured-section,
-#fh5co-intro-section,
-#fh5co-services-section,
-#fh5co-blog-section,
-#fh5co-client-section,
-#fh5co-work-section,
-#fh5co-main-services-section,
-#fh5co-about-section,
-#fh5co-contact-section {
+#fh5co-blog-section {
   padding-bottom: 6em;
 }
 @media screen and (max-width: 768px) {
-  #fh5co-featured-section,
-  #fh5co-intro-section,
-  #fh5co-services-section,
-  #fh5co-blog-section,
-  #fh5co-client-section,
-  #fh5co-work-section,
-  #fh5co-main-services-section,
-  #fh5co-about-section,
-  #fh5co-contact-section {
+  #fh5co-blog-section {
     padding: 3em 0;
   }
 }
 
-#fh5co-services-section,
-#fh5co-blog-section,
-#fh5co-client-section,
-#fh5co-work-section,
-#fh5co-main-services-section,
-#fh5co-about-section,
-#fh5co-contact-section {
+#fh5co-blog-section {
   padding-top: 6em;
 }
 
@@ -289,6 +284,7 @@ li.login-item:hover {
   background: transparent;
   color: #1FB57B;
   border: 2px solid #1FB57B;
+  margin-bottom: 10px;
 }
 .btn-primary.btn-outline:hover, .btn-primary.btn-outline:focus, .btn-primary.btn-outline:active {
   background: #1FB57B;
@@ -310,7 +306,7 @@ li.login-item:hover {
     border-color: forestgreen;
 }
 
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 767px) {
     .recent-info-section {
         display: none;
     }
@@ -326,6 +322,243 @@ li.login-item:hover {
     margin-right: auto;
 }
 
+.distributor-image {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .feedback-btn {
     margin-top: 10px;
+}
+
+.search-item p.link-to-document {
+    color: forestgreen; 
+    font-weight: bold; 
+    text-decoration: none;
+}
+
+.movie-proj-panel-heading {
+    background-color: black !important; 
+    opacity: 0.75 !important;
+}
+
+.movie-proj-panel-heading > h4,
+.movie-proj-panel-heading > h6  {
+    color: gray;
+}
+
+.full-width-btn {
+    width: 100%;
+}
+
+.movie-item-vertical-align {
+    margin-top: auto; 
+    margin-bottom: auto;
+}
+
+.rating-item {
+    display: inline-block; 
+    vertical-align: middle;
+    color: orange;
+}
+
+.carousel-caption-colored {
+    color: #fff !important; 
+    text-decoration: none !important;
+}
+
+@media screen and (max-width: 500px) {
+    .carousel-caption-colored {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .carousel-caption-colored {
+        font-size: 0.7em !important;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .carousel-caption-colored {
+        font-size: 0.6em;
+    }
+}
+
+.vertical-indent {
+    margin-top: 20px;
+}
+
+footer {
+    color: gray; 
+    padding-top: 5px;
+}
+
+.comment-header {
+    padding-bottom: 3px;
+    padding-top: 3px;
+}
+
+.comment-content {
+    font-size: 1.2em;
+    color: gray;
+}
+
+.center-image {
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+.info-section-item {
+    margin-bottom: 0;
+}
+
+.info-section-item .desc {
+    padding-bottom: 5px;
+}
+
+.btn-search {
+    background-color: #323232;
+    color: gray;
+}
+
+.soundtracks-panel-heading {
+    background: linear-gradient(-45deg, #31C3E7, #21BEDE, #00FA9A);
+}
+
+.soundtracks-panel-heading .row {
+    display: flex;
+}
+
+.soundtracks-title-container {
+    display: flex;
+}
+
+.soundtracks-title-container h3 {
+    margin-bottom: auto; 
+    margin-top: auto;
+}
+
+.soundtracks-img {
+    box-shadow: 4px 4px 6px #323232;
+}
+
+.soundtracks-container {
+    padding-bottom: 0;
+}
+
+.btn-edit-field {
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.thumbnail {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+}
+.thumbnail img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 100%;
+    width: auto;
+    -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+}
+.thumbnail img.portrait {
+    width: 100%;
+    height: auto;
+}
+
+.user-sm-img-container {
+    display: inline-block; 
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.user-text-container {
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.edit-profile-btn {
+    margin-bottom: 0 !important;
+}
+
+.profile-avatar-container .panel-heading, .profile-avatar-container .panel-body {
+    padding: 5px;
+}
+
+.profile-avatar-container .panel-heading img {
+    border-radius: 3px;
+}
+
+.profile-avatar-container .profile-user-name {
+    margin-bottom: 0px;
+}
+
+.navbar-fixed-top .navbar-collapse,
+.navbar-fixed-bottom .navbar-collapse {
+    max-height: 440px !important;
+}
+
+.user-comment-heading {
+    padding: 5px;
+}
+
+.filter-heading {
+    padding: 5px;
+}
+
+.filter-heading h5 {
+    margin: 5px;
+}
+
+.user-comment-heading .panel-default {
+    margin-bottom: 0;
+}
+
+.user-comment-heading .panel-body {
+    padding: 5px;
+}
+
+.user-comment-heading .panel-body:hover, 
+.user-comment-heading .panel-body:active, 
+.user-comment-heading .panel-body:focus {
+    background-color: #1FB57B;
+    color: white;
+}
+
+.user-comment-heading .panel-body:hover a {
+    text-decoration: none;
+    color: white;
+}
+
+.filter-label {
+    font-weight: normal;
+}
+
+#search-results-container {
+    position: absolute !important; 
+    z-index: 100; 
+    width: 100%; 
+    margin-bottom: 60px; 
+    border: 1px solid gray; 
+    display: none;
+}
+
+#film-search-results-container {
+    position: absolute !important; 
+    z-index: 100; 
+    width: 100%; 
+    margin-bottom: 60px; 
+    border: 1px solid gray; 
+    display: none;
 }

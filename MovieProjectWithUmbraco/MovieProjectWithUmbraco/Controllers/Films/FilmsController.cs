@@ -1,61 +1,29 @@
 ﻿using MovieProjectWithUmbraco.Models;
-using MovieProjectWithUmbraco.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Web.Mvc;
-using System.Web.Security;
-using Umbraco.Core.Models;
-using Umbraco.Web;
-using Umbraco.Web.Models;
 using Umbraco.Web.Mvc;
-using System.Linq;
+using MovieProjectWithUmbraco.Services.Interfaces;
 
 namespace MovieProjectWithUmbraco.Controllers
 {
-    public class FilmsController : RenderMvcController
+    public class FilmsController : SurfaceController
     {
-        private readonly IFilmRatingRepository _filmRatingRepository;
+        private const float SEARCH_PRECISION = 0.7f;
+        private const string FILMS_FOLDER_PATH = "~/Views/Partials/Film/";
+        private readonly IFilmsService _filmsService;
 
-        public FilmsController(IFilmRatingRepository filmRatingRepository)
+        public FilmsController(IFilmsService filmsService)
         {
-            _filmRatingRepository = filmRatingRepository;
+            _filmsService = filmsService;
         }
 
-        public ActionResult Films(RenderModel model)
+        public ActionResult RenderFilms(FilmSearchResponse response)
         {
-            var filmsModel = new FilmsModel(model.Content);
-
-            filmsModel.FilmsInfo = GetFilms(model.Content).OrderByDescending(p => p.TotalRating);
-
-            return base.Index(filmsModel);
-        }
-
-        private IEnumerable<FilmInfo> GetFilms(IPublishedContent page)
-        {
-            long? userId = null;
-            var loggedMember = Membership.GetUser();
-
-            if (loggedMember != null)
-                userId = (int)loggedMember.ProviderUserKey;
-
-            foreach (var film in page.Children)
+            var filmsModel = new FilmsModel
             {
-                yield return new FilmInfo
-                {
-                    Id = film.Id,
-                    Title = film.GetPropertyValue<string>("title"),
-                    YearOfRelease = film.GetPropertyValue<DateTime>("yearOfRelease"),
-                    ImagePath = film.GetCropUrl("image", "smSzImgCropper"),
-                    Url = film.Url,
-                    PersonalRating = GetPersonalRating(film.Id, userId),
-                    TotalRating = _filmRatingRepository.GetTotalRating(film.Id)
-                };
-            }
-        }
+                FilmsInfo = _filmsService.GetFilms(response)
+            };
 
-        private double? GetPersonalRating(long? filmId, long? userId)
-        {
-            return _filmRatingRepository.GetPersonalRating(filmId, userId);
+            return PartialView(FILMS_FOLDER_PATH + "_Films.cshtml", filmsModel);
         }
     }
 }

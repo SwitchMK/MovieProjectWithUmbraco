@@ -1,0 +1,56 @@
+﻿@inherits UmbracoViewPage<MovieProjectWithUmbraco.Models.SoundtracksList>
+
+@if (Model != null)
+{
+    <div class="row">
+        <div class="col-xs-12 col-md-offset-4 col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading movie-proj-panel-heading">
+                    <h4>Soundtracks</h4>
+                </div>
+                <div class="panel-body soundtracks-container">
+                    <div class="panel panel-default">
+                        <div class="panel-heading soundtracks-panel-heading">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <img alt="@Model.Title" src="@Model.ImagePath" class="img-responsive soundtracks-img" />
+                                </div>
+                                <div class="col-md-6 soundtracks-title-container">
+                                    <h3>@Model.Title</h3>
+                                </div>
+                            </div>
+                        </div>
+                        @if (Model.Soundtracks != null && Model.Soundtracks.Count() > 0)
+                        {
+                            <table class="table table-responsive">
+                                <tbody>
+                                    @foreach (var soundtrack in Model.Soundtracks)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @if (string.IsNullOrEmpty(soundtrack.ExternalSourceUrl))
+                                                {
+                                                    <span>@soundtrack.Title</span>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@soundtrack.ExternalSourceUrl" target="_blank">@soundtrack.Title</a>
+                                                }
+                                            </td>
+                                            <td>
+                                                <a href="@soundtrack.Composer.First().Url">@soundtrack.Composer.First().Caption</a>
+                                            </td>
+                                            <td>
+                                                @TimeSpan.FromSeconds(soundtrack.Duration).ToString(@"mm\:ss")
+                                            </td>
+                                        </tr>
+                                     }
+                                </tbody>
+                            </table>
+                          }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
