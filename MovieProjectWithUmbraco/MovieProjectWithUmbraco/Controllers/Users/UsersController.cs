@@ -1,12 +1,11 @@
-﻿using MovieProjectWithUmbraco.Models;
+﻿using MovieProjectWithUmbraco.Extensions;
+using MovieProjectWithUmbraco.Models;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using System.Web.Security;
-using Umbraco.Web.Mvc;
 using System.Linq;
-using MovieProjectWithUmbraco.Extensions;
-using Umbraco.Web.Models;
 using Umbraco.Core.Models;
+using Umbraco.Web.Models;
+using Umbraco.Web.Mvc;
 
 namespace MovieProjectWithUmbraco.Controllers.Users
 {
@@ -19,17 +18,11 @@ namespace MovieProjectWithUmbraco.Controllers.Users
                 UsersInfo = GetUsers()
             };
 
-            return base.Index(usersModel);
+            return Index(usersModel);
         }
 
         private IEnumerable<UserInfo> GetUsers()
         {
-            long? userId = null;
-            var loggedMember = Membership.GetUser();
-
-            if (loggedMember != null)
-                userId = (int)loggedMember.ProviderUserKey;
-
             foreach (var member in Services.MemberService.GetAllMembers().OrderByDescending(p => p.CreateDate))
             {
                 yield return GetUserInfo(member);

@@ -13,7 +13,7 @@ namespace MovieProjectWithUmbraco.Controllers.News
         {
             var homeModel = GetNewsItem(model.Content);
 
-            return base.Index(homeModel);
+            return Index(homeModel);
         }
 
         private NewsItem GetNewsItem(IPublishedContent page)

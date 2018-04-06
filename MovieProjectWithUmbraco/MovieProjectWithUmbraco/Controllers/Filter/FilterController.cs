@@ -4,19 +4,18 @@ using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 using Umbraco.Web.Mvc;
-using System.Linq.Dynamic;
 using Examine.LuceneEngine.Config;
 
 namespace MovieProjectWithUmbraco.Controllers.Filter
 {
     public class FilterController : SurfaceController
     {
-        private const string FOLDER_FILTER_PATH = "~/Views/Partials/Filter/";
+        private const string FolderFilterPath = "~/Views/Partials/Filter/";
 
         public ActionResult RenderFilterPage(SearchResponse model)
         {
             var filterModel = ReestablishSearchFilter(model);
-            return PartialView(FOLDER_FILTER_PATH + "_Filter.cshtml", filterModel);
+            return PartialView(FolderFilterPath + "_Filter.cshtml", filterModel);
         }
 
         private SearchFilter ReestablishSearchFilter(SearchResponse model)
@@ -24,7 +23,7 @@ namespace MovieProjectWithUmbraco.Controllers.Filter
             var filterModel = new SearchFilter
             {
                 Types = GetTypesCollection(),
-                OrderBy = new Type[] {
+                OrderBy = new[] {
                     new Type { IsChecked = true, Name = "CreateDate" },
                     new Type { IsChecked = false, Name = "Name" } }
             };
@@ -38,17 +37,13 @@ namespace MovieProjectWithUmbraco.Controllers.Filter
 
         private void ReestablishOrderbyFromResponse(IEnumerable<Type> orderByCollection, string orderByString)
         {
-            if (orderByString != null)
-                RefreshOrderByValues(orderByCollection, orderByString);
-            else
-                RefreshOrderByValues(orderByCollection, orderByCollection.First().Name);
+            var byCollection = orderByCollection.ToList();
+            RefreshOrderByValues(byCollection, orderByString ?? byCollection.First().Name);
         }
 
         private Type[] GetTypesFromResponse(IEnumerable<string> types)
         {
-            return types != null 
-                ? types.Select(p => new Type { IsChecked = true, Name = p }).ToArray() 
-                : new List<Type>().ToArray();
+            return types?.Select(p => new Type { IsChecked = true, Name = p }).ToArray() ?? new List<Type>().ToArray();
         }
 
         private Type[] GetTypesCollection()

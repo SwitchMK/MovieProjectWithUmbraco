@@ -8,19 +8,19 @@ namespace MovieProjectWithUmbraco.Controllers.Filter
 {
     public class FilmFilterController : SurfaceController
     {
-        private const string FOLDER_FILTER_PATH = "~/Views/Partials/Filter/";
+        private const string FolderFilterPath = "~/Views/Partials/Filter/";
 
         public ActionResult RenderFilmFilterPage(FilmSearchResponse response)
         {
             var model = ReestablishFilmFilterModel(response);
-            return PartialView(FOLDER_FILTER_PATH + "_FilmFilter.cshtml", model);
+            return PartialView(FolderFilterPath + "_FilmFilter.cshtml", model);
         }
 
         private FilmFilter ReestablishFilmFilterModel(FilmSearchResponse response)
         {
             var filmFilterModel = new FilmFilter
             {
-                OrderBy = new FilmOrderType[] {
+                OrderBy = new[] {
                     new FilmOrderType { IsChecked = false, Name = "YearOfRelease", Label = "Year of release" },
                     new FilmOrderType { IsChecked = true, Name = "TotalRating", Label = "Total rating" },
                     new FilmOrderType { IsChecked = false, Name = "Title", Label = "Title" } }
@@ -33,10 +33,8 @@ namespace MovieProjectWithUmbraco.Controllers.Filter
 
         private void ReestablishOrderbyFromResponse(IEnumerable<FilmOrderType> orderByCollection, string orderByString)
         {
-            if (orderByString != null)
-                RefreshOrderByValues(orderByCollection, orderByString);
-            else
-                RefreshOrderByValues(orderByCollection, orderByCollection.First().Name);
+            var filmOrderTypes = orderByCollection.ToList();
+            RefreshOrderByValues(filmOrderTypes, orderByString ?? filmOrderTypes.First().Name);
         }
 
         private void RefreshOrderByValues(IEnumerable<FilmOrderType> collection, string param)

@@ -20,7 +20,7 @@ namespace MovieProjectWithUmbraco.Controllers.Api
         {
             var user = Membership.GetUser();
 
-            if (user == null)
+            if (user?.ProviderUserKey == null)
                 return Unauthorized();
 
             var rating = _filmRatingService.RateMovie(rateRequest, (int)user.ProviderUserKey);

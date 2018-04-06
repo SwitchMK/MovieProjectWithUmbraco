@@ -17,7 +17,7 @@ namespace MovieProjectWithUmbraco.Controllers
         {
             var filmDetailsModel = GetDetailedFilmInformation(model.Content);
 
-            return base.Index(filmDetailsModel);
+            return Index(filmDetailsModel);
         }
 
         private DetailedFilmInfo GetDetailedFilmInformation(IPublishedContent page)

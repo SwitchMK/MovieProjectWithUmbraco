@@ -2,7 +2,6 @@
 using MovieProjectWithUmbraco.Models;
 using MovieProjectWithUmbraco.Services.Interfaces;
 using System.Linq;
-using Examine.LuceneEngine.SearchCriteria;
 
 namespace MovieProjectWithUmbraco.Services
 {
@@ -27,15 +26,14 @@ namespace MovieProjectWithUmbraco.Services
             if (!string.IsNullOrWhiteSpace(query))
                 return _filmsWrapperService.SearchFilms(query.Trim(), response.StartDate, response.EndDate, startRating, endRating)
                     .OrderByDescending(p => propertyInfo.GetValue(p, null));
-            else
-                return _filmsWrapperService.GetFilms(response.StartDate, response.EndDate, startRating, endRating)
-                    .OrderByDescending(p => propertyInfo.GetValue(p, null));
+
+            return _filmsWrapperService.GetFilms(response.StartDate, response.EndDate, startRating, endRating)
+                .OrderByDescending(p => propertyInfo.GetValue(p, null));
         }
 
         private double? ParseRating(string rating)
         {
-            double parsedRating;
-            if (double.TryParse(rating, out parsedRating))
+            if (double.TryParse(rating, out var parsedRating))
                 return parsedRating;
 
             return null;

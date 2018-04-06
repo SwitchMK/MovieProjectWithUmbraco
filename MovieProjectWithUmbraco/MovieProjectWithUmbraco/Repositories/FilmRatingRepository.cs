@@ -35,10 +35,7 @@ namespace MovieProjectWithUmbraco.Repositories
             var records = _filmRatingDataSet
                 .Where(p => p.FilmId == filmId);
 
-            if (records.Count() == 0)
-                return null;
-
-            return Math.Round(records.Average(p => p.Rating), 1);
+            return !records.Any() ? (double?) null : Math.Round(records.Average(p => p.Rating), 1);
         }
 
         public void AddRating(long filmId, long userId, double rating)
@@ -58,9 +55,12 @@ namespace MovieProjectWithUmbraco.Repositories
         public void UpdateRating(long filmId, long userId, double rating)
         {
             var filmRating = _filmRatingDataSet.FirstOrDefault(p => p.FilmId == filmId && p.UserId == userId);
-            filmRating.Rating = rating;
+            if (filmRating != null)
+            {
+                filmRating.Rating = rating;
 
-            _context.Entry(filmRating).State = EntityState.Modified;
+                _context.Entry(filmRating).State = EntityState.Modified;
+            }
 
             _context.SaveChanges();
         }

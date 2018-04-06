@@ -31,18 +31,19 @@ namespace MovieProjectWithUmbraco.Controllers.Home
 
         private IEnumerable<NewsItem> GetNews(IPublishedContent page)
         {
-            var newsTicker = page.Children.Where(x => x.DocumentTypeAlias == "newsTicker").FirstOrDefault();
+            var newsTicker = page.Children.FirstOrDefault(x => x.DocumentTypeAlias == "newsTicker");
 
-            foreach (var item in newsTicker.Children.OrderByDescending(p => p.CreateDate))
-            {
-                yield return new NewsItem(item)
+            if (newsTicker != null)
+                foreach (var item in newsTicker.Children.OrderByDescending(p => p.CreateDate))
                 {
-                    Title = item.GetPropertyValue<string>("title"),
-                    ImagePath = item.GetCropUrl("image", "homePageImgCropper"),
-                    NewsContent = item.GetPropertyValue<string>("content"),
-                    Url = item.Url
-                };
-            }
+                    yield return new NewsItem(item)
+                    {
+                        Title = item.GetPropertyValue<string>("title"),
+                        ImagePath = item.GetCropUrl("image", "homePageImgCropper"),
+                        NewsContent = item.GetPropertyValue<string>("content"),
+                        Url = item.Url
+                    };
+                }
         }
 
         private Intro GetIntro(IPublishedContent page)

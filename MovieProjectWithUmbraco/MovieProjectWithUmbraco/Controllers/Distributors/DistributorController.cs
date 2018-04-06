@@ -16,7 +16,7 @@ namespace MovieProjectWithUmbraco.Controllers.Distributors
         {
             var distributorModel = GetDetailedDistributorInformation(model.Content);
 
-            return base.Index(distributorModel);
+            return Index(distributorModel);
         }
 
         private DetailedDistributorInfo GetDetailedDistributorInformation(IPublishedContent page)

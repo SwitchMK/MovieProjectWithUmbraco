@@ -7,8 +7,7 @@ namespace MovieProjectWithUmbraco.Controllers
 {
     public class FilmsController : SurfaceController
     {
-        private const float SEARCH_PRECISION = 0.7f;
-        private const string FILMS_FOLDER_PATH = "~/Views/Partials/Film/";
+        private const string FilmsFolderPath = "~/Views/Partials/Film/";
         private readonly IFilmsService _filmsService;
 
         public FilmsController(IFilmsService filmsService)
@@ -23,7 +22,7 @@ namespace MovieProjectWithUmbraco.Controllers
                 FilmsInfo = _filmsService.GetFilms(response)
             };
 
-            return PartialView(FILMS_FOLDER_PATH + "_Films.cshtml", filmsModel);
+            return PartialView(FilmsFolderPath + "_Films.cshtml", filmsModel);
         }
     }
 }
