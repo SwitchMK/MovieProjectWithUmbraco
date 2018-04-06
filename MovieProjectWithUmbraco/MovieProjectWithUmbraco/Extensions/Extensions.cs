@@ -1,6 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MovieProjectWithUmbraco.Models;
+using Newtonsoft.Json.Linq;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Web;
@@ -35,6 +38,26 @@ namespace MovieProjectWithUmbraco.Extensions
             var backgroundUrl = homeNodeByAlias.GetCropUrl(propertyAlias: "background", imageCropMode: ImageCropMode.Max);
 
             return new HtmlString(backgroundUrl);
+        }
+
+        public static IEnumerable<LinkResponse> GetLinkResponses(this IPublishedContent content, string alias)
+        {
+            if (content.HasValue(alias))
+            {
+                foreach (var item in content.GetPropertyValue<JArray>(alias))
+                {
+                    var linkCaption = item.Value<string>("caption");
+                    var linkUrl = (item.Value<bool>("isInternal")) ? UHelper.NiceUrl(item.Value<int>("internal")) : item.Value<string>("link");
+                    var linkTarget = item.Value<bool>("newWindow") ? "_blank" : null;
+
+                    yield return new LinkResponse
+                    {
+                        Caption = linkCaption,
+                        Url = linkUrl,
+                        Target = linkTarget
+                    };
+                }
+            }
         }
 
         private static string GetDefaultAvatarUrl(string alias)
