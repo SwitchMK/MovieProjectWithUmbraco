@@ -12,18 +12,18 @@ namespace MovieProjectWithUmbraco.Controllers.Films.Soundtracks
 {
     public class SoundtrackController : SurfaceController
     {
-        const string PATH_TO_SOUNDTRACKS_FOLDER = "~/Views/Partials/Film/Soundtrack/";
+        private const string PathToSoundtracksFolder = "~/Views/Partials/Film/Soundtrack/";
 
         public ActionResult RenderSoundtracksList()
         {
             var soundtrackList = GetSoundtrackList();
 
-            return PartialView(PATH_TO_SOUNDTRACKS_FOLDER + "_SoundtrackList.cshtml", soundtrackList);
+            return PartialView(PathToSoundtracksFolder + "_SoundtrackList.cshtml", soundtrackList);
         }
 
         private SoundtracksList GetSoundtrackList()
         {
-            var soundtrackList = CurrentPage.Children.Where(d => d.DocumentTypeAlias == "soundtracksList").FirstOrDefault();
+            var soundtrackList = CurrentPage.Children.FirstOrDefault(d => d.DocumentTypeAlias == "soundtracksList");
 
             if (soundtrackList == null)
                 return null;

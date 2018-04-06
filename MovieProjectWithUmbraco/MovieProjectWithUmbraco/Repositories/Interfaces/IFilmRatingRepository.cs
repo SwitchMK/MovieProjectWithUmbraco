@@ -1,6 +1,5 @@
 ﻿using MovieProjectWithUmbraco.Entities;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace MovieProjectWithUmbraco.Repositories.Interfaces
 {

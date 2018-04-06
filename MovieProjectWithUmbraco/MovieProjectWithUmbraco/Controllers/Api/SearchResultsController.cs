@@ -10,7 +10,7 @@ namespace MovieProjectWithUmbraco.Controllers.Api
 {
     public class SearchResultsController : UmbracoApiController
     {
-        private const int AMOUNT_OF_TAKEN_ITEMS = 5;
+        private const int AmountOfTakenItems = 5;
         private readonly ISearchService _searchService;
 
         public SearchResultsController(ISearchService searchService)
@@ -29,7 +29,7 @@ namespace MovieProjectWithUmbraco.Controllers.Api
                     Url = p.Url,
                     ImagePath = p.GetCropUrl("image", "smSzImgCropper")
                 })
-                .Take(AMOUNT_OF_TAKEN_ITEMS);
+                .Take(AmountOfTakenItems);
         }
 
         [HttpPost]
@@ -46,7 +46,7 @@ namespace MovieProjectWithUmbraco.Controllers.Api
                     Url = p.Url,
                     ImagePath = p.GetCropUrl("image", "smSzImgCropper")
                 })
-                .Take(AMOUNT_OF_TAKEN_ITEMS);
+                .Take(AmountOfTakenItems);
 
             return results;
         }

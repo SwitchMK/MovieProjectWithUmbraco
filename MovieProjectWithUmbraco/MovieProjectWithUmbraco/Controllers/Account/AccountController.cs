@@ -17,16 +17,16 @@ namespace MovieProjectWithUmbraco.Controllers.Account
 {
     public class AccountController : SurfaceController
     {
-        private const string PATH_TO_ACCOUNT_PAGES = "~/Views/Partials/Account/";
+        private const string PathToAccountPages = "~/Views/Partials/Account/";
 
         public ActionResult RenderRegisterForm()
         {
-            return PartialView(PATH_TO_ACCOUNT_PAGES + "_Register.cshtml");
+            return PartialView(PathToAccountPages + "_Register.cshtml");
         }
 
         public ActionResult RenderLoginForm()
         {
-            return PartialView(PATH_TO_ACCOUNT_PAGES +  "_Login.cshtml");
+            return PartialView(PathToAccountPages +  "_Login.cshtml");
         }
 
         [Authorize]
@@ -34,7 +34,7 @@ namespace MovieProjectWithUmbraco.Controllers.Account
         {
             var profileModel = GetProfileModel();
 
-            return PartialView(PATH_TO_ACCOUNT_PAGES + "_Profile.cshtml", profileModel);
+            return PartialView(PathToAccountPages + "_Profile.cshtml", profileModel);
         }
 
         public ActionResult MemberLogOut()
@@ -213,15 +213,18 @@ namespace MovieProjectWithUmbraco.Controllers.Account
         {
             var avatarsFolderId = Umbraco
                 .TypedMediaAtRoot()
-                .FirstOrDefault(m => m.Name.InvariantEquals("User Avatars")).Id;
+                .FirstOrDefault(m => m.Name.InvariantEquals("User Avatars"))?.Id;
 
-            var media = Services.MediaService.CreateMedia(string.Format("{0}", fileName), avatarsFolderId, "avatar");
+            if (avatarsFolderId != null)
+            {
+                var media = Services.MediaService.CreateMedia($"{fileName}", avatarsFolderId.Value, "avatar");
 
-            media.SetValue("image", fileName, fileStream);
-            Services.MediaService.Save(media);
-            member.SetValue("avatar", media.Id);
+                media.SetValue("image", fileName, fileStream);
+                Services.MediaService.Save(media);
+                member.SetValue("avatar", media.Id);
 
-            Services.MediaService.Save(media);
+                Services.MediaService.Save(media);
+            }
         }
 
         private ActionResult PasswordValidation(
@@ -267,8 +270,10 @@ namespace MovieProjectWithUmbraco.Controllers.Account
 
         private string HashPassword(string password)
         {
-            HMACSHA1 hash = new HMACSHA1();
-            hash.Key = Encoding.Unicode.GetBytes(password);
+            HMACSHA1 hash = new HMACSHA1
+            {
+                Key = Encoding.Unicode.GetBytes(password)
+            };
             string encodedPassword = Convert.ToBase64String(hash.ComputeHash(Encoding.Unicode.GetBytes(password)));
 
             return encodedPassword;

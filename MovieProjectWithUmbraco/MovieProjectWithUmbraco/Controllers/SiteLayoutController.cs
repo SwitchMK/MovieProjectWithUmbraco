@@ -7,42 +7,41 @@ using Umbraco.Core.Models;
 using System.Web.Mvc;
 using System.Web.Security;
 using MovieProjectWithUmbraco.Extensions;
-using Examine.LuceneEngine.SearchCriteria;
 
 namespace MovieProjectWithUmbraco.Controllers
 {
     public class SiteLayoutController : SurfaceController
     {
-        private const int RECENT_MOVIES = 1;
-        private const int RECENT_PEOPLE = 1;
-        private const string PARTIALS_LAYOUT_PATH = "~/Views/Partials/SiteLayout/";
+        private const int RecentMovies = 1;
+        private const int RecentPeople = 1;
+        private const string PartialsLayoutPath = "~/Views/Partials/SiteLayout/";
 
         public ActionResult RenderHeader()
         {
             var layoutModel = GetNavigationModelFromDatabase();
-            return PartialView(PARTIALS_LAYOUT_PATH + "_Header.cshtml", layoutModel);
+            return PartialView(PartialsLayoutPath + "_Header.cshtml", layoutModel);
         }
 
         public ActionResult RenderIntro()
         {
             var intro = GetIntro();
-            return PartialView(PARTIALS_LAYOUT_PATH + "_Intro.cshtml", intro);
+            return PartialView(PartialsLayoutPath + "_Intro.cshtml", intro);
         }
 
         public ActionResult RenderInfoSection()
         {
             var infoSection = GetInfoSection();
-            return PartialView(PARTIALS_LAYOUT_PATH + "_InfoSection.cshtml", infoSection);
+            return PartialView(PartialsLayoutPath + "_InfoSection.cshtml", infoSection);
         }
 
         public ActionResult RenderSearch()
         {
-            return PartialView(PARTIALS_LAYOUT_PATH + "_Search.cshtml");
+            return PartialView(PartialsLayoutPath + "_Search.cshtml");
         }
 
         private Intro GetIntro()
         {
-            var document = CurrentPage.Children.Where(x => x.DocumentTypeAlias == "homePageIntro").FirstOrDefault();
+            var document = CurrentPage.Children.FirstOrDefault(x => x.DocumentTypeAlias == "homePageIntro");
 
             return new Intro
             {
@@ -65,9 +64,9 @@ namespace MovieProjectWithUmbraco.Controllers
 
         private IEnumerable<InfoItem> GetRecentlyAddedFilms(IPublishedContent page)
         {
-            var filmsPage = page.Children.Where(x => x.DocumentTypeAlias == "films").FirstOrDefault();
+            var filmsPage = page.Children.FirstOrDefault(x => x.DocumentTypeAlias == "films");
 
-            foreach (var item in filmsPage.Children.OrderByDescending(p => p.CreateDate).Take(RECENT_MOVIES))
+            foreach (var item in filmsPage.Children.OrderByDescending(p => p.CreateDate).Take(RecentMovies))
             {
                 yield return new InfoItem()
                 {
@@ -80,9 +79,9 @@ namespace MovieProjectWithUmbraco.Controllers
 
         private IEnumerable<InfoItem> GetRecentlyAddedPeople(IPublishedContent page)
         {
-            var peoplePage = page.Children.Where(x => x.DocumentTypeAlias == "people").FirstOrDefault();
+            var peoplePage = page.Children.FirstOrDefault(x => x.DocumentTypeAlias == "people");
 
-            foreach (var item in peoplePage.Children.OrderByDescending(p => p.CreateDate).Take(RECENT_PEOPLE))
+            foreach (var item in peoplePage.Children.OrderByDescending(p => p.CreateDate).Take(RecentPeople))
             {
                 yield return new InfoItem()
                 {
@@ -95,10 +94,12 @@ namespace MovieProjectWithUmbraco.Controllers
 
         private Layout GetNavigationModelFromDatabase()
         {
-            var homePage = CurrentPage.AncestorOrSelf(1).DescendantsOrSelf().Where(x => x.DocumentTypeAlias == "home").FirstOrDefault();
+            var homePage = CurrentPage.AncestorOrSelf(1).DescendantsOrSelf().FirstOrDefault(x => x.DocumentTypeAlias == "home");
 
-            var nav = new List<NavigationListItem>();
-            nav.Add(new NavigationListItem(new NavigationLink(homePage.Url, homePage.Name)));
+            var nav = new List<NavigationListItem>
+            {
+                new NavigationListItem(new NavigationLink(homePage.Url, homePage.Name))
+            };
             nav.AddRange(GetChildNavigationList(homePage));
 
             IMember member = null;
@@ -120,14 +121,17 @@ namespace MovieProjectWithUmbraco.Controllers
         private IEnumerable<NavigationListItem> GetChildNavigationList(IPublishedContent page)
         {
             var childPages = page.Children.Where("Visible").Where(x => !x.HasValue("hideFromNavigation") || 
-                (x.HasValue("hideFromNavigation") && !x.GetPropertyValue<bool>("hideFromNavigation")));
+                x.HasValue("hideFromNavigation") && !x.GetPropertyValue<bool>("hideFromNavigation"));
 
-            if (childPages != null && childPages.Any() && childPages.Count() > 0)
+            if (childPages.Any())
             {
                 foreach (var childPage in childPages)
                 {
-                    var listItem = new NavigationListItem(new NavigationLink(childPage.Url, childPage.Name));
-                    listItem.Items = GetChildNavigationList(childPage);
+                    var listItem =
+                        new NavigationListItem(new NavigationLink(childPage.Url, childPage.Name))
+                        {
+                            Items = GetChildNavigationList(childPage)
+                        };
 
                     yield return listItem;
                 }

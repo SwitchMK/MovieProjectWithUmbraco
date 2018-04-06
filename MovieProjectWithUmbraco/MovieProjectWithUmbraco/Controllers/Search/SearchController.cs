@@ -10,8 +10,8 @@ namespace MovieProjectWithUmbraco.Controllers.Search
 {
     public class SearchController : SurfaceController
     {
-        private const string DEFAULT_ORDER_VALUE = "Name";
-        private const string FOLDER_SEARCH_PATH = "~/Views/Partials/Search/";
+        private const string DefaultOrderValue = "Name";
+        private const string FolderSearchPath = "~/Views/Partials/Search/";
         private readonly ISearchService _searchService;
 
         public SearchController(ISearchService searchService)
@@ -21,23 +21,20 @@ namespace MovieProjectWithUmbraco.Controllers.Search
 
         public ActionResult RenderSearchResults(SearchResponse model)
         {
-            var rootNodes = Umbraco.TypedContentAtRoot();
-            var homeNodeByAlias = rootNodes.First(x => x.DocumentTypeAlias == "home");
-
             if (model.Query == null)
-                return PartialView(FOLDER_SEARCH_PATH + "_SearchResults.cshtml");
+                return PartialView(FolderSearchPath + "_SearchResults.cshtml");
 
             var foundResults = _searchService.GetFoundResults(model.Query.Trim());
 
-            var finalResults = foundResults.Where(p => model.Types == null || model.Types.Count() == 0 || model.Types.Any(x => x.ToLower() == p.DocumentTypeAlias));
+            var finalResults = foundResults.Where(p => model.Types == null || !model.Types.Any() || model.Types.Any(x => x.ToLower() == p.DocumentTypeAlias));
             var ordered = OrderFoundResults(finalResults, model.OrderBy);
 
-            return PartialView(FOLDER_SEARCH_PATH + "_SearchResults.cshtml", ordered);
+            return PartialView(FolderSearchPath + "_SearchResults.cshtml", ordered);
         }
 
         private IEnumerable<IPublishedContent> OrderFoundResults(IEnumerable<IPublishedContent> foundResults, string orderBy)
         {
-            var param = orderBy ?? DEFAULT_ORDER_VALUE;
+            var param = orderBy ?? DefaultOrderValue;
             var propertyInfo = typeof(IPublishedContent).GetProperty(param);
 
             return foundResults.OrderBy(x => propertyInfo.GetValue(x, null));

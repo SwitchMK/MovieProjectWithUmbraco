@@ -10,10 +10,10 @@ namespace MovieProjectWithUmbraco.Extensions
 {
     public static class Extensions
     {
+        private static readonly UmbracoHelper UHelper = new UmbracoHelper(UmbracoContext.Current);
+
         public static string GetAvatarUrl(this IMember member, string alias)
         {
-            var uHelper = new UmbracoHelper(UmbracoContext.Current);
-
             if (member == null)
                 return null;
 
@@ -22,19 +22,14 @@ namespace MovieProjectWithUmbraco.Extensions
             if (avatarId == null)
                 return GetDefaultAvatarUrl(alias);
 
-            var media = uHelper.TypedMedia(avatarId);
+            var media = UHelper.TypedMedia(avatarId);
 
-            if (media == null)
-                return GetDefaultAvatarUrl(alias);
-
-            return media.GetCropUrl("image", alias);
+            return media == null ? GetDefaultAvatarUrl(alias) : media.GetCropUrl("image", alias);
         }
 
         public static IHtmlString GetBackgroundImageUrl(this HtmlHelper html)
         {
-            var uHelper = new UmbracoHelper(UmbracoContext.Current);
-
-            var rootNodes = uHelper.TypedContentAtRoot();
+            var rootNodes = UHelper.TypedContentAtRoot();
             var homeNodeByAlias = rootNodes.First(x => x.DocumentTypeAlias == "home");
 
             var backgroundUrl = homeNodeByAlias.GetCropUrl(propertyAlias: "background", imageCropMode: ImageCropMode.Max);
@@ -44,15 +39,13 @@ namespace MovieProjectWithUmbraco.Extensions
 
         private static string GetDefaultAvatarUrl(string alias)
         {
-            var uHelper = new UmbracoHelper(UmbracoContext.Current);
-
-            var avatarsFolder = uHelper
+            var avatarsFolder = UHelper
                 .TypedMediaAtRoot()
                 .FirstOrDefault(m => m.Name.InvariantEquals("User Avatars"));
 
-            var defaultImageId = avatarsFolder?.Children().FirstOrDefault(c => c.Name.InvariantEquals("Default")).Id;
+            var defaultImageId = avatarsFolder?.Children().FirstOrDefault(c => c.Name.InvariantEquals("Default"))?.Id;
 
-            var defaultAvatar = uHelper.TypedMedia(defaultImageId);
+            var defaultAvatar = UHelper.TypedMedia(defaultImageId);
 
             return defaultAvatar.GetCropUrl("image", alias);
         }

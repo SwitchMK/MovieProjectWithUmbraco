@@ -1,18 +1,17 @@
 ﻿using MovieProjectWithUmbraco.Models;
 using MovieProjectWithUmbraco.Repositories.Interfaces;
+using MovieProjectWithUmbraco.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using System.Linq;
 using System.Web.Security;
-using MovieProjectWithUmbraco.Services.Interfaces;
 
 namespace MovieProjectWithUmbraco.Services
 {
     public class FilmsSearchService : IFilmsSearchService
     {
-        private const float SEARCH_PRECISION = 0.7f;
         private readonly IFilmRatingRepository _filmRatingRepository;
         private readonly ISearchService _searchService;
 
@@ -80,10 +79,7 @@ namespace MovieProjectWithUmbraco.Services
         {
             var loggedMember = Membership.GetUser();
 
-            if (loggedMember != null)
-                return (int)loggedMember.ProviderUserKey;
-
-            return null;
+            return (int?) loggedMember?.ProviderUserKey;
         }
 
         private FilmInfo GetFilmInfo(IPublishedContent film, long? userId)

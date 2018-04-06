@@ -13,11 +13,12 @@ namespace MovieProjectWithUmbraco.Controllers
     {
         public ActionResult People(RenderModel model)
         {
-            var peopleModel = new PeopleModel(model.Content);
+            var peopleModel = new PeopleModel(model.Content)
+            {
+                PeopleInfo = GetPeople(model.Content)
+            };
 
-            peopleModel.PeopleInfo = GetPeople(model.Content);
-
-            return base.Index(peopleModel);
+            return Index(peopleModel);
         }
 
         private IEnumerable<PersonInfo> GetPeople(IPublishedContent page)

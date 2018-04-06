@@ -13,11 +13,13 @@ namespace MovieProjectWithUmbraco.Controllers.Distributors
     {
         public ActionResult Distributors(RenderModel model)
         {
-            var distributorsModel = new DistributorsModel(model.Content);
+            var distributorsModel =
+                new DistributorsModel(model.Content)
+                {
+                    DistributorsInfo = GetDistributors(model.Content)
+                };
 
-            distributorsModel.DistributorsInfo = GetDistributors(model.Content);
-
-            return base.Index(distributorsModel);
+            return Index(distributorsModel);
         }
 
         private IEnumerable<DistributorInfo> GetDistributors(IPublishedContent page)

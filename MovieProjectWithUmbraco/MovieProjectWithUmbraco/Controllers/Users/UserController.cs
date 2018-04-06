@@ -13,9 +13,8 @@ namespace MovieProjectWithUmbraco.Controllers.Users
 {
     public class UserController : SurfaceController
     {
-        private const string USER_FOLDER_PATH = "~/Views/Partials/User/";
-        private const string PATH_TO_FEEDBACK_FOLDER = "~/Views/Partials/Feedback/";
-        private const int AMOUNT_OF_COMMENTS = 5;
+        private const string UserFolderPath = "~/Views/Partials/User/";
+        private const int AmountOfComments = 5;
         private readonly IFilmRatingRepository _filmRatingRepository;
 
         public UserController(IFilmRatingRepository filmRatingRepository)
@@ -35,23 +34,22 @@ namespace MovieProjectWithUmbraco.Controllers.Users
             if (userModel == null)
                 ControllerContext.HttpContext.Response.Redirect(parentUrl);
 
-            return PartialView(USER_FOLDER_PATH + "_UserDetails.cshtml", userModel);
+            return PartialView(UserFolderPath + "_UserDetails.cshtml", userModel);
         }
 
         private DetailedUserInfo GetUserModel(int memberId)
         {
             var member = Services.MemberService.GetById(memberId);
 
-            if (member == null)
-                return null;
-
-            return new DetailedUserInfo
-            {
-                BasicInfo = GetBasicInfo(member),
-                ContactInfo = GetContactInfo(member),
-                FilmsInfo = GetRatedMovies(memberId),
-                Comments = GetUserComments(memberId).Take(AMOUNT_OF_COMMENTS)
-            };
+            return member == null
+                ? null
+                : new DetailedUserInfo
+                {
+                    BasicInfo = GetBasicInfo(member),
+                    ContactInfo = GetContactInfo(member),
+                    FilmsInfo = GetRatedMovies(memberId),
+                    Comments = GetUserComments(memberId).Take(AmountOfComments)
+                };
         }
 
         private IEnumerable<FilmInfo> GetRatedMovies(int memberId)
@@ -61,7 +59,7 @@ namespace MovieProjectWithUmbraco.Controllers.Users
             var rootNodes = Umbraco.TypedContentAtRoot();
             var homeNodeByAlias = rootNodes.First(x => x.DocumentTypeAlias == "home");
 
-            var filmList = homeNodeByAlias.Children.Where(p => p.DocumentTypeAlias == "films").First();
+            var filmList = homeNodeByAlias.Children.First(p => p.DocumentTypeAlias == "films");
 
             foreach (var film in filmList.Children
                 .Where(p => filmRatings.Any(s => s.FilmId == p.Id && s.UserId == memberId)))
@@ -138,7 +136,7 @@ namespace MovieProjectWithUmbraco.Controllers.Users
                 Content = comment.GetPropertyValue<string>("feedbackText"),
                 DateOfPublication = comment.CreateDate,
                 Publisher = member?.Username ?? "Unknown",
-                PublisherProfileUrl = member != null ? string.Format("{0}?memberId={1}", CurrentPage.Url, member.Id) : null,
+                PublisherProfileUrl = member != null ? $"{CurrentPage.Url}?memberId={member.Id}" : null,
                 FilmName = filmPage.GetPropertyValue<string>("title"),
                 FilmPageUrl = filmPage.Url
             };
