@@ -1,7 +1,6 @@
 ﻿using MovieProjectWithUmbraco.Models;
-using Newtonsoft.Json.Linq;
+using MovieProjectWithUmbraco.Extensions;
 using System;
-using System.Collections.Generic;
 using System.Web.Mvc;
 using Umbraco.Core.Models;
 using Umbraco.Web;
@@ -16,7 +15,7 @@ namespace MovieProjectWithUmbraco.Controllers
         {
             var personModel = GetDetailedPersonInformation(model.Content);
 
-            return base.Index(personModel);
+            return Index(personModel);
         }
 
         private DetailedPersonInfo GetDetailedPersonInformation(IPublishedContent page)
@@ -30,28 +29,8 @@ namespace MovieProjectWithUmbraco.Controllers
                 Biography = page.GetPropertyValue<string>("biography"),
                 Careers = page.GetPropertyValue<string>("careers").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries),
                 Countries = page.GetPropertyValue<string>("countries").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries),
-                Filmography = GetLinkResponses("filmography")
+                Filmography = CurrentPage.GetLinkResponses("filmography")
             };
-        }
-
-        private IEnumerable<LinkResponse> GetLinkResponses(string alias)
-        {
-            if (CurrentPage.HasValue(alias))
-            {
-                foreach (var item in CurrentPage.GetPropertyValue<JArray>(alias))
-                {
-                    var linkCaption = item.Value<string>("caption");
-                    var linkUrl = (item.Value<bool>("isInternal")) ? Umbraco.NiceUrl(item.Value<int>("internal")) : item.Value<string>("link");
-                    var linkTarget = item.Value<bool>("newWindow") ? "_blank" : null;
-
-                    yield return new LinkResponse
-                    {
-                        Caption = linkCaption,
-                        Url = linkUrl,
-                        Target = linkTarget
-                    };
-                }
-            }
         }
     }
 }

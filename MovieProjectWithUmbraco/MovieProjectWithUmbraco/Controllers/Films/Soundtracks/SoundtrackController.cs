@@ -1,4 +1,5 @@
-﻿using MovieProjectWithUmbraco.Models;
+﻿using MovieProjectWithUmbraco.Extensions;
+using MovieProjectWithUmbraco.Models;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,30 +45,10 @@ namespace MovieProjectWithUmbraco.Controllers.Films.Soundtracks
                 yield return new Soundtrack
                 {
                     Title = soundtrack.GetPropertyValue<string>("title"),
-                    Composer = GetLinkResponses(soundtrack, "composer"),
+                    Composer = soundtrack.GetLinkResponses("composer"),
                     Duration = soundtrack.GetPropertyValue<int>("duration"),
                     ExternalSourceUrl = soundtrack.GetPropertyValue<string>("externalSource")
                 };
-            }
-        }
-
-        private IEnumerable<LinkResponse> GetLinkResponses(IPublishedContent page, string alias)
-        {
-            if (page.HasValue(alias))
-            {
-                foreach (var item in page.GetPropertyValue<JArray>(alias))
-                {
-                    var linkCaption = item.Value<string>("caption");
-                    var linkUrl = (item.Value<bool>("isInternal")) ? Umbraco.NiceUrl(item.Value<int>("internal")) : item.Value<string>("link");
-                    var linkTarget = item.Value<bool>("newWindow") ? "_blank" : null;
-
-                    yield return new LinkResponse
-                    {
-                        Caption = linkCaption,
-                        Url = linkUrl,
-                        Target = linkTarget
-                    };
-                }
             }
         }
     }

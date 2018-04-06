@@ -48,7 +48,7 @@ namespace MovieProjectWithUmbraco.Controllers.Home
 
         private Intro GetIntro(IPublishedContent page)
         {
-            var document = page.Children.Where(x => x.DocumentTypeAlias == "homePageIntro").FirstOrDefault();
+            var document = page.Children.FirstOrDefault(x => x.DocumentTypeAlias == "homePageIntro");
 
             return new Intro
             {
